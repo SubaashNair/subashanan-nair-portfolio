@@ -13,8 +13,8 @@ export const profile = {
   roleLine:
     "Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.",
   githubUrl: "https://github.com/SubaashNair",
-  sourceUrl: "https://github.com/SubaashNair/ai-observatory-portfolio",
-  discussUrl: "https://github.com/SubaashNair/ai-observatory-portfolio/discussions",
+  sourceUrl: "https://github.com/SubaashNair/subashanan-nair-portfolio",
+  discussUrl: "https://github.com/SubaashNair/subashanan-nair-portfolio/discussions",
   siteUrl: "https://subashanan-nair.vercel.app",
   contact,
   intro:
