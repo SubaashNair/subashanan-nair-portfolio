@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools and experiments, Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <a class="wordmark" href="index.html">Subaash Nair</a>
+  <nav class="primary" aria-label="Primary">
+    <a href="work/index.html">Work</a>
+    <a href="experiments.html" aria-current="page">Experiments</a>
+    <a href="about.html">About</a>
+    <a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap page-intro">
+    <h1>Tools and experiments</h1>
+    <p>Smaller things I have shipped: libraries, agents and apps. Each one is open source, and each name links to its repository.</p>
+  </div>
+
+  <section class="block" aria-labelledby="gaz-h" style="padding-top:48px">
+    <div class="wrap">
+      <h2 id="gaz-h" class="visually-hidden">Index of tools</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter by kind">
+        <button type="button" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" aria-pressed="false" data-filter="agents">Agents and MCP</button>
+        <button type="button" aria-pressed="false" data-filter="libraries">Libraries</button>
+        <button type="button" aria-pressed="false" data-filter="apps">Apps</button>
+        <button type="button" aria-pressed="false" data-filter="ml">ML projects</button>
+      </div>
+      <p class="count" id="filter-count" aria-live="polite">Showing 12 of 12</p>
+
+      <div class="gazetteer">
+        <div class="entry" data-kind="agents"><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="meta">JavaScript, agents and MCP</div><p>An MCP server that gives coding agents up-to-date documentation for popular libraries.</p></div>
+        <div class="entry" data-kind="agents"><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="meta">macOS, agents and MCP</div><p>A native file explorer with an agent inside, and an importance score for every file built from how you actually use it.</p></div>
+        <div class="entry" data-kind="apps"><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="meta">Go, apps</div><p>Real-time classroom exam monitoring: teachers see live student screens over LAN, with session tokens, lock-all, messaging and CSV audit export.</p></div>
+        <div class="entry" data-kind="apps"><h3><a href="https://github.com/SubaashNair/CU5_project_dashboard">CU5_project_dashboard</a></h3><div class="meta">Python, apps</div><p>Monitors student repositories with GitHub activity, file evidence and requirement-based completion estimates.</p></div>
+        <div class="entry" data-kind="libraries"><h3><a href="https://github.com/SubaashNair/ml-review">ml-review</a></h3><div class="meta">Python, libraries</div><p>Extended evaluation metrics for scikit-learn models.</p></div>
+        <div class="entry" data-kind="libraries"><h3><a href="https://github.com/SubaashNair/OutlierCleaner">OutlierCleaner</a></h3><div class="meta">Python, libraries</div><p>Detects and removes outliers using several statistical methods.</p></div>
+        <div class="entry" data-kind="libraries"><h3><a href="https://github.com/SubaashNair/StatClean">StatClean</a></h3><div class="meta">Python, libraries</div><p>Statistical data cleaning and outlier handling.</p></div>
+        <div class="entry" data-kind="libraries"><h3><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></h3><div class="meta">Python, libraries</div><p>Reinforcement learning optimisation experiments.</p></div>
+        <div class="entry" data-kind="libraries"><h3><a href="https://github.com/SubaashNair/GRPOptim">GRPOptim</a></h3><div class="meta">Python, libraries</div><p>GRPO training experiments.</p></div>
+        <div class="entry" data-kind="ml"><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><div class="meta">Python, ML projects</div><p>Train, register, serve and ship a classifier end to end with MLflow, Docker and Streamlit.</p></div>
+        <div class="entry" data-kind="ml"><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><div class="meta">Python, ML projects</div><p>Forecasts land subsidence in the Klang Valley from geospatial and temporal data.</p></div>
+        <div class="entry" data-kind="ml"><h3><a href="https://github.com/SubaashNair/Taiwan-Real-Estate-Price-Prediction-App">Taiwan-Real-Estate-Price-Prediction-App</a></h3><div class="meta">Python, ML projects</div><p>Predicts property prices with a scikit-learn model behind a Gradio app.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <span>Subaash Nair, Penang</span>
+  <a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a>
+</footer>
+
+<div class="mock-note">Prototype: Survey Sheet. All figures are illustrative.</div>
+<script src="app.js"></script>
+</body>
+</html>

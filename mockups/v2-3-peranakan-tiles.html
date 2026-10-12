@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup 3 · Peranakan Tiles · Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --peacock: #0f4c5c;
+    --peacock-deep: #0a3843;
+    --porcelain: #eef3f1;
+    --ink: #13262b;
+    --ink-soft: #46595e;
+    --rose: #e58fa4;
+    --mustard: #d9a21b;
+    --jade: #2e9c7a;
+    --cobalt: #2b4c9b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--porcelain); color: var(--ink);
+    font: 17px/1.55 "Bricolage Grotesque", system-ui, sans-serif;
+    font-variation-settings: "opsz" 14;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--mustard); outline-offset: 3px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  .top { background: var(--peacock); color: var(--porcelain); }
+  header.site { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .wordmark { font-weight: 750; font-size: 21px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+  .wordmark svg { width: 26px; height: 26px; }
+  nav.primary { display: flex; gap: 24px; font-size: 15.5px; }
+  nav.primary a { text-decoration: none; }
+  nav.primary a:hover { color: var(--mustard); }
+
+  .hero { display: grid; grid-template-columns: 6fr 6fr; gap: 56px; align-items: center; padding: 40px 0 88px; }
+  .hero h1 {
+    font-variation-settings: "opsz" 96, "wdth" 92; font-weight: 780;
+    font-size: clamp(56px, 8vw, 116px); line-height: .9; letter-spacing: -0.02em; margin: 0 0 26px;
+  }
+  .hero .lede { font-size: 21px; line-height: 1.45; max-width: 31ch; margin: 0 0 32px; color: #d6e4e1; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-block; padding: 13px 20px; border-radius: 999px; font-weight: 650; text-decoration: none; font-size: 16px; }
+  .btn.primary { background: var(--mustard); color: var(--ink); }
+  .btn.primary:hover { background: #f0b934; }
+  .btn.quiet { border: 1.5px solid rgba(238,243,241,.5); }
+  .btn.quiet:hover { border-color: var(--porcelain); }
+
+  .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); border: 6px solid var(--porcelain); background: var(--porcelain); }
+  .mosaic button { all: unset; display: block; aspect-ratio: 1; cursor: pointer; transition: transform .5s cubic-bezier(.3,.7,.2,1); }
+  .mosaic button svg { display: block; width: 100%; height: 100%; }
+  .mosaic button:focus-visible { outline: 3px solid var(--mustard); outline-offset: -3px; position: relative; z-index: 1; }
+  .mosaic-note { font-size: 14px; color: #b9cfca; margin: 12px 0 0; }
+
+  section.block { padding: 96px 0; }
+  .block h2 {
+    font-variation-settings: "opsz" 72, "wdth" 85; font-weight: 780;
+    font-size: clamp(38px, 4.6vw, 60px); line-height: .95; letter-spacing: -0.025em; margin: 0 0 14px;
+  }
+  .block .intro { color: var(--ink-soft); font-size: 19px; max-width: 58ch; margin: 0 0 44px; }
+
+  .studies { display: grid; grid-template-columns: 7fr 5fr; gap: 22px; }
+  .study { position: relative; background: #fff; border: 2px solid var(--ink); padding: 32px; display: flex; flex-direction: column; }
+  .study::after { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(19,38,43,.25); pointer-events: none; }
+  .study.lead { grid-row: span 2; background: var(--peacock); color: var(--porcelain); }
+  .study.lead::after { border-color: rgba(238,243,241,.3); }
+  .study .motif { width: 180px; height: 180px; margin-bottom: 26px; }
+  .study h3 { margin: 0 0 8px; font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 760; font-size: 34px; line-height: 1; letter-spacing: -0.02em; }
+  .study.lead h3 { font-size: 48px; }
+  .study .q { margin: 0 0 18px; font-size: 18px; max-width: 36ch; }
+  .study .finding { margin: auto 0 16px; padding-top: 18px; border-top: 1.5px dashed currentColor; font-size: 16px; }
+  .study .finding strong { display: block; font-size: 28px; line-height: 1.1; margin-bottom: 4px; }
+  .study .meta { font-size: 14px; margin: 0; }
+  .study a.go { font-weight: 650; }
+  .tag { display: inline-block; font-size: 13px; font-weight: 600; padding: 3px 11px; border-radius: 999px; background: var(--mustard); color: var(--ink); margin-bottom: 14px; align-self: flex-start; }
+  .tag.plan { background: transparent; border: 1.5px solid currentColor; }
+
+  .tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 48px; }
+  .tool { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: start; padding: 16px 0; border-bottom: 1.5px solid rgba(19,38,43,.12); }
+  .tool svg { width: 56px; height: 56px; display: block; }
+  .tool h3 { margin: 0; font-size: 19px; font-weight: 700; }
+  .tool h3 a { text-decoration: none; }
+  .tool h3 a:hover { color: var(--cobalt); }
+  .tool .lang { font-size: 13.5px; color: var(--ink-soft); }
+  .tool p { margin: 4px 0 0; color: var(--ink-soft); font-size: 15.5px; }
+
+  .about-band { background: var(--peacock-deep); color: var(--porcelain); }
+  .about { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; }
+  section.block.about { padding-left: 28px; padding-right: 28px; }
+  .about p { font-size: 19px; max-width: 56ch; margin: 0 0 16px; color: #d6e4e1; }
+
+  footer.site { display: flex; justify-content: space-between; padding: 26px 0 40px; font-size: 14px; color: #b9cfca; border-top: 1px solid rgba(238,243,241,.15); }
+
+  .mock-note { position: fixed; right: 14px; bottom: 14px; z-index: 10; background: #fff; color: #222; font: 12.5px/1.3 system-ui, sans-serif; padding: 8px 12px; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+
+  @media (max-width: 900px) {
+    .hero, .about { grid-template-columns: 1fr; gap: 40px; }
+    .studies { grid-template-columns: 1fr; }
+    .study.lead { grid-row: auto; }
+    .study .motif { width: 120px; height: 120px; }
+    .tools { grid-template-columns: 1fr; }
+    .wrap { padding: 0 20px; }
+    nav.primary { gap: 14px; font-size: 14px; }
+    section.block { padding: 64px 0; }
+    .mock-note { position: static; display: block; margin: 0; border-radius: 0; }
+  }
+  @media (max-width: 420px) { nav.primary a.gh { display: none; } .wordmark { font-size: 18px; } }
+  @media (prefers-reduced-motion: reduce) { .mosaic button { transition: none; } }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="#"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subaash Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="#work">Work</a><a href="#experiments">Experiments</a><a href="#about">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div>
+        <h1>Subaash<br>Nair</h1>
+        <p class="lede">Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.</p>
+        <div class="actions">
+          <a class="btn primary" href="#work">Read the case studies</a>
+          <a class="btn quiet" href="#about">Get in touch</a>
+        </div>
+      </div>
+      <div>
+        <div class="mosaic" id="mosaic" role="group" aria-label="Decorative tile mosaic. Select a tile to turn it."></div>
+        <p class="mosaic-note">Patterns drawn from George Town's Peranakan floor tiles. Tap a tile to turn it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Case studies</h2>
+      <p class="intro">Three questions about Malaysia, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+      <div class="studies">
+        <article class="study lead">
+          <svg class="motif" viewBox="0 0 100 100" aria-hidden="true" data-tile="3"></svg>
+          <span class="tag">In progress</span>
+          <h3>Penang Pulse</h3>
+          <p class="q">How evenly are clinics, schools and transit stops spread across Penang?</p>
+          <p class="finding"><strong>1 in 5 residents</strong>of Seberang Perai Selatan live more than 3 km from a public clinic.</p>
+          <p class="meta">PeGIS, DOSM census, OpenStreetMap. <a class="go" href="#">Open the study</a></p>
+        </article>
+        <article class="study">
+          <span class="tag">In progress</span>
+          <h3>Forecasting Lab</h3>
+          <p class="q">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+          <p class="finding"><strong>18% lower error</strong>for Chronos against the seasonal baseline at two hours ahead.</p>
+          <p class="meta">UCI dataset 608. <a class="go" href="#">Open the study</a></p>
+        </article>
+        <article class="study">
+          <span class="tag plan">Planned</span>
+          <h3>LLM Eval Lab</h3>
+          <p class="q">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+          <p class="finding"><strong>1/50th the cost</strong>for a fine-tuned 1B model within 3 points of a frontier model.</p>
+          <p class="meta">Versioned prompts, intervals, cost and latency. <a class="go" href="#">Read the plan</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiments" aria-labelledby="exp-h" style="padding-top:0">
+    <div class="wrap">
+      <h2 id="exp-h">Tools and experiments</h2>
+      <p class="intro">Smaller things I have shipped. Each gets its own tile.</p>
+      <div class="tools">
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="5"></svg><div><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="lang">JavaScript, MCP server</div><p>Gives coding agents up-to-date library documentation.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="6"></svg><div><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="lang">macOS app with an agent</div><p>A file explorer that ranks files by how you actually use them.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="7"></svg><div><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="lang">Go, desktop app</div><p>Live classroom exam monitoring over LAN, with lock-all and an audit export.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="8"></svg><div><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><div class="lang">Python, MLOps</div><p>Train, register, serve and ship a classifier with MLflow, Docker and Streamlit.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="9"></svg><div><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><div class="lang">Python, geospatial ML</div><p>Forecasts land subsidence across the Klang Valley.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="10"></svg><div><h3><a href="https://github.com/SubaashNair/ml-review">ml-review</a></h3><div class="lang">Python package</div><p>Extended evaluation metrics for scikit-learn models.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="11"></svg><div><h3><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></h3><div class="lang">Python, reinforcement learning</div><p>Reinforcement learning optimisation experiments.</p></div></div>
+        <div class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="12"></svg><div><h3><a href="https://github.com/SubaashNair/StatClean">StatClean</a></h3><div class="lang">Python package</div><p>Statistical data cleaning and outlier handling.</p></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="about-band">
+  <section class="block wrap about" id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About</h2>
+    <div>
+      <p>I am a data scientist based in Penang, Malaysia. I like questions that matter locally and answers that hold up when someone else reruns them.</p>
+      <p>I am open to data science and ML engineering roles, and to collaborations on Malaysian open data.</p>
+      <div class="actions"><a class="btn primary" href="#">Email me</a><a class="btn quiet" href="#">LinkedIn</a><a class="btn quiet" href="#">Download CV</a></div>
+    </div>
+  </section>
+  <div class="wrap"><footer class="site"><span>Subaash Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Mockup 3 of 3: Peranakan Tiles. Figures are illustrative.</div>
+
+<script>
+  const C = { rose: "#e58fa4", mustard: "#d9a21b", jade: "#2e9c7a", cobalt: "#2b4c9b", porcelain: "#eef3f1", peacock: "#0f4c5c" };
+  const grounds = [C.porcelain, "#f7e7d0", C.porcelain, "#e3eef4"];
+  const motifs = [
+    (a, b) => `<g fill="${a}"><circle cx="50" cy="35" r="13"/><circle cx="50" cy="65" r="13"/><circle cx="35" cy="50" r="13"/><circle cx="65" cy="50" r="13"/></g><circle cx="50" cy="50" r="7" fill="${b}"/>`,
+    (a, b) => `<g fill="${a}"><rect x="30" y="30" width="40" height="40"/><rect x="30" y="30" width="40" height="40" transform="rotate(45 50 50)"/></g><circle cx="50" cy="50" r="9" fill="${b}"/>`,
+    (a, b) => `<path d="M50 18 L82 50 L50 82 L18 50Z" fill="${a}"/><path d="M50 34 L66 50 L50 66 L34 50Z" fill="${b}"/>`,
+    (a, b) => `<g fill="${a}"><ellipse cx="50" cy="32" rx="9" ry="17"/><ellipse cx="50" cy="68" rx="9" ry="17"/><ellipse cx="32" cy="50" rx="17" ry="9"/><ellipse cx="68" cy="50" rx="17" ry="9"/></g><circle cx="50" cy="50" r="8" fill="${b}"/>`
+  ];
+  const pairs = [[C.cobalt, C.mustard], [C.jade, C.rose], [C.rose, C.cobalt], [C.mustard, C.jade], [C.peacock, C.rose]];
+  // Corner quarter-circles share one colour, so neighbouring tiles join into a second pattern as real Peranakan tiles do.
+  function tile(i) {
+    const [a, b] = pairs[i % pairs.length];
+    const ground = grounds[(i * 3) % grounds.length];
+    const corner = `<g fill="${C.jade}"><path d="M0 0h18a18 18 0 0 1-18 18z"/><path d="M100 0v18a18 18 0 0 1-18-18z"/><path d="M0 100v-18a18 18 0 0 1 18 18z"/><path d="M100 100h-18a18 18 0 0 1 18-18z"/></g>`;
+    return `<rect width="100" height="100" fill="${ground}"/>${corner}<rect x="6" y="6" width="88" height="88" fill="none" stroke="${a}" stroke-width="1.5" opacity=".6"/>${motifs[(i * 7 + 1) % motifs.length](a, b)}`;
+  }
+  document.querySelectorAll("svg[data-tile]").forEach(svg => { svg.innerHTML = tile(Number(svg.dataset.tile)); });
+  const mosaic = document.getElementById("mosaic");
+  for (let i = 0; i < 16; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", `Turn tile ${i + 1}`);
+    btn.innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true">${tile(i)}</svg>`;
+    let turns = 0;
+    btn.addEventListener("click", () => { turns += 1; btn.style.transform = `rotate(${turns * 90}deg)`; });
+    mosaic.appendChild(btn);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subaash Nair, data scientist in Penang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <a class="wordmark" href="index.html" aria-current="page">Subaash Nair</a>
+  <nav class="primary" aria-label="Primary">
+    <a href="work/index.html">Work</a>
+    <a href="experiments.html">Experiments</a>
+    <a href="about.html">About</a>
+    <a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap hero">
+    <div>
+      <h1><span>Subaash</span><span>Nair</span></h1>
+      <p class="lede">Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.</p>
+      <div class="actions">
+        <a class="btn primary" href="work/index.html">Read the case studies</a>
+        <a class="btn quiet" href="about.html#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <figure class="sheet" style="margin:0" data-map-figure="home">
+      <div data-map></div>
+      <div class="legend" role="group" aria-label="Show or hide service types">
+        <button type="button" aria-pressed="true" data-cat="clinic"><span class="sw" style="background:var(--clinic)"></span>Clinics</button>
+        <button type="button" aria-pressed="true" data-cat="school"><span class="sw" style="background:var(--school)"></span>Schools</button>
+        <button type="button" aria-pressed="true" data-cat="transit"><span class="sw" style="background:var(--transit)"></span>Transit stops</button>
+      </div>
+      <figcaption class="caption">From <a href="work/penang-pulse.html">Penang Pulse</a>. Sources: PeGIS, DOSM, OpenStreetMap.</figcaption>
+    </figure>
+  </div>
+
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="work-h">Case studies</h2>
+        <p>Three questions about Malaysia, answered with public data. Each study links its sources, code, model versions and known limits, so you can rerun it yourself.</p>
+      </div>
+
+      <article class="study">
+        <div>
+          <h3><a href="work/penang-pulse.html">Penang Pulse</a></h3>
+          <p class="q">How evenly are clinics, schools and transit stops spread across Penang?</p>
+          <dl><dt>Data</dt><dd>PeGIS, DOSM census, OpenStreetMap</dd><dt>Methods</dt><dd>Network distance bands, population joins</dd></dl>
+          <span class="status">In progress</span>
+          <p class="more"><a class="text-link" href="work/penang-pulse.html">Read the Penang Pulse study</a></p>
+        </div>
+        <figure class="inset" style="margin:0">
+          <div class="chart-host" data-chart="bands"></div>
+          <figcaption><span class="finding">1 in 5 residents of Seberang Perai Selatan live more than 3 km from a public clinic.</span>Green under 1 km, brown 1 to 3 km, magenta over 3 km.</figcaption>
+        </figure>
+      </article>
+
+      <article class="study">
+        <div>
+          <h3><a href="work/forecasting-lab.html">Forecasting Lab</a></h3>
+          <p class="q">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+          <dl><dt>Data</dt><dd>UCI dataset 608, traffic sensor network</dd><dt>Models</dt><dd>Seasonal naive, gradient boosting, small neural net, Chronos</dd></dl>
+          <span class="status">In progress</span>
+          <p class="more"><a class="text-link" href="work/forecasting-lab.html">Read the Forecasting Lab study</a></p>
+        </div>
+        <figure class="inset" style="margin:0">
+          <div class="chart-host" data-chart="horizon" data-height="210"></div>
+          <figcaption><span class="finding">Chronos holds the lowest error past one hour, without any tuning.</span>Mean absolute error by minutes ahead, lower is better. Magenta is Chronos; the dashed line is the seasonal baseline.</figcaption>
+        </figure>
+      </article>
+
+      <article class="study">
+        <div>
+          <h3><a href="work/llm-eval-lab.html">LLM Eval Lab</a></h3>
+          <p class="q">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+          <dl><dt>Tasks</dt><dd>Sentiment, entity extraction, summarisation</dd><dt>Reports</dt><dd>Accuracy with 95% intervals, cost, latency, versioned prompts</dd></dl>
+          <span class="status planned">Planned</span>
+          <p class="more"><a class="text-link" href="work/llm-eval-lab.html">Read the LLM Eval Lab study</a></p>
+        </div>
+        <figure class="inset" style="margin:0">
+          <div class="chart-host" data-chart="ci"></div>
+          <figcaption><span class="finding">On Manglish sentiment, a fine-tuned 1B model lands within 3 points of a frontier model at about a fiftieth of the cost.</span>Dots are accuracy, lines are 95% intervals.</figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="experiments" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="exp-h">Tools and experiments</h2>
+        <p>Smaller things I have shipped: libraries, agents and apps. Each one is open source.</p>
+      </div>
+      <div class="gazetteer">
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="meta">JavaScript, agents and MCP</div><p>An MCP server that gives coding agents up-to-date documentation for popular libraries.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="meta">Go, apps</div><p>Real-time classroom exam monitoring: teachers see live student screens over LAN, with lock-all and CSV audit export.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="meta">macOS, agents and MCP</div><p>A native file explorer with an agent inside, and an importance score for every file built from how you actually use it.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><div class="meta">Python, ML projects</div><p>Forecasts land subsidence in the Klang Valley from geospatial and temporal data.</p></div>
+      </div>
+      <p class="see-all"><a class="btn quiet" href="experiments.html">See all tools and experiments</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="about" aria-labelledby="about-h">
+    <div class="wrap about">
+      <h2 id="about-h">About</h2>
+      <div>
+        <p>I am a data scientist based in Penang, Malaysia. I like questions that matter locally and answers that hold up when someone else reruns them.</p>
+        <p>I am open to data science and ML engineering roles, and to collaborations on Malaysian open data. <a class="text-link" href="about.html">More about how I work</a></p>
+        <ul class="contact-list">
+          <li><a class="btn primary" href="mailto:hello@example.com">Email me</a></li>
+          <li><a class="btn quiet" href="#">LinkedIn</a></li>
+          <li><a class="btn quiet" href="#">Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <span>Subaash Nair, Penang</span>
+  <a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a>
+</footer>
+
+<div class="mock-note">Prototype: Survey Sheet. All figures and map points are illustrative.</div>
+<script src="app.js"></script>
+</body>
+</html>

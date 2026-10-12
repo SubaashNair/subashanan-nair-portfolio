@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subashanan Nair, data scientist in Penang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="index.html" aria-current="page"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subashanan Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="work/index.html">Work</a><a href="experiments.html">Experiments</a><a href="about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div>
+        <h1>Subashanan<br>Nair</h1>
+        <p class="lede">Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.</p>
+        <div class="actions">
+          <a class="btn primary" href="work/index.html">Read the case studies</a>
+          <a class="btn quiet" href="about.html#contact">Get in touch</a>
+        </div>
+      </div>
+      <div>
+        <div class="mosaic" data-mosaic="16" role="group" aria-label="Decorative tile mosaic. Select a tile to turn it."></div>
+        <p class="mosaic-note">Patterns drawn from George Town's Peranakan floor tiles. Tap a tile to turn it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Case studies</h2>
+      <p class="intro">Three questions about Malaysia, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+      <div class="studies">
+        <article class="study lead">
+          <svg class="motif" viewBox="0 0 100 100" aria-hidden="true" data-study="pulse"></svg>
+          <span class="tag">In progress</span>
+          <h3><a href="work/penang-pulse.html">Penang Pulse</a></h3>
+          <p class="q">How evenly are clinics, schools and transit stops spread across Penang?</p>
+          <p class="finding"><strong>1 in 5 residents</strong>of Seberang Perai Selatan live more than 3 km from a public clinic.</p>
+          <p class="meta">PeGIS, DOSM census, OpenStreetMap. <a class="go" href="work/penang-pulse.html">Open the study</a></p>
+        </article>
+        <article class="study">
+          <svg class="motif small" viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg>
+          <span class="tag">In progress</span>
+          <h3><a href="work/forecasting-lab.html">Forecasting Lab</a></h3>
+          <p class="q">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+          <p class="finding"><strong>18% lower error</strong>for Chronos against the seasonal baseline at two hours ahead.</p>
+          <p class="meta">UCI dataset 608. <a class="go" href="work/forecasting-lab.html">Open the study</a></p>
+        </article>
+        <article class="study">
+          <svg class="motif small" viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg>
+          <span class="tag plan">Planned</span>
+          <h3><a href="work/llm-eval-lab.html">LLM Eval Lab</a></h3>
+          <p class="q">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+          <p class="finding"><strong>1/50th the cost</strong>for a fine-tuned 1B model within 3 points of a frontier model.</p>
+          <p class="meta">Versioned prompts, intervals, cost and latency. <a class="go" href="work/llm-eval-lab.html">Read the plan</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiments" aria-labelledby="exp-h" style="padding-top:0">
+    <div class="wrap">
+      <h2 id="exp-h">Tools and experiments</h2>
+      <p class="intro">Smaller things I have shipped. Each gets its own tile.</p>
+      <ul class="tools">
+        <li class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="5"></svg><div><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="lang">JavaScript, agents and MCP</div><p>An MCP server that gives coding agents up-to-date documentation for popular libraries.</p></div></li>
+        <li class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="6"></svg><div><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="lang">macOS, agents and MCP</div><p>A native file explorer with an agent inside, and an importance score for every file built from how you actually use it.</p></div></li>
+        <li class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="7"></svg><div><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="lang">Go, apps</div><p>Real-time classroom exam monitoring: teachers see live student screens over LAN, with session tokens, lock-all, messaging and CSV audit export.</p></div></li>
+        <li class="tool"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="14"></svg><div><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><div class="lang">Python, ML projects</div><p>Train, register, serve and ship a classifier end to end with MLflow, Docker and Streamlit.</p></div></li>
+      </ul>
+      <p class="more"><a class="btn ink" href="experiments.html">See all tools and experiments</a></p>
+    </div>
+  </section>
+</main>
+
+<div class="about-band">
+  <section class="block wrap about" id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About</h2>
+    <div>
+      <p>I am a data scientist based in Penang, Malaysia. I like questions that matter locally and answers that hold up when someone else reruns them.</p>
+      <p>I am open to data science and ML engineering roles, and to collaborations on Malaysian open data.</p>
+      <div class="actions"><a class="btn primary" href="mailto:hello@example.com">Email me</a><a class="btn quiet" href="#">LinkedIn</a><a class="btn quiet" href="#">Download CV</a><a class="btn quiet" href="about.html">More about me</a></div>
+    </div>
+  </section>
+  <div class="wrap"><footer class="site"><span>Subashanan Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Prototype: Peranakan Tiles. Figures are illustrative.</div>
+<script src="app.js"></script>
+</body>
+</html>

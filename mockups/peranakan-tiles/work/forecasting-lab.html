@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forecasting Lab, a case study by Subashanan Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body class="study-page s-forecast">
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="../index.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subashanan Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html" aria-current="true">Work</a><a href="../experiments.html">Experiments</a><a href="../about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+    <div class="page-hero">
+      <div>
+        <a class="crumb" href="index.html">All case studies</a><br>
+        <span class="tag">In progress</span>
+        <h1>Forecasting Lab</h1>
+        <p class="lede">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+      </div>
+      <div class="mosaic pair" data-mosaic="4" data-study="forecast" role="group" aria-label="Forecasting Lab tiles. Select a tile to turn it."></div>
+    </div>
+  </div>
+</div>
+
+<div class="frieze" aria-hidden="true"></div>
+<main id="main">
+  <section class="chapter" aria-labelledby="ch-answer">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-answer"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg>The answer</h2>
+      <p class="short-answer">At short horizons a tuned gradient boosting model is hard to beat. Past one hour, Chronos, used with no tuning at all, has the lowest error, about 18% below the seasonal baseline at two hours.</p>
+      <h3 class="sub" id="numbers-h">Key numbers</h3>
+      <div class="num-run">
+          <div class="tile-frame num-tile"><strong>18%</strong><p>lower error for Chronos than the seasonal baseline at 2 hours.</p><p class="caveat">Interval 12 to 23%, from a bootstrap over test days.</p></div>
+          <div class="tile-frame num-tile"><strong>4</strong><p>models compared on the same chronological splits.</p><p class="caveat">One dataset from one city, so treat the ranking as local.</p></div>
+          <div class="tile-frame num-tile"><strong>0</strong><p>hours of tuning for Chronos.</p><p class="caveat">Its context length still caps how much history it sees.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter dark" aria-labelledby="ch-evidence">
+    <div class="wrap" id="forecast">
+      <h2 class="chapter-title" id="ch-evidence"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg>The evidence</h2>
+      <div>
+      <h3 class="sub" id="fig-h">Forecasts for the next two hours</h3>
+      <p class="intro">Pick a sensor, then switch models on and off. The black line is the traffic that actually arrived. The model toggles also drive the error chart below.</p>
+      <div class="controls">
+        <span class="label" id="sensor-label">Sensor</span>
+        <div class="controls" id="sensor-tabs" role="tablist" aria-labelledby="sensor-label" style="margin:0">
+          <button type="button" class="pill" role="tab" id="tab-s12" aria-controls="forecast-panel" aria-selected="true" data-key="s12">Sensor 12</button>
+          <button type="button" class="pill" role="tab" id="tab-s47" aria-controls="forecast-panel" aria-selected="false" data-key="s47">Sensor 47</button>
+          <button type="button" class="pill" role="tab" id="tab-s103" aria-controls="forecast-panel" aria-selected="false" data-key="s103">Sensor 103</button>
+        </div>
+      </div>
+      <div class="controls" id="model-toggles" role="group" aria-label="Show or hide models">
+        <span class="label">Models</span>
+        <button type="button" class="pill toggle" aria-pressed="true" data-key="naive"><span class="sw line" style="background:#46595e"></span>Seasonal naive</button>
+        <button type="button" class="pill toggle" aria-pressed="true" data-key="gb"><span class="sw line" style="background:#d9a21b"></span>Gradient boosting</button>
+        <button type="button" class="pill toggle" aria-pressed="true" data-key="gru"><span class="sw line" style="background:#2b4c9b"></span>Small neural net (GRU)</button>
+        <button type="button" class="pill toggle" aria-pressed="true" data-key="chronos"><span class="sw line" style="background:#2e9c7a"></span>Chronos</button>
+      </div>
+      <div class="stack">
+        <figure class="tile-frame" id="forecast-panel" role="tabpanel" aria-labelledby="fig-h">
+          <div class="chart" id="forecast-chart"></div>
+          <figcaption class="figcap">Vehicles per 5 minutes. The shaded window is the forecast; the seasonal naive line is dashed.</figcaption>
+          <h4 class="panel-title" style="margin-top:20px;font-size:17px">Mean absolute error in this window</h4>
+          <ul class="band-legend mae-list" id="window-mae"></ul>
+        </figure>
+        <figure class="tile-frame">
+          <h4 class="panel-title">Error by horizon</h4>
+          <p class="figcap" style="margin:0 0 14px">Mean absolute error on the test window, all sensors, vehicles per 5 minutes. Lower is better.</p>
+          <div class="chart" id="horizon-chart"></div>
+          <div class="table-wrap" role="region" aria-label="Mean absolute error by horizon" tabindex="0" style="margin-top:18px">
+            <table>
+              <thead><tr><th scope="col">Model</th><th scope="col" class="num">15 min</th><th scope="col" class="num">30 min</th><th scope="col" class="num">60 min</th><th scope="col" class="num">90 min</th><th scope="col" class="num">120 min</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="model-name"><span class="sw line" style="background:#46595e"></span>Seasonal naive</span></th><td class="num">9.8</td><td class="num">11.2</td><td class="num">13.5</td><td class="num">15.1</td><td class="num">16.4</td></tr>
+                <tr><th scope="row"><span class="model-name"><span class="sw line" style="background:#d9a21b"></span>Gradient boosting</span></th><td class="num"><b>6.1</b></td><td class="num"><b>7.9</b></td><td class="num">10.6</td><td class="num">12.4</td><td class="num">14.0</td></tr>
+                <tr><th scope="row"><span class="model-name"><span class="sw line" style="background:#2b4c9b"></span>Small neural net (GRU)</span></th><td class="num">6.4</td><td class="num">8.1</td><td class="num">10.4</td><td class="num">12.0</td><td class="num">13.6</td></tr>
+                <tr><th scope="row"><span class="model-name"><span class="sw line" style="background:#2e9c7a"></span>Chronos, zero-shot</span></th><td class="num">7.0</td><td class="num">8.3</td><td class="num"><b>10.1</b></td><td class="num"><b>11.6</b></td><td class="num"><b>13.4</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </figure>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter" aria-labelledby="ch-made">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-made"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg>How it was made</h2>
+      <div>
+      <h3 class="sub" id="sources-h">Data sources</h3>
+      <div class="table-wrap" role="region" aria-labelledby="sources-h" tabindex="0">
+        <table>
+          <thead><tr><th scope="col">Source</th><th scope="col">Publisher</th><th scope="col">What we used</th><th scope="col">Licence</th><th scope="col">Retrieved</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Dataset 608</th><td>UCI Machine Learning Repository</td><td>Traffic sensor network flows</td><td>CC BY 4.0</td><td>2026-09-20</td></tr>
+            <tr><th scope="row">chronos-t5-small</th><td>Amazon, via Hugging Face</td><td>Pre-trained model weights</td><td>Apache 2.0</td><td>2026-09-21</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div>
+      <h3 class="sub" id="method-h">Method</h3>
+      <ol class="steps">
+        <li><span>Split the data into chronological train, validation and test windows with no overlap, and fit scalers on training data only.</span></li>
+        <li><span>Build the seasonal naive baseline from the same weekday last week.</span></li>
+        <li><span>Tune gradient boosting and the GRU on the validation window only.</span></li>
+        <li><span>Run Chronos zero-shot, with no tuning.</span></li>
+        <li><span>Score every model on the same test window at each horizon.</span></li>
+      </ol>
+      </div>
+      <div>
+      <h3 class="sub" id="limits-h">Limitations</h3>
+      <ul class="limits">
+        <li>One dataset from one city.</li>
+        <li>Chronos context length caps how much history it sees.</li>
+        <li>No exogenous features like weather or holidays.</li>
+        <li>MAE hides rare congestion spikes, which matter most to drivers.</li>
+      </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter deep" aria-labelledby="ch-check">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-check"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg>Check it yourself</h2>
+      <div class="check-grid">
+        <div>
+      <h3 class="sub" id="repro-h">Reproduce</h3>
+      <pre class="code" tabindex="0"><code>uv sync
+uv run python -m analysis.forecasting.run --seed 42
+npm run dev</code></pre>
+      <dl class="run-meta">
+        <div><dt>Commit</dt><dd><code>a1c9e04</code></dd></div>
+        <div><dt>Manifest</dt><dd><code>manifest.json</code></dd></div>
+        <div><dt>Python</dt><dd>3.12</dd></div>
+        <div><dt>Last run</dt><dd>2026-10-01</dd></div>
+      </dl>
+        </div>
+        <div>
+      <h3 class="sub" id="discuss-h">Discuss</h3>
+      <p class="note">Have a model you think should be on this chart? Suggestions and corrections are welcome.</p>
+      <p><a class="btn quiet" href="https://github.com/SubaashNair/ai-observatory-portfolio/discussions">Discuss this study on GitHub</a></p>
+        </div>
+      </div>
+    <nav class="pager" aria-label="More case studies">
+      <a class="tile-frame s-pulse" href="penang-pulse.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="pulse"></svg><span><small>Previous study</small><b>Penang Pulse</b></span></a>
+      <a class="tile-frame next s-llm" href="llm-eval-lab.html"><span><small>Next study</small><b>LLM Eval Lab</b></span><svg viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg></a>
+    </nav>
+    </div>
+  </section>
+</main>
+
+<div class="about-band foot-only">
+  <div class="wrap"><footer class="site"><span>Subashanan Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Prototype: Peranakan Tiles. Figures are illustrative.</div>
+<script src="../app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies, Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="site">
+    <a class="wordmark" href="../index.html">Subaash Nair</a>
+    <nav class="primary" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a><a href="../experiments.html">Experiments</a><a href="../about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="page-head">
+      <h1>Case studies</h1>
+      <p class="lede">Three questions about Malaysia, answered with public data. Each study reports its result with an interval, and links the sources, code and limits behind it.</p>
+    </div>
+
+    <section aria-label="All case studies" style="padding-bottom:88px">
+      <table class="studies">
+        <thead><tr><th scope="col">Study</th><th scope="col">Question</th><th scope="col">Key number</th><th scope="col">Data</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name"><a href="penang-pulse.html">Penang Pulse</a></td>
+            <td>How evenly are clinics, schools and transit stops spread across Penang?</td>
+            <td class="result"><strong>21%</strong><span>of Seberang Perai Selatan residents live over 3 km from a public clinic</span><em>95% interval 18 to 24%</em></td>
+            <td>PeGIS facility layers, DOSM Census 2020, OpenStreetMap roads</td>
+            <td><span class="pill">In progress</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="forecasting-lab.html">Forecasting Lab</a></td>
+            <td>Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</td>
+            <td class="result"><strong>18% lower error</strong><span>for Chronos against the seasonal baseline at two hours</span><em>Interval 12 to 23%</em></td>
+            <td>UCI dataset 608, Chronos weights from Hugging Face</td>
+            <td><span class="pill">In progress</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="llm-eval-lab.html">LLM Eval Lab</a></td>
+            <td>How well do small and frontier models handle Bahasa Malaysia and Manglish?</td>
+            <td class="result"><strong>3 points</strong><span>between a fine-tuned 1B model and a frontier model on Manglish sentiment, at 1/50th the cost</span><em>84 (81–87) against 87 (84–90)</em></td>
+            <td>Hand-labelled BM and Manglish sets, Malaysian news headlines</td>
+            <td><span class="pill plan">Planned</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site"><span>Subaash Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer>
+</div>
+<div class="mock-note">Prototype: Leaderboard. All figures are illustrative.</div>
+</body>
+</html>

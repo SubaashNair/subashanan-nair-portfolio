@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Direction D — Nintendo Retro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #e60012;
+    --blue: #00a2e8;
+    --yellow: #ffcb05;
+    --green: #00a651;
+    --sky: #7ec8e3;
+    --paper: #fffdf5;
+    --ink: #1a1a1a;
+    --font-display: "Bungee", sans-serif;
+    --font-pixel: "Press Start 2P", monospace;
+    --font-body: "Space Grotesk", sans-serif;
+    --border: 3px solid var(--ink);
+    --shadow: 6px 6px 0 var(--ink);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--sky);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---------- UI ---------- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px clamp(20px, 4vw, 56px);
+    background: var(--paper);
+    border-bottom: var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .cartridge { width: 34px; height: 30px; background: var(--red); border: var(--border); border-radius: 4px; position: relative; box-shadow: 3px 3px 0 var(--ink); }
+  .cartridge::after { content: ""; position: absolute; top: 6px; left: 6px; right: 6px; height: 6px; background: var(--yellow); border: 2px solid var(--ink); }
+  .brand-name { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.02em; }
+  nav { display: flex; gap: 20px; align-items: center; }
+  nav a { font-family: var(--font-pixel); font-size: 9px; color: var(--ink); text-decoration: none; padding: 8px 12px; border: 2px solid transparent; border-radius: 6px; transition: all 0.1s; }
+  nav a:hover { background: var(--yellow); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  nav a.pill { background: var(--blue); border: var(--border); box-shadow: 3px 3px 0 var(--ink); color: #fff; }
+
+  .hero { position: relative; z-index: 1; min-height: 88vh; display: grid; align-items: center; padding: 40px clamp(20px, 6vw, 80px) 80px; }
+  .press-start { font-family: var(--font-pixel); font-size: 12px; color: var(--red); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+  .eyebrow { font-family: var(--font-pixel); color: var(--ink); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 14px; }
+  h1 { font-family: var(--font-display); font-size: clamp(44px, 7vw, 92px); line-height: 1.05; margin: 20px 0 24px; max-width: 900px; }
+  h1 .r { color: var(--red); }
+  h1 .b { color: var(--blue); }
+  h1 .g { color: var(--green); }
+  .intro { font-size: clamp(16px, 1.5vw, 20px); line-height: 1.6; max-width: 560px; font-weight: 500; }
+  .actions { display: flex; gap: 22px; margin-top: 36px; align-items: center; }
+  .btn-primary {
+    font-family: var(--font-pixel); font-size: 11px; text-transform: uppercase;
+    background: var(--red); color: #fff; border: var(--border); border-radius: 10px; padding: 18px 24px; cursor: pointer;
+    box-shadow: var(--shadow); transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .btn-primary:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink); }
+  .btn-primary:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--ink); }
+  .btn-text { font-family: var(--font-pixel); font-size: 10px; color: var(--ink); text-decoration: none; text-transform: uppercase; border-bottom: 3px solid var(--ink); padding-bottom: 4px; }
+
+  .console { position: absolute; right: 4vw; bottom: 90px; display: flex; align-items: flex-end; gap: 20px; }
+  .scientist { position: relative; width: 96px; height: 132px; flex: none; }
+  .scientist .px { position: absolute; width: 6px; height: 6px; }
+  .computer { position: relative; width: 300px; }
+  .monitor { position: relative; background: var(--ink); border: var(--border); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
+  .monitor .screen { position: relative; width: 100%; aspect-ratio: 4/3; background: #0a0a2e; border: var(--border); border-radius: 8px; overflow: hidden; }
+  .monitor .screen .scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 4px); pointer-events: none; }
+  .monitor .screen .px { position: absolute; width: 7px; height: 7px; background: #fff; }
+  .monitor .screen .px.signal { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+  .monitor .screen .px.neural { background: var(--pink, #ff2d55); }
+  .monitor .screen .px.cyan { background: var(--cyan, #00e5ff); }
+  .monitor .screen .px.green { background: var(--green); }
+  .monitor .screen .px.red { background: var(--red); }
+  .monitor .screen .px.blue { background: var(--blue); }
+  .monitor .screen .px.big { width: 12px; height: 12px; }
+  .monitor .screen .px.blink { animation: pxblink 1s steps(2) infinite; }
+  @keyframes pxblink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.2; } }
+  .monitor .screen .px.bounce { animation: pxbounce 1.6s ease-in-out infinite; }
+  @keyframes pxbounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+  .monitor .readout { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 0 4px; }
+  .monitor .readout .label { font-family: var(--font-pixel); font-size: 9px; color: var(--paper); text-transform: uppercase; line-height: 1.6; }
+  .monitor .readout .label .live { color: var(--green); }
+  .monitor .readout .num { font-family: var(--font-display); font-size: 40px; color: var(--red); line-height: 1; }
+  .monitor .brand { display: block; text-align: center; font-family: var(--font-pixel); font-size: 8px; color: var(--paper); letter-spacing: 0.1em; margin-top: 12px; }
+  .stand { width: 60px; height: 26px; background: var(--ink); border: var(--border); border-top: none; margin: 0 auto; }
+  .stand::after { content: ""; display: block; width: 120px; height: 12px; background: var(--ink); border: var(--border); margin: 0 auto; border-radius: 4px; }
+  .keyboard { width: 200px; height: 26px; background: var(--paper); border: var(--border); border-radius: 6px; margin: 14px auto 0; box-shadow: var(--shadow); position: relative; }
+  .keyboard::after { content: ""; position: absolute; inset: 6px; background: repeating-linear-gradient(90deg, var(--ink) 0 3px, transparent 3px 8px); opacity: 0.5; }
+  @media (max-width: 900px) {
+    .console { position: relative; right: auto; bottom: auto; margin: 40px 0 0; }
+  }
+
+  .ticker { position: relative; z-index: 1; border-top: var(--border); border-bottom: var(--border); padding: 14px 0; overflow: hidden; white-space: nowrap; background: var(--yellow); }
+  .ticker span { display: inline-block; font-family: var(--font-pixel); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); animation: marquee 20s linear infinite; }
+  .ticker b { color: var(--red); font-weight: 400; margin: 0 16px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .section { position: relative; z-index: 1; max-width: 1240px; margin: auto; padding: 90px clamp(20px, 4vw, 56px); }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 40px; }
+  h2 { font-family: var(--font-display); font-size: clamp(30px, 4.5vw, 52px); line-height: 1.05; }
+  .section-head p { max-width: 420px; line-height: 1.6; font-weight: 500; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { position: relative; border-radius: 16px; padding: 28px; min-height: 380px; overflow: hidden; border: var(--border); background: var(--paper); box-shadow: var(--shadow); transition: transform 0.1s, box-shadow 0.1s; }
+  .card:hover { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
+  .card.penang { border-top: 8px solid var(--green); }
+  .card.forecast { border-top: 8px solid var(--blue); }
+  .tag { display: inline-block; font-family: var(--font-pixel); font-size: 8px; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 12px; border: 2px solid var(--ink); border-radius: 6px; background: var(--green); color: #fff; box-shadow: 3px 3px 0 var(--ink); }
+  .card.forecast .tag { background: var(--blue); }
+  .card h3 { font-family: var(--font-display); font-size: clamp(26px, 3.5vw, 40px); margin: 18px 0 10px; }
+  .card p { line-height: 1.55; font-weight: 500; }
+  .card a { display: inline-block; margin-top: 18px; font-family: var(--font-pixel); font-size: 9px; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 3px solid var(--red); padding-bottom: 4px; }
+  .coin-badge { position: absolute; right: 20px; top: 20px; width: 40px; height: 40px; border-radius: 50%; background: var(--yellow); border: var(--border); box-shadow: 3px 3px 0 var(--ink); display: grid; place-items: center; font-family: var(--font-pixel); font-size: 12px; }
+  footer { position: relative; z-index: 1; border-top: var(--border); padding: 30px clamp(20px, 4vw, 56px); display: flex; justify-content: space-between; font-family: var(--font-pixel); font-size: 9px; text-transform: uppercase; color: var(--ink); background: var(--paper); }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="cartridge"></div>
+      <span class="brand-name">AI OBSERVATORY</span>
+    </div>
+    <nav>
+      <a href="#">Work</a><a href="#">Experiments</a><a href="#">About</a><a class="pill" href="#">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="press-start">▶ PRESS START</div>
+      <p class="eyebrow">Data scientist × AI builder</p>
+      <h1>I turn complex data into <span class="r">living</span> <span class="b">intelligence.</span></h1>
+      <p class="intro">Explore the systems, experiments, and spatial stories behind my work in machine learning and applied AI.</p>
+      <div class="actions">
+        <button class="btn-primary">Enter the observatory</button>
+        <a class="btn-text" href="#">View source ↗</a>
+      </div>
+    </div>
+    <div class="console">
+      <div class="scientist" aria-hidden="true">
+        <!-- chair backrest -->
+        <span class="px" style="left:12px;top:24px;width:6px;height:72px;background:#8a6d3b;"></span>
+        <!-- chair seat -->
+        <span class="px" style="left:12px;top:96px;width:36px;height:6px;background:#8a6d3b;"></span>
+        <!-- chair legs -->
+        <span class="px" style="left:18px;top:102px;width:6px;height:24px;background:#8a6d3b;"></span>
+        <span class="px" style="left:36px;top:102px;width:6px;height:24px;background:#8a6d3b;"></span>
+        <!-- hair -->
+        <span class="px" style="left:36px;top:12px;width:30px;height:6px;background:#3a2a1a;"></span>
+        <span class="px" style="left:36px;top:18px;width:30px;height:6px;background:#3a2a1a;"></span>
+        <!-- face -->
+        <span class="px" style="left:36px;top:24px;width:30px;height:6px;background:#f2c79b;"></span>
+        <span class="px" style="left:36px;top:30px;width:30px;height:6px;background:#f2c79b;"></span>
+        <span class="px" style="left:36px;top:36px;width:30px;height:6px;background:#f2c79b;"></span>
+        <span class="px" style="left:36px;top:42px;width:30px;height:6px;background:#f2c79b;"></span>
+        <!-- eye + mouth (facing right) -->
+        <span class="px" style="left:54px;top:30px;width:6px;height:6px;background:var(--ink);"></span>
+        <span class="px" style="left:54px;top:42px;width:6px;height:6px;background:var(--red);"></span>
+        <!-- neck -->
+        <span class="px" style="left:42px;top:48px;width:12px;height:6px;background:#f2c79b;"></span>
+        <!-- torso (blue shirt) -->
+        <span class="px" style="left:30px;top:54px;width:30px;height:6px;background:var(--blue);"></span>
+        <span class="px" style="left:30px;top:60px;width:30px;height:6px;background:var(--blue);"></span>
+        <span class="px" style="left:30px;top:66px;width:30px;height:6px;background:var(--blue);"></span>
+        <span class="px" style="left:30px;top:72px;width:30px;height:6px;background:var(--blue);"></span>
+        <span class="px" style="left:30px;top:78px;width:30px;height:6px;background:var(--blue);"></span>
+        <!-- arm reaching to keyboard -->
+        <span class="px" style="left:60px;top:60px;width:18px;height:6px;background:var(--blue);"></span>
+        <span class="px" style="left:78px;top:66px;width:12px;height:6px;background:#f2c79b;"></span>
+        <!-- thigh (pants) -->
+        <span class="px" style="left:24px;top:84px;width:30px;height:6px;background:var(--ink);"></span>
+        <span class="px" style="left:24px;top:90px;width:30px;height:6px;background:var(--ink);"></span>
+        <!-- shin (pants) -->
+        <span class="px" style="left:24px;top:96px;width:12px;height:6px;background:var(--ink);"></span>
+        <span class="px" style="left:24px;top:102px;width:12px;height:6px;background:var(--ink);"></span>
+        <span class="px" style="left:24px;top:108px;width:12px;height:6px;background:var(--ink);"></span>
+        <span class="px" style="left:24px;top:114px;width:12px;height:6px;background:var(--ink);"></span>
+        <!-- shoe -->
+        <span class="px" style="left:18px;top:120px;width:18px;height:6px;background:var(--red);"></span>
+        <!-- desk surface -->
+        <span class="px" style="left:72px;top:72px;width:24px;height:6px;background:#8a6d3b;"></span>
+        <!-- keyboard on desk -->
+        <span class="px" style="left:72px;top:66px;width:18px;height:6px;background:var(--paper);"></span>
+      </div>
+      <div class="computer">
+        <div class="monitor">
+          <div class="screen">
+            <div class="scan"></div>
+            <span class="px signal big" style="left:12%;top:18%;"></span>
+            <span class="px signal" style="left:20%;top:30%;"></span>
+            <span class="px signal" style="left:30%;top:14%;"></span>
+            <span class="px signal" style="left:42%;top:26%;"></span>
+            <span class="px signal" style="left:54%;top:12%;"></span>
+            <span class="px signal" style="left:66%;top:22%;"></span>
+            <span class="px signal" style="left:78%;top:16%;"></span>
+            <span class="px signal" style="left:88%;top:30%;"></span>
+            <span class="px neural" style="left:16%;top:52%;"></span>
+            <span class="px neural" style="left:28%;top:60%;"></span>
+            <span class="px neural" style="left:40%;top:50%;"></span>
+            <span class="px neural" style="left:52%;top:58%;"></span>
+            <span class="px neural" style="left:64%;top:50%;"></span>
+            <span class="px neural" style="left:76%;top:60%;"></span>
+            <span class="px cyan" style="left:22%;top:74%;"></span>
+            <span class="px cyan" style="left:34%;top:80%;"></span>
+            <span class="px cyan" style="left:46%;top:74%;"></span>
+            <span class="px cyan" style="left:58%;top:80%;"></span>
+            <span class="px cyan" style="left:70%;top:74%;"></span>
+            <span class="px green blink" style="left:8%;top:8%;"></span>
+            <span class="px red blink" style="left:90%;top:8%;"></span>
+            <span class="px blue bounce" style="left:50%;top:40%;"></span>
+          </div>
+          <div class="readout">
+            <span class="label">OBSERVATORY / <span class="live">LIVE</span><br />active studies</span>
+            <span class="num">2</span>
+          </div>
+          <span class="brand">AI OBSERVATORY</span>
+        </div>
+        <div class="stand"></div>
+        <div class="keyboard"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker"><span>
+    <b>◆</b> Penang Pulse <b>◆</b> Forecasting Lab <b>◆</b> Spatial Access <b>◆</b> Traffic Forecasting <b>◆</b> Reproducible Science <b>◆</b> UCI Dataset 608 <b>◆</b> PeGIS <b>◆</b> OpenStreetMap <b>◆</b>
+    <b>◆</b> Penang Pulse <b>◆</b> Forecasting Lab <b>◆</b> Spatial Access <b>◆</b> Traffic Forecasting <b>◆</b> Reproducible Science <b>◆</b> UCI Dataset 608 <b>◆</b> PeGIS <b>◆</b> OpenStreetMap <b>◆</b>
+  </span></div>
+
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">Selected signals</p><h2>Two systems. One connected story.</h2></div>
+      <p>Move from the geography of public services to the dynamics of traffic forecasting. Every finding includes provenance, methods, uncertainty, and reproducible code.</p>
+    </div>
+    <div class="grid">
+      <article class="card penang">
+        <div class="coin-badge">★</div>
+        <span class="tag">01 / Spatial intelligence</span>
+        <h3>Penang Pulse</h3>
+        <p>How evenly are essential services distributed across Penang?</p>
+        <a href="#">Explore Penang Pulse →</a>
+      </article>
+      <article class="card forecast">
+        <div class="coin-badge">★</div>
+        <span class="tag">02 / Predictive systems</span>
+        <h3>Forecasting Lab</h3>
+        <p>Compare baselines, tree models, and neural forecasts across a connected traffic network.</p>
+        <a href="#">Enter Forecasting Lab →</a>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built by Subaash Nair</span>
+    <span>GitHub · Discuss</span>
+  </footer>
+</body>
+</html>

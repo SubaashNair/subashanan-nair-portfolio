@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies, Subashanan Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="../index.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subashanan Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html" aria-current="page">Work</a><a href="../experiments.html">Experiments</a><a href="../about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+    <div class="page-hero">
+      <div>
+        <h1>Case studies</h1>
+        <p class="lede">Three questions about Malaysia, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+      </div>
+      <div class="hero-side">
+        <div class="marks-row" aria-hidden="true"><svg viewBox="0 0 100 100" data-study="pulse"></svg><svg viewBox="0 0 100 100" data-study="forecast"></svg><svg viewBox="0 0 100 100" data-study="llm"></svg></div>
+        <p class="mosaic-note">One tile per study. You will find it on every page of that study.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="frieze" aria-hidden="true"></div>
+<main id="main">
+  <div class="chapter">
+    <div class="wrap">
+      <div class="tile-run">
+      <article class="tile-frame study-card s-pulse">
+        <div class="card-marks" aria-hidden="true"><svg viewBox="0 0 100 100" data-study="pulse"></svg><svg viewBox="0 0 100 100" data-study="pulse"></svg><svg viewBox="0 0 100 100" data-study="pulse"></svg><svg viewBox="0 0 100 100" data-study="pulse"></svg></div>
+        <span class="tag">In progress</span>
+        <h2><a href="penang-pulse.html">Penang Pulse</a></h2>
+        <p class="q">How evenly are clinics, schools and transit stops spread across Penang?</p>
+        <p class="key"><strong>21%</strong>of Seberang Perai Selatan residents live over 3 km from a public clinic.</p>
+        <p class="data">Data: PeGIS facility layers, DOSM Census 2020, OpenStreetMap roads.</p>
+        <a class="btn ink" href="penang-pulse.html">Open Penang Pulse</a>
+      </article>
+      <article class="tile-frame study-card s-forecast">
+        <div class="card-marks" aria-hidden="true"><svg viewBox="0 0 100 100" data-study="forecast"></svg><svg viewBox="0 0 100 100" data-study="forecast"></svg><svg viewBox="0 0 100 100" data-study="forecast"></svg><svg viewBox="0 0 100 100" data-study="forecast"></svg></div>
+        <span class="tag">In progress</span>
+        <h2><a href="forecasting-lab.html">Forecasting Lab</a></h2>
+        <p class="q">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+        <p class="key"><strong>18%</strong>lower error for Chronos than the seasonal baseline at 2 hours.</p>
+        <p class="data">Data: UCI dataset 608, Chronos weights from Hugging Face.</p>
+        <a class="btn ink" href="forecasting-lab.html">Open Forecasting Lab</a>
+      </article>
+      <article class="tile-frame study-card s-llm">
+        <div class="card-marks" aria-hidden="true"><svg viewBox="0 0 100 100" data-study="llm"></svg><svg viewBox="0 0 100 100" data-study="llm"></svg><svg viewBox="0 0 100 100" data-study="llm"></svg><svg viewBox="0 0 100 100" data-study="llm"></svg></div>
+        <span class="tag plan">Planned</span>
+        <h2><a href="llm-eval-lab.html">LLM Eval Lab</a></h2>
+        <p class="q">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+        <p class="key"><strong>1/50th</strong>the cost for a fine-tuned 1B model within 3 points of a frontier model.</p>
+        <p class="data">Data: Hand-labelled Manglish and BM sets, Malaysian news headlines.</p>
+        <a class="btn ink" href="llm-eval-lab.html">Read the plan</a>
+      </article>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="about-band foot-only">
+  <div class="wrap"><footer class="site"><span>Subashanan Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Prototype: Peranakan Tiles. Figures are illustrative.</div>
+<script src="../app.js"></script>
+</body>
+</html>

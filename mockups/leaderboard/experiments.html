@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools and experiments, Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="site">
+    <a class="wordmark" href="index.html">Subaash Nair</a>
+    <nav class="primary" aria-label="Primary">
+      <a href="work/index.html">Work</a><a href="experiments.html" aria-current="page">Experiments</a><a href="about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="page-head">
+      <h1>Tools and experiments</h1>
+      <p class="lede">Smaller things I have shipped: agents, libraries, apps and ML projects. All open source on GitHub.</p>
+    </div>
+
+    <section aria-label="Projects" data-filter style="padding-bottom:88px">
+      <div class="toggles filters" role="group" aria-label="Filter by category">
+        <button type="button" aria-pressed="true" data-key="all">All</button>
+        <button type="button" aria-pressed="false" data-key="agents">Agents and MCP</button>
+        <button type="button" aria-pressed="false" data-key="libs">Libraries</button>
+        <button type="button" aria-pressed="false" data-key="apps">Apps</button>
+        <button type="button" aria-pressed="false" data-key="ml">ML projects</button>
+      </div>
+      <p class="status-line" aria-live="polite" style="margin-bottom:24px">Showing 12 of 12 projects.</p>
+      <table class="registry">
+        <thead><tr><th scope="col">Project</th><th scope="col">What it does</th><th scope="col">Category</th><th scope="col">Language</th></tr></thead>
+        <tbody>
+          <tr data-cat="agents"><td class="nm"><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></td><td class="desc">An MCP server that gives coding agents up-to-date documentation for popular libraries.</td><td class="meta-c">Agents and MCP</td><td class="meta-c">JavaScript</td></tr>
+          <tr data-cat="agents"><td class="nm"><a href="https://github.com/SubaashNair/matomari">matomari</a></td><td class="desc">A native file explorer with an agent inside, and an importance score for every file built from how you actually use it.</td><td class="meta-c">Agents and MCP</td><td class="meta-c">macOS</td></tr>
+          <tr data-cat="apps"><td class="nm"><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></td><td class="desc">Real-time classroom exam monitoring: teachers see live student screens over LAN, with session tokens, lock-all, messaging and CSV audit export.</td><td class="meta-c">Apps</td><td class="meta-c">Go</td></tr>
+          <tr data-cat="apps"><td class="nm"><a href="https://github.com/SubaashNair/CU5_project_dashboard">CU5_project_dashboard</a></td><td class="desc">Monitors student repositories with GitHub activity, file evidence and requirement-based completion estimates.</td><td class="meta-c">Apps</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="libs"><td class="nm"><a href="https://github.com/SubaashNair/ml-review">ml-review</a></td><td class="desc">Extended evaluation metrics for scikit-learn models.</td><td class="meta-c">Libraries</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="libs"><td class="nm"><a href="https://github.com/SubaashNair/OutlierCleaner">OutlierCleaner</a></td><td class="desc">Detects and removes outliers using several statistical methods.</td><td class="meta-c">Libraries</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="libs"><td class="nm"><a href="https://github.com/SubaashNair/StatClean">StatClean</a></td><td class="desc">Statistical data cleaning and outlier handling.</td><td class="meta-c">Libraries</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="libs"><td class="nm"><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></td><td class="desc">Reinforcement learning optimisation experiments.</td><td class="meta-c">Libraries</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="libs"><td class="nm"><a href="https://github.com/SubaashNair/GRPOptim">GRPOptim</a></td><td class="desc">GRPO training experiments.</td><td class="meta-c">Libraries</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="ml"><td class="nm"><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></td><td class="desc">Train, register, serve and ship a classifier end to end with MLflow, Docker and Streamlit.</td><td class="meta-c">ML projects</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="ml"><td class="nm"><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></td><td class="desc">Forecasts land subsidence in the Klang Valley from geospatial and temporal data.</td><td class="meta-c">ML projects</td><td class="meta-c">Python</td></tr>
+          <tr data-cat="ml"><td class="nm"><a href="https://github.com/SubaashNair/Taiwan-Real-Estate-Price-Prediction-App">Taiwan-Real-Estate-Price-Prediction-App</a></td><td class="desc">Predicts property prices with a scikit-learn model behind a Gradio app.</td><td class="meta-c">ML projects</td><td class="meta-c">Python</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site"><span>Subaash Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer>
+</div>
+<div class="mock-note">Prototype: Leaderboard. All figures are illustrative.</div>
+<script src="app.js"></script>
+</body>
+</html>
