@@ -19,22 +19,22 @@ export function StudyPage({ study, results }: StudyPageProps) {
   const frieze = [tileMarkup(study.tile), borderTileMarkup(study.tile, study.tint)];
   return (
     <div className={`study-page ${study.themeClass}`} style={studyThemeStyle(study)}>
-      <div className="top">
-        <div className="wrap">
-          <div className="page-hero">
-            <div>
-              <Link className="crumb" href="/work">All case studies</Link>
-              <br />
-              <span className={study.status === "planned" ? "tag plan" : "tag"}>{STATUS_LABEL[study.status]}</span>
-              <h1>{study.title}</h1>
-              <p className="lede">{study.question}</p>
+      <main id="main">
+        <div className="top">
+          <div className="wrap">
+            <div className="page-hero">
+              <div>
+                <Link className="crumb" href="/work">All case studies</Link>
+                <br />
+                <span className={study.status === "planned" ? "tag plan" : "tag"}>{STATUS_LABEL[study.status]}</span>
+                <h1>{study.title}</h1>
+                <p className="lede">{study.question}</p>
+              </div>
+              <Mosaic pair tiles={[study.tile, study.tile, study.tile, study.tile]} label={`${study.title} tiles. Select a tile to turn it.`} />
             </div>
-            <Mosaic pair tiles={[study.tile, study.tile, study.tile, study.tile]} label={`${study.title} tiles. Select a tile to turn it.`} />
           </div>
         </div>
-      </div>
-      <Frieze markups={frieze} />
-      <main id="main">
+        <Frieze markups={frieze} />
         <AnswerChapter study={study} results={results} />
         <Frieze markups={frieze} />
         <EvidenceChapter study={study} results={results} />

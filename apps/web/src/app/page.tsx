@@ -6,12 +6,12 @@ import { StudyRun } from "@/components/study/study-run";
 export default function Home() {
   return (
     <>
-      <Hero />
       <main id="main">
+        <Hero />
         <section className="block" aria-labelledby="work-h">
           <div className="wrap">
             <h2 id="work-h">Case studies</h2>
-            <p className="intro">Three questions about Malaysia, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+            <p className="intro">Three questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
             <StudyRun headingLevel={3} />
           </div>
         </section>

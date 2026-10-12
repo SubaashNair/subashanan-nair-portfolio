@@ -14,6 +14,14 @@ describe("Home", () => {
     expect(screen.queryByText(/NASA/)).not.toBeInTheDocument();
   });
 
+  it("puts the title inside the main landmark and links only public tools", () => {
+    const { container } = render(<Home />);
+    expect(container.querySelectorAll("main")).toHaveLength(1);
+    expect(container.querySelector("#main")).toContainElement(screen.getByRole("heading", { level: 1 }));
+    expect(screen.queryByText("matomari")).not.toBeInTheDocument();
+    for (const item of container.querySelectorAll("li.tool")) expect(item.querySelector("a")).not.toBeNull();
+  });
+
   it("shows four tools", () => {
     const { container } = render(<Home />);
     expect(container.querySelectorAll("li.tool")).toHaveLength(4);

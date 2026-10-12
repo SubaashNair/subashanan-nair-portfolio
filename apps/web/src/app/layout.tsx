@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/shell/site-footer";
 import { SiteHeader } from "@/components/shell/site-header";
+import { profile } from "@/content/profile";
 
 import "./globals.css";
 import "./site.css";
@@ -16,9 +17,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ai-observatory.vercel.app"),
+  metadataBase: new URL(profile.siteUrl),
   title: { default: "Subashanan Nair, data scientist in Penang", template: "%s | Subashanan Nair" },
-  description: "Reproducible ML and LLM case studies on Malaysian public data, with sources, code and limits for every result.",
+  description: "Reproducible ML and LLM case studies on public data, mostly Malaysian, with sources, code and limits for every result.",
   openGraph: { type: "website", siteName: "Subashanan Nair" },
   twitter: { card: "summary_large_image" },
 };

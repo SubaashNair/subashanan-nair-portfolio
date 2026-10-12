@@ -21,6 +21,12 @@ describe("StudyPage", () => {
     expect(screen.getAllByText("Not yet retrieved")).toHaveLength(pulse.sources.length);
   });
 
+  it("puts the title inside the single main landmark", () => {
+    const { container } = render(<StudyPage study={pulse} results={null} />);
+    expect(container.querySelectorAll("main")).toHaveLength(1);
+    expect(container.querySelector("#main")).toContainElement(screen.getByRole("heading", { level: 1, name: "Penang Pulse" }));
+  });
+
   it("preview mode shows fixture numbers under a visible preview label", () => {
     render(<StudyPage study={pulse} results={getStudyResults("penang-pulse", "development")} />);
     expect(screen.getAllByText("21%").length).toBeGreaterThan(0);

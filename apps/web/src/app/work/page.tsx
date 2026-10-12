@@ -6,17 +6,17 @@ import { Tile } from "@/components/tiles/tile";
 import { tileMarkup } from "@/components/tiles/tile-geometry";
 import { studies } from "@/content/studies";
 
-export const metadata: Metadata = { title: "Case studies", description: "Three questions about Malaysia, answered with public data." };
+export const metadata: Metadata = { title: "Case studies", description: "Three questions, answered with public data." };
 
 export default function WorkIndex() {
   return (
-    <>
+    <main id="main">
       <div className="top">
         <div className="wrap">
           <div className="page-hero">
             <div>
               <h1>Case studies</h1>
-              <p className="lede">Three questions about Malaysia, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+              <p className="lede">Three questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
             </div>
             <div className="hero-side">
               <div className="marks-row" aria-hidden="true">{studies.map((s) => <Tile key={s.slug} spec={s.tile} />)}</div>
@@ -26,9 +26,9 @@ export default function WorkIndex() {
         </div>
       </div>
       <Frieze markups={studies.map((s) => tileMarkup(s.tile))} />
-      <main id="main" className="chapter">
+      <div className="chapter">
         <div className="wrap"><StudyRun headingLevel={2} /></div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

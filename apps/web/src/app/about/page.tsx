@@ -8,17 +8,17 @@ export const metadata: Metadata = { title: "About", description: profile.intro }
 export default function About() {
   return (
     <>
-      <div className="top">
-        <div className="wrap">
-          <div className="page-hero solo">
-            <div>
-              <h1>About</h1>
-              <p className="lede">{profile.intro}</p>
+      <main id="main">
+        <div className="top">
+          <div className="wrap">
+            <div className="page-hero solo">
+              <div>
+                <h1>About</h1>
+                <p className="lede">{profile.intro}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <main id="main">
         <div className="wrap">
           <div className="cols part">
             <section className="frame" aria-labelledby="what-h">
