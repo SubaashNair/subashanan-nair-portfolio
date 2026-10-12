@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Eval Lab, a case study by Subashanan Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body class="study-page s-llm">
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="../index.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subashanan Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="index.html" aria-current="true">Work</a><a href="../experiments.html">Experiments</a><a href="../about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+    <div class="page-hero">
+      <div>
+        <a class="crumb" href="index.html">All case studies</a><br>
+        <span class="tag plan">Planned</span>
+        <h1>LLM Eval Lab</h1>
+        <p class="lede">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+      </div>
+      <div class="mosaic pair" data-mosaic="4" data-study="llm" role="group" aria-label="LLM Eval Lab tiles. Select a tile to turn it."></div>
+    </div>
+  </div>
+</div>
+
+<div class="frieze" aria-hidden="true"></div>
+<main id="main">
+  <section class="chapter" aria-labelledby="ch-answer">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-answer"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg>The answer</h2>
+      <p class="short-answer">On Manglish sentiment, a fine-tuned 1B model lands within 3 points of a frontier model at about a fiftieth of the cost. On summaries, the frontier model still leads clearly.</p>
+      <h3 class="sub" id="numbers-h">Key numbers</h3>
+      <div class="num-run">
+          <div class="tile-frame num-tile"><strong>3 points</strong><p>gap between the fine-tuned 1B and the frontier model on sentiment.</p><p class="caveat">The 95% intervals overlap, so the gap could be smaller.</p></div>
+          <div class="tile-frame num-tile"><strong>1/50th</strong><p>the cost per 1k items for the fine-tuned 1B.</p><p class="caveat">List prices on the run date; prices change.</p></div>
+          <div class="tile-frame num-tile"><strong>1,200</strong><p>hand-labelled items per task.</p><p class="caveat">Inter-annotator agreement was 0.81 on a 20% overlap.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter dark" aria-labelledby="ch-evidence">
+    <div class="wrap" id="llm">
+      <h2 class="chapter-title" id="ch-evidence"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg>The evidence</h2>
+      <div>
+      <h3 class="sub" id="fig-h">Leaderboard</h3>
+      <p class="intro">Pick a task. Each model keeps its colour across the table and the chart. Bars show the 95% interval on a 50 to 100 scale.</p>
+      <div class="controls" id="task-tabs" role="tablist" aria-label="Tasks">
+        <button type="button" class="pill" role="tab" id="tab-sentiment" aria-controls="task-panel" aria-selected="true" data-key="sentiment">Manglish sentiment</button>
+        <button type="button" class="pill" role="tab" id="tab-entities" aria-controls="task-panel" aria-selected="false" data-key="entities">BM entity extraction</button>
+        <button type="button" class="pill" role="tab" id="tab-summaries" aria-controls="task-panel" aria-selected="false" data-key="summaries">BM summaries</button>
+      </div>
+      <div class="stack" id="task-panel" role="tabpanel" aria-labelledby="tab-sentiment">
+        <div class="tile-frame"><div class="table-wrap" role="region" aria-label="Leaderboard for the selected task" tabindex="0">
+          <table id="board">
+            <thead><tr><th scope="col">Model</th><th scope="col" id="metric-head">Accuracy, with 95% interval</th><th scope="col" class="num">Cost per 1k items</th><th scope="col" class="num">Median latency</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div></div>
+        <figure class="tile-frame">
+          <h4 class="panel-title">Cost against score</h4>
+          <p class="figcap" style="margin:0 0 14px">One point per model for the selected task. Vertical lines are 95% intervals. Up and to the left is better value.</p>
+          <div class="chart" id="scatter"></div>
+          <p class="figcap">Score on the vertical axis. Cost per 1k items on a log scale; baselines cost under $0.01 and sit at the left edge.</p>
+        </figure>
+      </div>
+
+      <h3 class="sub" id="errors-h">Error examples</h3>
+      <p class="intro">Three items from the Manglish sentiment set, picked to show where models slip.</p>
+      <div class="examples">
+        <article class="tile-frame">
+          <span class="verdict ok">Correct</span>
+          <blockquote>"Wah this nasi lemak damn power lah"</blockquote>
+          <dl><dt>Expected</dt><dd>positive</dd><dt>Model</dt><dd>Fine-tuned 1B</dd><dt>Output</dt><dd>positive</dd><dt>Note</dt><dd>correct</dd></dl>
+        </article>
+        <article class="tile-frame">
+          <span class="verdict miss">Missed</span>
+          <blockquote>"Service ok la but wait so long sampai tak larat"</blockquote>
+          <dl><dt>Expected</dt><dd>negative</dd><dt>Model</dt><dd>Open 8B</dd><dt>Output</dt><dd>neutral</dd><dt>Note</dt><dd>misses "tak larat" (exhausted)</dd></dl>
+        </article>
+        <article class="tile-frame">
+          <span class="verdict miss">Missed</span>
+          <blockquote>"Boleh tahan, not bad for the price"</blockquote>
+          <dl><dt>Expected</dt><dd>positive</dd><dt>Model</dt><dd>TF-IDF</dd><dt>Output</dt><dd>negative</dd><dt>Note</dt><dd>"tahan" read as a complaint</dd></dl>
+        </article>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter" aria-labelledby="ch-made">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-made"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg>How it was made</h2>
+      <div>
+      <h3 class="sub" id="sources-h">Data sources</h3>
+      <div class="table-wrap" role="region" aria-labelledby="sources-h" tabindex="0">
+        <table>
+          <thead><tr><th scope="col">Source</th><th scope="col">Publisher</th><th scope="col">What we used</th><th scope="col">Licence</th><th scope="col">Retrieved</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Manglish and BM sets</th><td>This project</td><td>Hand-labelled items for sentiment and entities</td><td>CC BY 4.0</td><td>Created 2026-09</td></tr>
+            <tr><th scope="row">Malaysian news headlines</th><td>Public news sites</td><td>Articles for the summary task</td><td>Public, research use</td><td>2026-09-15</td></tr>
+            <tr><th scope="row">Models</th><td>Model APIs and open weights</td><td>Every model, listed with its version</td><td>Per provider</td><td>On each run</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div>
+      <h3 class="sub" id="method-h">Method</h3>
+      <ol class="steps">
+        <li><span>Write and freeze the labelling guidelines.</span></li>
+        <li><span>Label 1,200 items per task, with a second annotator on 20%.</span></li>
+        <li><span>Version prompts (v1 to v3) in the repo.</span></li>
+        <li><span>Run each model 3 times at temperature 0, recording cost and latency per call.</span></li>
+        <li><span>Bootstrap 95% intervals for every score.</span></li>
+      </ol>
+      </div>
+      <div>
+      <h3 class="sub" id="limits-h">Limitations</h3>
+      <ul class="limits">
+        <li>Manglish varies by region and age; one set cannot cover it.</li>
+        <li>Inter-annotator agreement was 0.81, not perfect.</li>
+        <li>Frontier model versions change, so results are dated.</li>
+        <li>Costs use list prices on the run date.</li>
+      </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+  <section class="chapter deep" aria-labelledby="ch-check">
+    <div class="wrap">
+      <h2 class="chapter-title" id="ch-check"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="llm"></svg>Check it yourself</h2>
+      <div class="check-grid">
+        <div>
+      <h3 class="sub" id="repro-h">Reproduce</h3>
+      <pre class="code" tabindex="0"><code>uv sync
+uv run python -m analysis.llm_eval.run --task all --prompts v3
+npm run dev</code></pre>
+      <dl class="run-meta">
+        <div><dt>Commit</dt><dd><code>a1c9e04</code></dd></div>
+        <div><dt>Manifest</dt><dd><code>manifest.json</code></dd></div>
+        <div><dt>Python</dt><dd>3.12</dd></div>
+        <div><dt>Last run</dt><dd>2026-10-01</dd></div>
+      </dl>
+      <p class="note">Hosted models need API keys; open models run locally.</p>
+        </div>
+        <div>
+      <h3 class="sub" id="discuss-h">Discuss</h3>
+      <p class="note">Speak Manglish and disagree with a label? That is exactly the feedback this needs.</p>
+      <p><a class="btn quiet" href="https://github.com/SubaashNair/ai-observatory-portfolio/discussions">Discuss this study on GitHub</a></p>
+        </div>
+      </div>
+    <nav class="pager" aria-label="More case studies">
+      <a class="tile-frame s-forecast" href="forecasting-lab.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-study="forecast"></svg><span><small>Previous study</small><b>Forecasting Lab</b></span></a>
+      <a class="tile-frame next s-pulse" href="penang-pulse.html"><span><small>Next study</small><b>Penang Pulse</b></span><svg viewBox="0 0 100 100" aria-hidden="true" data-study="pulse"></svg></a>
+    </nav>
+    </div>
+  </section>
+</main>
+
+<div class="about-band foot-only">
+  <div class="wrap"><footer class="site"><span>Subashanan Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Prototype: Peranakan Tiles. Figures are illustrative.</div>
+<script src="../app.js"></script>
+</body>
+</html>

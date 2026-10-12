@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools and experiments, Subashanan Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header class="site">
+      <a class="wordmark" href="index.html"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="0"></svg>Subashanan Nair</a>
+      <nav class="primary" aria-label="Primary">
+        <a href="work/index.html">Work</a><a href="experiments.html" aria-current="page">Experiments</a><a href="about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+      </nav>
+    </header>
+    <div class="page-hero solo">
+      <div>
+        <h1>Tools and experiments</h1>
+        <p class="lede">Smaller things I have shipped: agents, libraries, apps and ML projects. Each gets its own tile.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <div class="wrap page-end">
+    <section class="part" aria-labelledby="list-h">
+      <h2 id="list-h" class="sr">All tools</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter by category">
+        <button type="button" class="pill" aria-pressed="true" data-cat="all">All</button>
+        <button type="button" class="pill" aria-pressed="false" data-cat="agents">Agents and MCP</button>
+        <button type="button" class="pill" aria-pressed="false" data-cat="libraries">Libraries</button>
+        <button type="button" class="pill" aria-pressed="false" data-cat="apps">Apps</button>
+        <button type="button" class="pill" aria-pressed="false" data-cat="ml">ML projects</button>
+      </div>
+      <p class="count" id="tool-count" aria-live="polite">Showing 12 of 12 tools</p>
+      <ul class="tools" id="tool-list">
+        <li class="tool" data-cat="agents"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="5"></svg><div><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="lang">JavaScript, agents and MCP</div><p>An MCP server that gives coding agents up-to-date documentation for popular libraries.</p></div></li>
+        <li class="tool" data-cat="agents"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="6"></svg><div><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="lang">macOS, agents and MCP</div><p>A native file explorer with an agent inside, and an importance score for every file built from how you actually use it.</p></div></li>
+        <li class="tool" data-cat="apps"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="7"></svg><div><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="lang">Go, apps</div><p>Real-time classroom exam monitoring: teachers see live student screens over LAN, with session tokens, lock-all, messaging and CSV audit export.</p></div></li>
+        <li class="tool" data-cat="apps"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="8"></svg><div><h3><a href="https://github.com/SubaashNair/CU5_project_dashboard">CU5_project_dashboard</a></h3><div class="lang">Python, apps</div><p>Monitors student repositories with GitHub activity, file evidence and requirement-based completion estimates.</p></div></li>
+        <li class="tool" data-cat="libraries"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="9"></svg><div><h3><a href="https://github.com/SubaashNair/ml-review">ml-review</a></h3><div class="lang">Python, libraries</div><p>Extended evaluation metrics for scikit-learn models.</p></div></li>
+        <li class="tool" data-cat="libraries"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="10"></svg><div><h3><a href="https://github.com/SubaashNair/OutlierCleaner">OutlierCleaner</a></h3><div class="lang">Python, libraries</div><p>Detects and removes outliers using several statistical methods.</p></div></li>
+        <li class="tool" data-cat="libraries"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="11"></svg><div><h3><a href="https://github.com/SubaashNair/StatClean">StatClean</a></h3><div class="lang">Python, libraries</div><p>Statistical data cleaning and outlier handling.</p></div></li>
+        <li class="tool" data-cat="libraries"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="12"></svg><div><h3><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></h3><div class="lang">Python, libraries</div><p>Reinforcement learning optimisation experiments.</p></div></li>
+        <li class="tool" data-cat="libraries"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="13"></svg><div><h3><a href="https://github.com/SubaashNair/GRPOptim">GRPOptim</a></h3><div class="lang">Python, libraries</div><p>GRPO training experiments.</p></div></li>
+        <li class="tool" data-cat="ml"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="14"></svg><div><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><div class="lang">Python, ML projects</div><p>Train, register, serve and ship a classifier end to end with MLflow, Docker and Streamlit.</p></div></li>
+        <li class="tool" data-cat="ml"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="15"></svg><div><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><div class="lang">Python, ML projects</div><p>Forecasts land subsidence in the Klang Valley from geospatial and temporal data.</p></div></li>
+        <li class="tool" data-cat="ml"><svg viewBox="0 0 100 100" aria-hidden="true" data-tile="16"></svg><div><h3><a href="https://github.com/SubaashNair/Taiwan-Real-Estate-Price-Prediction-App">Taiwan-Real-Estate-Price-Prediction-App</a></h3><div class="lang">Python, ML projects</div><p>Predicts property prices with a scikit-learn model behind a Gradio app.</p></div></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<div class="about-band foot-only">
+  <div class="wrap"><footer class="site"><span>Subashanan Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer></div>
+</div>
+<div class="mock-note">Prototype: Peranakan Tiles. Figures are illustrative.</div>
+<script src="app.js"></script>
+</body>
+</html>
