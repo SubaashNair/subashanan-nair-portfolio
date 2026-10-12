@@ -38,6 +38,15 @@ describe("TabList", () => {
     expect(screen.getByRole("tab", { name: "Gamma" })).toHaveAttribute("aria-selected", "true");
   });
 
+  it("ignores arrow keys held with Alt, Ctrl or Meta", () => {
+    render(<Harness />);
+    for (const mod of [{ altKey: true }, { ctrlKey: true }, { metaKey: true }]) {
+      const notPrevented = fireEvent.keyDown(screen.getByRole("tab", { name: "Alpha" }), { key: "ArrowLeft", ...mod });
+      expect(notPrevented).toBe(true);
+      expect(screen.getByRole("tab", { name: "Alpha" })).toHaveAttribute("aria-selected", "true");
+    }
+  });
+
   it("selects on click", () => {
     render(<Harness />);
     fireEvent.click(screen.getByRole("tab", { name: "Beta" }));

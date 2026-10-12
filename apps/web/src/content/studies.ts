@@ -30,7 +30,7 @@ export const studies: readonly StudyRecord[] = [
       "Centroids hide within-mukim variation, so some residents are closer or further than their band says.",
       "Private clinics are excluded, which overstates the distance to any clinic.",
       "OpenStreetMap road coverage is thinner in rural Seberang Perai.",
-      "The 2020 census population is six years old.",
+      "Population figures come from the 2020 census.",
     ],
     reproduce: { commands: ["uv sync", "uv run python -m analysis.penang.build --from-cache", "npm run dev"] },
     discussNote: "Spotted a missing clinic or a better boundary file? Questions and corrections are welcome.",
@@ -93,7 +93,7 @@ export const studies: readonly StudyRecord[] = [
     ],
     limitations: [
       "Manglish varies by region and age; one set cannot cover it.",
-      "Inter-annotator agreement is not perfect.",
+      "Inter-annotator agreement will not be perfect.",
       "Frontier model versions change, so results are dated.",
       "Costs use list prices on the run date.",
     ],

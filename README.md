@@ -1,20 +1,26 @@
-# AI Observatory
+# Subashanan Nair, portfolio
 
-Subaash Nair's immersive, reproducible data-science portfolio.
+The portfolio site of Subashanan Nair, a data scientist in Penang. It presents reproducible ML and LLM case studies on public data, plus smaller tools and experiments, each with sources, code and limits.
 
-The launch experience combines two studies:
+The site is a Next.js App Router app in `apps/web`, designed around Peranakan floor tiles from George Town.
 
-- **Penang Pulse** — spatial access to essential services across Penang.
-- **Forecasting Lab** — reproducible spatiotemporal traffic forecasting using UCI dataset 608.
-
-The web application is built with Next.js and React Three Fiber. A separate Python workspace will produce versioned analytical artefacts with visible provenance, limitations, and reproduction metadata.
-
-## Development
+## Run it
 
 ```bash
 npm install
-npm run dev
+npm run dev     # local development server
+npm test        # unit and component tests
+npm run build   # production build
 ```
 
-See the [design specification](docs/superpowers/specs/2026-07-17-ai-observatory-design.md) and [implementation plan](docs/superpowers/plans/2026-07-17-ai-observatory-implementation.md).
+`npm run lint` and `npm run typecheck` are also available from the repo root.
 
+## Honesty rule
+
+Illustrative data appears only in development, never in production: a production build shows a study's planned state until real results are published.
+
+## Design documents
+
+- [Design specification](docs/superpowers/specs/2026-10-12-peranakan-redesign-design.md)
+- [Content specification](docs/superpowers/specs/2026-10-12-peranakan-redesign-content.md)
+- [Implementation plan](docs/superpowers/plans/2026-10-12-peranakan-redesign.md)

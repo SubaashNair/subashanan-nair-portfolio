@@ -21,7 +21,7 @@ export function DistrictPanel({ district }: { district: District }) {
           <li key={i}><span className="sw sq" style={{ background: BAND_COLOURS[i], borderColor: palette.ink }} />{BAND_NAMES[i]}<strong>{p}%</strong></li>
         ))}
       </ul>
-      <p className="callout"><strong>About {fmt(far)} residents</strong>live more than 3 km from a public clinic.</p>
+      <p className="callout"><strong>About {fmt(far)} residents</strong>{" "}live more than 3 km from a public clinic.</p>
     </div>
   );
 }

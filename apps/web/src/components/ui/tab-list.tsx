@@ -33,6 +33,7 @@ export function TabList({ items, selected, onSelect, idPrefix, panelId, label, l
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return; // leave browser and OS shortcuts alone
     if (event.key in STEP) moveTo(index + STEP[event.key]);
     else if (event.key === "Home") moveTo(0);
     else if (event.key === "End") moveTo(items.length - 1);

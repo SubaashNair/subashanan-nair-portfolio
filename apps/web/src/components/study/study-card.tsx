@@ -27,9 +27,9 @@ export function StudyCard({ study, results, headingLevel }: StudyCardProps) {
       <p className="q">{study.question}</p>
       {key && (
         <p className="key">
+          {results?.preview && <span className="preview-flag">Illustrative preview</span>}
           <strong>{key.value}</strong>
           {key.label}
-          {results?.preview && <span className="sr"> (illustrative preview)</span>}
         </p>
       )}
       <p className="data">Data: {study.data}</p>
