@@ -1,34 +1,32 @@
 import type { Metadata } from "next";
+import { Bricolage_Grotesque } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/shell/site-footer";
 import { SiteHeader } from "@/components/shell/site-header";
 
 import "./globals.css";
+import "./site.css";
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["opsz", "wdth"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "AI Observatory · Subaash Nair",
-  description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
-  openGraph: {
-    title: "AI Observatory · Subaash Nair",
-    description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
-    type: "website",
-    siteName: "AI Observatory",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "AI Observatory · Subaash Nair",
-    description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
-  },
+  title: "Subashanan Nair, data scientist in Penang",
+  description: "Reproducible ML and LLM case studies on Malaysian public data, with sources, code and limits for every result.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={bricolage.variable}>
       <body>
-        <a className="skip-link" href="#main-content">Skip to content</a>
+        <a className="skip" href="#main">Skip to content</a>
         <SiteHeader />
-        <div id="main-content">{children}</div>
+        {children}
         <SiteFooter />
       </body>
     </html>
