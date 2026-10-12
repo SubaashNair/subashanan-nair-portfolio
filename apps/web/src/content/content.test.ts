@@ -56,21 +56,21 @@ describe("fixtures", () => {
 });
 
 describe("experiments and profile", () => {
-  it("lists 12 tools, each with a description, and a GitHub link for public ones", () => {
-    expect(experiments).toHaveLength(12);
+  it("lists 13 tools, each with a description, and a GitHub link for public ones", () => {
+    expect(experiments).toHaveLength(13);
     for (const e of experiments) {
       expect(e.description.length).toBeGreaterThan(0);
       if (!e.private) expect(experimentUrl(e.name)).toBe(`https://github.com/SubaashNair/${e.name}`);
     }
   });
 
-  it("marks the three private repositories", () => {
-    expect(experiments.filter((e) => e.private).map((e) => e.name).sort()).toEqual(["CU5_project_dashboard", "Land-subsidence-Prediction", "matomari"]);
+  it("marks the four private repositories", () => {
+    expect(experiments.filter((e) => e.private).map((e) => e.name).sort()).toEqual(["CU5_project_dashboard", "Land-subsidence-Prediction", "matomari", "penang-ai-assistant"]);
   });
 
   it("excludes experiments without a description from the listed set", () => {
     expect(listedExperiments.every((e) => e.description.trim().length > 0)).toBe(true);
-    expect(listedExperiments).toHaveLength(12);
+    expect(listedExperiments).toHaveLength(13);
   });
 
   it("uses the chosen brand name", () => {

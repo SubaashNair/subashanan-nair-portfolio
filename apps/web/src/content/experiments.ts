@@ -11,6 +11,7 @@ export const EXPERIMENT_CATEGORIES: ReadonlyArray<{ id: ExperimentCategory; labe
 export const experimentUrl = (name: string): string => `https://github.com/SubaashNair/${name}`;
 
 export const experiments: readonly ExperimentRecord[] = [
+  { name: "penang-ai-assistant", private: true, category: "agents", language: "Python and Next.js", tile: 17, description: "Answers plain-language questions about Malaysian economic data from OpenDOSM, with Penang as the default, using governed read-only SQL and an audit trail." },
   { name: "documentation-mcp-server", category: "agents", language: "JavaScript", tile: 5, description: "An MCP server that gives coding agents up-to-date documentation for popular libraries." },
   { name: "matomari", private: true, category: "agents", language: "macOS", tile: 6, description: "A native file explorer with an agent inside, and an importance score for every file built from how you actually use it." },
   { name: "exam-monitor-app", category: "apps", language: "Go", tile: 7, description: "Real-time classroom exam monitoring: teachers see live student screens over LAN, with session tokens, lock-all, messaging and CSV audit export." },
