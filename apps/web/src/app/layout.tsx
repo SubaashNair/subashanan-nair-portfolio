@@ -16,8 +16,11 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Subashanan Nair, data scientist in Penang",
+  metadataBase: new URL("https://ai-observatory.vercel.app"),
+  title: { default: "Subashanan Nair, data scientist in Penang", template: "%s | Subashanan Nair" },
   description: "Reproducible ML and LLM case studies on Malaysian public data, with sources, code and limits for every result.",
+  openGraph: { type: "website", siteName: "Subashanan Nair" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
