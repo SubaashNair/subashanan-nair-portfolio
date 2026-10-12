@@ -4,11 +4,13 @@ import { describe, expect, it } from "vitest";
 import About from "./page";
 
 describe("About", () => {
-  it("has a contact section and no placeholder buttons", () => {
+  it("has a contact section with email, LinkedIn and GitHub, and no CV placeholder", () => {
     const { container } = render(<About />);
     expect(container.querySelector("#contact")).not.toBeNull();
     expect(container.querySelector("#main")).toContainElement(screen.getByRole("heading", { level: 1, name: "About" }));
-    expect(screen.queryByRole("link", { name: "Email me" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Email me" })).toHaveAttribute("href", "mailto:subaashnair12@gmail.com");
+    expect(screen.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/in/subashanan-nair/");
+    expect(screen.queryByRole("link", { name: "Download CV" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Find me on GitHub" })).toHaveAttribute("href", "https://github.com/SubaashNair");
     expect(screen.getByRole("heading", { level: 2, name: "Toolkit" })).toBeInTheDocument();
   });
