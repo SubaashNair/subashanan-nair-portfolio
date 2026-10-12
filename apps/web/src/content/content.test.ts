@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { experimentUrl, experiments } from "./experiments";
+import { experimentUrl, experiments, listedExperiments } from "./experiments";
 import { fixtures } from "./fixtures";
 import { profile } from "./profile";
 import { findStudy, neighbours, studies } from "./studies";
@@ -56,12 +56,21 @@ describe("fixtures", () => {
 });
 
 describe("experiments and profile", () => {
-  it("lists 12 tools, each with a description and a GitHub link", () => {
+  it("lists 12 tools, each with a description, and a GitHub link for public ones", () => {
     expect(experiments).toHaveLength(12);
     for (const e of experiments) {
       expect(e.description.length).toBeGreaterThan(0);
-      expect(experimentUrl(e.name)).toBe(`https://github.com/SubaashNair/${e.name}`);
+      if (!e.private) expect(experimentUrl(e.name)).toBe(`https://github.com/SubaashNair/${e.name}`);
     }
+  });
+
+  it("marks the three private repositories", () => {
+    expect(experiments.filter((e) => e.private).map((e) => e.name).sort()).toEqual(["CU5_project_dashboard", "Land-subsidence-Prediction", "matomari"]);
+  });
+
+  it("excludes experiments without a description from the listed set", () => {
+    expect(listedExperiments.every((e) => e.description.trim().length > 0)).toBe(true);
+    expect(listedExperiments).toHaveLength(12);
   });
 
   it("uses the chosen brand name", () => {

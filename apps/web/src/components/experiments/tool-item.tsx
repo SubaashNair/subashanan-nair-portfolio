@@ -9,8 +9,8 @@ export function ToolItem({ experiment }: { experiment: ExperimentRecord }) {
     <li className="tool">
       <Tile spec={mixedTile(experiment.tile)} />
       <div>
-        <h3><a href={experimentUrl(experiment.name)}>{experiment.name}</a></h3>
-        <div className="lang">{experiment.language}, {category}</div>
+        <h3>{experiment.private ? experiment.name : <a href={experimentUrl(experiment.name)}>{experiment.name}</a>}</h3>
+        <div className="lang">{experiment.language}, {category}{experiment.private && ", private repository"}</div>
         <p>{experiment.description}</p>
       </div>
     </li>

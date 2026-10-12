@@ -148,4 +148,5 @@ export interface ExperimentRecord {
   language: string;
   description: string;
   tile: number; // index for mixedTile
+  private?: boolean; // repository is private on GitHub, so it is shown without a link
 }

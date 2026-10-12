@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 import { ToolItem } from "@/components/experiments/tool-item";
-import { experiments } from "@/content/experiments";
+import { listedExperiments } from "@/content/experiments";
 
-const PREVIEW = ["documentation-mcp-server", "matomari", "exam-monitor-app", "pima-diabetes-mlflow"];
+const PREVIEW = ["documentation-mcp-server", "ml-review", "exam-monitor-app", "pima-diabetes-mlflow"];
 
 export function ToolsPreview() {
-  const shown = experiments.filter((e) => PREVIEW.includes(e.name));
+  const shown = listedExperiments.filter((e) => PREVIEW.includes(e.name));
   return (
     <section className="block" aria-labelledby="exp-h" style={{ paddingTop: 0 }}>
       <div className="wrap">
