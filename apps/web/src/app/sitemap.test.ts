@@ -5,13 +5,13 @@ import sitemap from "./sitemap";
 describe("sitemap", () => {
   it("lists every page", () => {
     expect(sitemap().map((e) => e.url)).toEqual([
-      "https://ai-observatory.vercel.app/",
-      "https://ai-observatory.vercel.app/work",
-      "https://ai-observatory.vercel.app/work/penang-pulse",
-      "https://ai-observatory.vercel.app/work/forecasting-lab",
-      "https://ai-observatory.vercel.app/work/llm-eval-lab",
-      "https://ai-observatory.vercel.app/experiments",
-      "https://ai-observatory.vercel.app/about",
+      "https://subashanan-nair.vercel.app/",
+      "https://subashanan-nair.vercel.app/work",
+      "https://subashanan-nair.vercel.app/work/penang-pulse",
+      "https://subashanan-nair.vercel.app/work/forecasting-lab",
+      "https://subashanan-nair.vercel.app/work/llm-eval-lab",
+      "https://subashanan-nair.vercel.app/experiments",
+      "https://subashanan-nair.vercel.app/about",
     ]);
   });
 });

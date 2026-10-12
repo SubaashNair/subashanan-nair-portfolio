@@ -15,7 +15,7 @@ export const profile = {
   githubUrl: "https://github.com/SubaashNair",
   sourceUrl: "https://github.com/SubaashNair/ai-observatory-portfolio",
   discussUrl: "https://github.com/SubaashNair/ai-observatory-portfolio/discussions",
-  siteUrl: "https://ai-observatory.vercel.app",
+  siteUrl: "https://subashanan-nair.vercel.app",
   contact,
   intro:
     "I am a data scientist based in Penang, Malaysia. I like questions that matter locally and answers that hold up when someone else reruns them.",
