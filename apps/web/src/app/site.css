@@ -391,8 +391,8 @@ thead th { border-bottom: 0; padding-bottom: 24px; }
 .study-card + .study-card { margin-left: -2px; }
 .study-card .card-marks { display: grid; grid-template-columns: repeat(2, 1fr); width: 168px; border: 2px solid var(--ink); margin-bottom: 26px; }
 .study-card .card-marks svg { display: block; width: 100%; height: auto; }
-.study-card h2 { margin: 0 0 10px; font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 780; font-size: clamp(32px, 3vw, 42px); line-height: 1; letter-spacing: -0.02em; }
-.study-card h2 a { text-decoration: none; }
+.study-card h2, .study-card h3 { margin: 0 0 10px; font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 780; font-size: clamp(32px, 3vw, 42px); line-height: 1; letter-spacing: -0.02em; }
+.study-card h2 a, .study-card h3 a { text-decoration: none; }
 .study-card .q { margin: 0 0 22px; font-size: 18px; }
 .study-card .key { margin: auto 0 18px; padding-top: 18px; border-top: 2px solid var(--study-a); }
 .study-card .key strong { display: block; font-variation-settings: "opsz" 96, "wdth" 85; font-weight: 780; font-size: 60px; line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
