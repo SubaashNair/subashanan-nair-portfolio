@@ -16,7 +16,7 @@ describe("palette", () => {
   });
 
   it.each([
-    ["ink", "porcelain"], ["inkSoft", "porcelain"], ["inkSoft", "warm"], ["inkSoft", "sky"], ["inkSoft", "roseTint"],
+    ["ink", "porcelain"], ["inkSoft", "porcelain"], ["inkSoft", "warm"], ["inkSoft", "sky"], ["inkSoft", "roseTint"], ["inkSoft", "jadeTint"],
     ["porcelain", "peacock"], ["onPeacock", "peacock"], ["onPeacockSoft", "peacock"], ["onPeacockSoft", "peacockDeep"],
     ["ink", "mustard"],
   ] as const)("text %s on %s is at least 4.5:1", (fg, bg) => {

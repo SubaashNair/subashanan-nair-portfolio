@@ -103,6 +103,42 @@ export const studies: readonly StudyRecord[] = [
     },
     discussNote: "Speak Manglish and disagree with a label? That is exactly the feedback this needs.",
   },
+  {
+    slug: "penang-ai-assistant",
+    title: "Penang AI Assistant",
+    question: "Can a language model answer questions about Penang's economy safely, using only official statistics?",
+    status: "in-progress",
+    plannedAnswer:
+      "This assistant answers plain-language questions about Penang's economy from official OpenDOSM statistics only. Each question becomes read-only SQL against approved views, is checked against a policy and is recorded in an audit log, so every answer can be traced to its source.",
+    figurePlan:
+      "an evaluation of answer accuracy against hand-checked questions, and how often the assistant correctly refuses questions the data cannot answer.",
+    data: "OpenDOSM CPI, inflation and unemployment data, Ollama Cloud (gpt-oss:120b).",
+    tile: { motif: "star", a: "jade", b: "rose", ground: "jadeTint" },
+    tint: "jadeTint",
+    themeClass: "s-assist",
+    sources: [
+      { name: "OpenDOSM", publisher: "Department of Statistics Malaysia", used: "CPI, CPI inflation and quarterly unemployment by state", licence: "CC BY 4.0" },
+      { name: "Ollama Cloud", publisher: "Ollama", used: "gpt-oss:120b to plan each answer and its SQL", licence: "Provider terms" },
+    ],
+    method: [
+      "Fetch CPI, CPI inflation and quarterly unemployment from the OpenDOSM API.",
+      "Validate each file against a column contract, quarantining bad rows with their reasons.",
+      "Load accepted data as a new snapshot, keeping the last good snapshot if a refresh fails.",
+      "Have the model turn each question into SQL, then check it against a policy and run it read-only on approved views.",
+      "Record every question, query and result in an insert-only audit log.",
+    ],
+    limitations: [
+      "A personal prototype, not an official service.",
+      "Covers only CPI, inflation and unemployment so far.",
+      "Answers depend on a single model provider; a second provider is planned.",
+      "Answer accuracy has not been evaluated yet; that is the next milestone.",
+    ],
+    reproduce: {
+      commands: ["uv sync", "docker compose up -d --wait", "uv run python -m ingestion.cli refresh", "uv run uvicorn api.main:app --port 8010"],
+      note: "The code repository is private for now.",
+    },
+    discussNote: "Have a question you think it should answer, or one it should refuse? Suggestions are welcome.",
+  },
 ];
 
 export function findStudy(slug: string): StudyRecord | undefined {

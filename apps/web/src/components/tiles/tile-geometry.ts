@@ -2,7 +2,7 @@ import { palette } from "@/styles/palette";
 
 export type Motif = "flower" | "star" | "diamond" | "petals";
 export type TileColour = "rose" | "mustard" | "jade" | "cobalt" | "peacock";
-export type Ground = "porcelain" | "warm" | "sky" | "roseTint";
+export type Ground = "porcelain" | "warm" | "sky" | "roseTint" | "jadeTint";
 
 export interface TileSpec {
   motif: Motif;

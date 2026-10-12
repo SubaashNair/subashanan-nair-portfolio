@@ -33,13 +33,22 @@ describe("StudyPage", () => {
     expect(screen.getAllByText(/preview with illustrative data/i).length).toBeGreaterThan(0);
   });
 
+  it("shows the new assistant study's plan, pending evidence and no preview in development", () => {
+    const assist = findStudy("penang-ai-assistant")!;
+    const { container } = render(<StudyPage study={assist} results={getStudyResults("penang-ai-assistant", "development")} />);
+    expect(screen.getByText(assist.plannedAnswer)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /the analysis is in progress/i })).toBeInTheDocument();
+    expect(container.querySelectorAll(".num-tile")).toHaveLength(0);
+    expect(screen.queryByText(/preview with illustrative data/i)).not.toBeInTheDocument();
+  });
+
   it("always shows the provenance chapters and wraps the pager", () => {
     render(<StudyPage study={pulse} results={null} />);
     for (const name of ["The answer", "The evidence", "How it was made", "Check it yourself"]) {
       expect(screen.getByRole("heading", { level: 2, name })).toBeInTheDocument();
     }
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /previous study llm eval lab/i })).toHaveAttribute("href", "/work/llm-eval-lab");
+    expect(screen.getByRole("link", { name: /previous study penang ai assistant/i })).toHaveAttribute("href", "/work/penang-ai-assistant");
     expect(screen.getByRole("link", { name: /next study forecasting lab/i })).toHaveAttribute("href", "/work/forecasting-lab");
   });
 });

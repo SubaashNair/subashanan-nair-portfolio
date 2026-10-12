@@ -6,7 +6,7 @@ import { Tile } from "@/components/tiles/tile";
 import { tileMarkup } from "@/components/tiles/tile-geometry";
 import { studies } from "@/content/studies";
 
-export const metadata: Metadata = { title: "Case studies", description: "Three questions, answered with public data." };
+export const metadata: Metadata = { title: "Case studies", description: "Four questions, answered with public data." };
 
 export default function WorkIndex() {
   return (
@@ -16,7 +16,7 @@ export default function WorkIndex() {
           <div className="page-hero">
             <div>
               <h1>Case studies</h1>
-              <p className="lede">Three questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+              <p className="lede">Four questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
             </div>
             <div className="hero-side">
               <div className="marks-row" aria-hidden="true">{studies.map((s) => <Tile key={s.slug} spec={s.tile} />)}</div>

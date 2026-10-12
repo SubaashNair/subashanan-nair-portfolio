@@ -3,7 +3,7 @@ import { forecastFixture } from "./forecasting";
 import { llmEvalFixture } from "./llm-eval";
 import { penangFixture } from "./penang";
 
-export const fixtures: StudyResultsBySlug = {
+export const fixtures: Partial<StudyResultsBySlug> = {
   "penang-pulse": penangFixture,
   "forecasting-lab": forecastFixture,
   "llm-eval-lab": llmEvalFixture,

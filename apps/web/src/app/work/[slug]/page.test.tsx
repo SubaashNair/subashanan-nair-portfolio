@@ -9,8 +9,8 @@ vi.mock("next/navigation", () => ({
 import StudyRoute, { dynamicParams, generateStaticParams } from "./page";
 
 describe("/work/[slug]", () => {
-  it("prerenders exactly the three studies and nothing else", async () => {
-    expect(await generateStaticParams()).toEqual([{ slug: "penang-pulse" }, { slug: "forecasting-lab" }, { slug: "llm-eval-lab" }]);
+  it("prerenders exactly the four studies and nothing else", async () => {
+    expect(await generateStaticParams()).toEqual([{ slug: "penang-pulse" }, { slug: "forecasting-lab" }, { slug: "llm-eval-lab" }, { slug: "penang-ai-assistant" }]);
     expect(dynamicParams).toBe(false);
   });
 

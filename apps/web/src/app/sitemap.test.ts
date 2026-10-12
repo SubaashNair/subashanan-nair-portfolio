@@ -10,6 +10,7 @@ describe("sitemap", () => {
       "https://subashanan-nair.vercel.app/work/penang-pulse",
       "https://subashanan-nair.vercel.app/work/forecasting-lab",
       "https://subashanan-nair.vercel.app/work/llm-eval-lab",
+      "https://subashanan-nair.vercel.app/work/penang-ai-assistant",
       "https://subashanan-nair.vercel.app/experiments",
       "https://subashanan-nair.vercel.app/about",
     ]);

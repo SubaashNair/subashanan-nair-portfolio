@@ -18,9 +18,10 @@ describe("StudyCard", () => {
     expect(flag.compareDocumentPosition(key.querySelector("strong")!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
-  it("shows no key number without results", () => {
+  it("shows a pending line and no key number without results", () => {
     const { container } = render(<StudyCard study={pulse} results={null} headingLevel={3} />);
-    expect(container.querySelector(".key")).toBeNull();
+    expect(container.querySelector(".key.pending")).toHaveTextContent("Results appear here once the analysis is published.");
+    expect(container.querySelector(".key strong")).toBeNull();
     expect(screen.queryByText("Illustrative preview")).not.toBeInTheDocument();
   });
 });

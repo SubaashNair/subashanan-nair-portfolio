@@ -291,6 +291,7 @@ footer.site { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: sp
 .s-pulse { --study-a: var(--mustard); --study-b: var(--jade); --study-ground: var(--warm); --study-deep: var(--mustard-deep); --on-a: var(--ink); --on-b: var(--ink); }
 .s-forecast { --study-a: var(--cobalt); --study-b: var(--mustard); --study-ground: var(--sky); --study-deep: var(--cobalt); --on-a: var(--porcelain); --on-b: var(--ink); }
 .s-llm { --study-a: var(--rose); --study-b: var(--cobalt); --study-ground: var(--rose-tint); --study-deep: var(--rose-deep); --on-a: var(--ink); --on-b: var(--porcelain); }
+.s-assist { --study-a: var(--jade); --study-b: var(--rose); --study-ground: var(--jade-tint); --study-deep: var(--jade-deep); --on-a: var(--ink); --on-b: var(--ink); }
 .study-page :focus-visible { outline-color: var(--study-deep); }
 .study-page .top :focus-visible, .chapter.dark :focus-visible, .chapter.deep :focus-visible, .study-page .about-band :focus-visible { outline-color: var(--mustard); }
 .chapter.dark .tile-frame :focus-visible, .chapter.deep .tile-frame:focus-visible { outline-color: var(--study-deep, var(--cobalt)); }
@@ -385,10 +386,10 @@ thead th { border-bottom: 0; padding-bottom: 24px; }
 .pager .tile-frame { background-color: var(--study-ground); color: var(--ink); }
 .pager .tile-frame:hover b { text-decoration: underline; }
 
-/* Work index: the three studies as one tile run */
-.tile-run { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Work index: the studies as one tile run */
+.tile-run { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .study-card { background-color: var(--study-ground); display: flex; flex-direction: column; padding: 40px 36px 36px; }
-.study-card + .study-card { margin-left: -2px; }
+.study-card { margin: 0 -2px -2px 0; }
 .study-card .card-marks { display: grid; grid-template-columns: repeat(2, 1fr); width: 168px; border: 2px solid var(--ink); margin-bottom: 26px; }
 .study-card .card-marks svg { display: block; width: 100%; height: auto; }
 .study-card h2, .study-card h3 { margin: 0 0 10px; font-variation-settings: "opsz" 48, "wdth" 85; font-weight: 780; font-size: clamp(32px, 3vw, 42px); line-height: 1; letter-spacing: -0.02em; }
@@ -396,6 +397,7 @@ thead th { border-bottom: 0; padding-bottom: 24px; }
 .study-card .q { margin: 0 0 22px; font-size: 18px; }
 .study-card .key { margin: auto 0 18px; padding-top: 18px; border-top: 2px solid var(--study-a); }
 .study-card .key strong { display: block; font-variation-settings: "opsz" 96, "wdth" 85; font-weight: 780; font-size: 60px; line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
+.study-card .key.pending { font-size: 16px; color: var(--ink-soft); }
 .study-card .data { font-size: 15px; color: var(--ink-soft); margin: 0 0 22px; }
 .study-card .btn { align-self: flex-start; }
 
@@ -403,7 +405,8 @@ thead th { border-bottom: 0; padding-bottom: 24px; }
   .chapter { padding: 56px 0 64px; }
   .num-run, .tile-run, .examples { grid-template-columns: 1fr; }
   .num-tile, .study-card, .examples .tile-frame { aspect-ratio: auto; }
-  .num-tile + .num-tile, .study-card + .study-card, .examples .tile-frame + .tile-frame { margin-left: 0; margin-top: -2px; }
+  .num-tile + .num-tile, .examples .tile-frame + .tile-frame { margin-left: 0; margin-top: -2px; }
+  .study-card { margin: 0 0 -2px 0; }
   .check-grid { grid-template-columns: 1fr; gap: 40px; }
   .steps { grid-template-columns: 1fr; }
   .steps::before { top: 0; bottom: 0; left: 0; right: auto; width: 64px; height: auto; border: 2px solid var(--ink); }

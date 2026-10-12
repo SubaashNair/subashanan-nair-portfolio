@@ -12,6 +12,7 @@ export const palette = {
   warm: "#f7e7d0",
   sky: "#e3eef4",
   roseTint: "#fbeef1",
+  jadeTint: "#e3f1ec",
   onPeacock: "#d6e4e1",
   onPeacockSoft: "#b9cfca",
   // Deeper glazes for chart lines and marks; the light colours above stay for fills.

@@ -25,4 +25,9 @@ describe("getStudyResults", () => {
     expect(loaded?.data.tasks).toHaveLength(3);
     expect(getStudyResults("llm-eval-lab", "test")?.preview).toBe(true);
   });
+
+  it("returns nothing for a study with no published result and no fixture, even in development", () => {
+    expect(getStudyResults("penang-ai-assistant", "development")).toBeNull();
+    expect(getStudyResults("penang-ai-assistant", "test")).toBeNull();
+  });
 });

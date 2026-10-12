@@ -9,7 +9,7 @@ export interface LoadedResults<S extends StudySlug> {
 
 /**
  * The only place that decides what a study may show.
- * Published results always win. Illustrative fixtures fill the gap only in development and test, and are flagged as a preview.
+ * Published results always win. Illustrative fixtures fill the gap only in development and test, and are flagged as a preview. A study with no fixture shows nothing.
  * Any other environment (production, staging, undefined) fails closed: with nothing published the answer is null and pages show their planned state.
  * Pages call this at build time on the server; fixture data reaches the browser only in development.
  */
@@ -17,5 +17,6 @@ export function getStudyResults<S extends StudySlug>(slug: S, env: string | unde
   const real = published[slug];
   if (real) return { data: real, preview: false };
   if (env !== "development" && env !== "test") return null;
-  return { data: fixtures[slug], preview: true };
+  const fixture = fixtures[slug];
+  return fixture ? { data: fixture, preview: true } : null;
 }

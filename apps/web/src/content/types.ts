@@ -1,8 +1,8 @@
 import type { Ground, TileSpec } from "@/components/tiles/tile-geometry";
 
-export type StudySlug = "penang-pulse" | "forecasting-lab" | "llm-eval-lab";
+export type StudySlug = "penang-pulse" | "forecasting-lab" | "llm-eval-lab" | "penang-ai-assistant";
 export type StudyStatus = "published" | "in-progress" | "planned";
-export type ThemeClass = "s-pulse" | "s-forecast" | "s-llm";
+export type ThemeClass = "s-pulse" | "s-forecast" | "s-llm" | "s-assist";
 
 export interface Source {
   name: string;
@@ -105,6 +105,8 @@ export interface ForecastResults extends BaseResults {
   sensors: readonly SensorSeries[];
 }
 
+export type AssistantResults = BaseResults;
+
 export type ModelRole = "frontier" | "ft" | "open" | "base";
 export interface EvalRow {
   model: string;
@@ -139,6 +141,7 @@ export interface StudyResultsBySlug {
   "penang-pulse": PenangResults;
   "forecasting-lab": ForecastResults;
   "llm-eval-lab": LlmEvalResults;
+  "penang-ai-assistant": AssistantResults;
 }
 
 export type ExperimentCategory = "agents" | "libraries" | "apps" | "ml";

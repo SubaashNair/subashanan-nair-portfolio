@@ -11,7 +11,7 @@ export default function Home() {
         <section className="block" aria-labelledby="work-h">
           <div className="wrap">
             <h2 id="work-h">Case studies</h2>
-            <p className="intro">Three questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
+            <p className="intro">Four questions, answered with public data. Each one links its sources, code, model versions and known limits.</p>
             <StudyRun headingLevel={3} />
           </div>
         </section>
