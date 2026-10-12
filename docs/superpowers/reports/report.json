@@ -1,0 +1,188 @@
+{
+  "report": {
+    "title": "Repository-wide Codebase Review",
+    "repository": "/Users/subashanannair/conductor/workspaces/ai-observatory-portfolio/daegu",
+    "date": "2026-08-28",
+    "branch": "codebase-review-plan",
+    "primary_languages": ["TypeScript", "JavaScript", "CSS"],
+    "generated_at": "2026-08-28T02:59:00Z"
+  },
+  "executive_summary": {
+    "health": "Early-stage, well-structured monorepo; only Task 1 of 7 implemented",
+    "highlights": [
+      "Clean, idiomatic Next.js App Router code with strong accessibility practices",
+      "Lint, typecheck, and unit tests all pass",
+      "No hard-coded secrets found"
+    ],
+    "primary_concern": "6 high-severity dependency vulnerabilities, including a direct next@16.2.10 dependency"
+  },
+  "security_findings": {
+    "critical": [],
+    "high": [
+      {
+        "file": "apps/web/package.json:16",
+        "package": "next",
+        "version": "16.2.10",
+        "direct": true,
+        "advisories": [
+          "GHSA-6gpp-xcg3-4w24",
+          "GHSA-m99w-x7hq-7vfj",
+          "GHSA-89xv-2m56-2m9x",
+          "GHSA-68g3-v927-f742",
+          "GHSA-4633-3j49-mh5q",
+          "GHSA-4c39-4ccg-62r3",
+          "GHSA-p9j2-gv94-2wf4",
+          "GHSA-q8wf-6r8g-63ch",
+          "GHSA-955p-x3mx-jcvp"
+        ],
+        "fix": "next@16.3.3 (npm audit fix --force)"
+      },
+      {
+        "file": "package-lock.json",
+        "package": "postcss",
+        "version": "<=8.5.22",
+        "direct": false,
+        "advisories": ["GHSA-qx2v-qp2m-jg93", "GHSA-6g55-p6wh-862q", "GHSA-fxqj-rqcc-2cmp", "GHSA-r28c-9q8g-f849"]
+      },
+      {
+        "file": "package-lock.json",
+        "package": "sharp",
+        "version": "<0.35.0",
+        "direct": false,
+        "advisories": ["GHSA-f88m-g3jw-g9cj"]
+      },
+      {
+        "file": "package-lock.json",
+        "package": "brace-expansion",
+        "version": "<=1.1.17 || 4.0.0-5.0.8",
+        "direct": false,
+        "advisories": ["GHSA-mh99-v99m-4gvg", "GHSA-rgw5-rvv9-x895"]
+      },
+      {
+        "file": "package-lock.json",
+        "package": "js-yaml",
+        "version": "4.0.0-4.3.0",
+        "direct": false,
+        "advisories": ["GHSA-5p4m-2wfm-xmqj"]
+      },
+      {
+        "file": "package-lock.json",
+        "package": "nanoid",
+        "version": "<3.3.18",
+        "direct": false,
+        "advisories": ["GHSA-2v37-7h3g-55p8"]
+      }
+    ],
+    "medium": [],
+    "low": [],
+    "secrets": {
+      "found": false,
+      "details": "No hard-coded secrets in tracked source or git history; only false positives in package-lock.json and docs."
+    }
+  },
+  "redundant_incomplete": {
+    "dead_code": [],
+    "duplicate_unused_files": [
+      "apps/web/tsconfig.tsbuildinfo (gitignored build cache)",
+      "apps/web/.next/** (gitignored build output)"
+    ],
+    "incomplete_markers": [
+      "apps/web/next-env.d.ts:5 (NOTE: generated file, benign)",
+      "docs/superpowers/plans/2026-07-17-ai-observatory-implementation.md (Tasks 2-7 unchecked)"
+    ],
+    "missing_planned_files": [
+      "analysis/ (Python workspace)",
+      ".github/workflows/ci.yml",
+      ".github/workflows/refresh-data.yml",
+      "apps/web/vercel.json",
+      "apps/web/playwright.config.ts",
+      "apps/web/public/robots.txt"
+    ]
+  },
+  "solid_evaluation": [
+    {
+      "component": "RootLayout (apps/web/src/app/layout.tsx)",
+      "satisfied": ["Single Responsibility"],
+      "violations": []
+    },
+    {
+      "component": "SiteHeader (apps/web/src/components/shell/site-header.tsx)",
+      "satisfied": ["Single Responsibility", "Open-Closed"],
+      "violations": []
+    },
+    {
+      "component": "SiteFooter (apps/web/src/components/shell/site-footer.tsx)",
+      "satisfied": ["Single Responsibility"],
+      "violations": []
+    },
+    {
+      "component": "Home (apps/web/src/app/page.tsx)",
+      "satisfied": [],
+      "violations": [
+        {
+          "principle": "Single Responsibility",
+          "suggestion": "Extract Hero, StudyCard, and SignalsSection into src/components/ subcomponents"
+        }
+      ]
+    },
+    {
+      "component": "globals.css (apps/web/src/app/globals.css)",
+      "satisfied": [],
+      "violations": [
+        {
+          "principle": "Single Responsibility",
+          "suggestion": "Split into CSS modules or co-located component styles"
+        }
+      ]
+    }
+  ],
+  "recommendations": {
+    "critical": [
+      "Patch next from 16.2.10 to 16.3.3 to resolve 9 high-severity advisories",
+      "Run npm audit fix to remediate 5 transitive high-severity advisories"
+    ],
+    "high": [
+      "Add GitHub Actions CI (lint, typecheck, test, build)",
+      "Add npm audit gate and Dependabot/Renovate to CI",
+      "Complete implementation tasks 2-7 (typed contracts, scene, pipelines, E2E)",
+      "Add Playwright end-to-end tests"
+    ],
+    "medium": [
+      "Decompose Home into Hero, StudyCard, and SignalsSection subcomponents",
+      "Modularize globals.css into CSS modules",
+      "Add robots.txt, sitemap, and Open Graph metadata",
+      "Add CONTRIBUTING.md and expand README"
+    ],
+    "low": [
+      "Enable stricter @typescript-eslint rules",
+      "Add Vercel Analytics / Web Vitals observability",
+      "Add pre-commit hook for lint and typecheck"
+    ]
+  },
+  "prioritized_remediation": [
+    {
+      "priority": "Critical",
+      "actions": ["Patch next to 16.3.3", "Run npm audit fix"]
+    },
+    {
+      "priority": "High",
+      "actions": ["Add CI workflow", "Enable Dependabot", "Complete typed contracts and Python workspace"]
+    },
+    {
+      "priority": "Medium",
+      "actions": ["Decompose Home and globals.css", "Add robots.txt/sitemap/OG", "Add CONTRIBUTING.md"]
+    },
+    {
+      "priority": "Low",
+      "actions": ["Clear remaining plan tasks", "Enrich docs", "Adopt optional lint rules and pre-commit hooks"]
+    }
+  ],
+  "tooling": [
+    { "tool": "npm audit", "version": "npm 11.12.1", "command": "npm audit", "result": "6 high, 0 critical" },
+    { "tool": "ESLint", "version": "9.39.5", "command": "npm run lint", "result": "clean" },
+    { "tool": "TypeScript", "version": "5.9.3", "command": "npm run typecheck", "result": "clean" },
+    { "tool": "Vitest", "version": "4.1.10", "command": "npm test", "result": "2 passed" },
+    { "tool": "Ripgrep", "version": "n/a", "command": "secret + marker regex search", "result": "no secrets, no source markers" },
+    { "tool": "git", "version": "n/a", "command": "git ls-files / git log --all / git check-ignore", "result": "inventory + history scan" }
+  ]
+}

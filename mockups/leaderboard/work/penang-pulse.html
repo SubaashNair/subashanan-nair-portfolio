@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penang Pulse, Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="site">
+    <a class="wordmark" href="../index.html">Subaash Nair</a>
+    <nav class="primary" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a><a href="../experiments.html">Experiments</a><a href="../about.html">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="study-head">
+      <div>
+        <p class="crumb"><a href="index.html">Case studies</a></p>
+        <h1>Penang Pulse</h1>
+        <p class="question">How evenly are clinics, schools and transit stops spread across Penang?</p>
+        <span class="pill">In progress</span>
+      </div>
+      <div class="answer">
+        <h2>Short answer</h2>
+        <p>Most residents of Timur Laut live within a kilometre of a public clinic. In Seberang Perai Selatan, about 1 in 5 live more than 3 km away, and the gap is widest for clinics rather than schools.</p>
+      </div>
+    </div>
+
+    <div class="figure-block">
+      <section class="panel" aria-labelledby="fig-h" data-pulse>
+        <h2 id="fig-h">How far is the nearest public clinic?</h2>
+        <p class="sub">Share of residents by road distance to the nearest public clinic, by district. Pick a district in the table or on the map.</p>
+        <div class="split map-first">
+          <figure style="margin:0">
+            <div class="toggles" role="group" aria-label="Show service types on the map" style="margin-bottom:14px">
+              <button type="button" aria-pressed="true" data-key="clinic"><span class="sw"><svg viewBox="0 0 22 12" aria-hidden="true"><circle cx="11" cy="6" r="5" fill="var(--blue)"/></svg></span>Clinics</button>
+              <button type="button" aria-pressed="true" data-key="school"><span class="sw"><svg viewBox="0 0 22 12" aria-hidden="true"><rect x="7" y="2" width="8" height="8" fill="#fff" stroke="var(--slate)" stroke-width="1.5"/></svg></span>Schools</button>
+              <button type="button" aria-pressed="true" data-key="transit"><span class="sw"><svg viewBox="0 0 22 12" aria-hidden="true"><path d="M11 0.5L16.5 6L11 11.5L5.5 6Z" fill="var(--ink)"/></svg></span>Transit stops</button>
+            </div>
+            <svg class="map" viewBox="0 0 600 500" role="img" aria-labelledby="map-title map-desc">
+              <title id="map-title">Schematic map of Penang by district</title>
+              <desc id="map-desc">Penang Island (Timur Laut and Barat Daya) and Seberang Perai (Utara, Tengah and Selatan), shaded by the share of residents living over 3 km from a public clinic, with service points plotted. The same numbers are in the table.</desc>
+              <defs>
+                <path id="mainland" d="M380 0 L600 0 L600 500 L395 500 C400 470 385 440 392 410 C398 380 385 350 390 320 C395 290 378 260 385 230 C390 200 375 170 382 140 C388 110 372 80 378 50 C380 30 378 15 380 0 Z"/>
+                <path id="island" d="M95 120 C130 95 175 100 205 105 C235 110 255 100 280 115 C300 125 318 140 322 160 C326 185 312 205 318 230 C324 260 315 290 322 320 C330 345 318 370 300 395 C285 415 262 432 240 438 C210 445 180 430 160 420 C130 405 110 385 100 360 C85 330 78 300 80 270 C82 240 70 210 75 180 C78 155 82 135 95 120 Z"/>
+                <clipPath id="clip-island"><use href="#island"/></clipPath>
+                <clipPath id="clip-main"><use href="#mainland"/></clipPath>
+              </defs>
+              <rect width="600" height="500" fill="var(--sea)"/>
+              <use href="#mainland" fill="#fff"/>
+              <use href="#island" fill="#fff"/>
+              <g clip-path="url(#clip-island)">
+                <polygon class="district" data-key="bd" data-land="#island" points="40,60 150,60 160,110 180,170 205,230 240,282 290,318 345,328 345,470 40,470"/>
+                <polygon class="district" data-key="tl" data-land="#island" points="150,60 345,60 345,328 290,318 240,282 205,230 180,170 160,110"/>
+              </g>
+              <g clip-path="url(#clip-main)">
+                <polygon class="district" data-key="spu" data-land="#mainland" points="360,0 600,0 600,178 360,178"/>
+                <polygon class="district" data-key="spt" data-land="#mainland" points="360,178 600,178 600,338 360,338"/>
+                <polygon class="district" data-key="sps" data-land="#mainland" points="360,338 600,338 600,500 360,500"/>
+              </g>
+              <use class="coast" href="#island"/>
+              <use class="coast" href="#mainland"/>
+              <line x1="322" y1="300" x2="390" y2="290" stroke="var(--ink)" stroke-width="2"/>
+              <line x1="303" y1="398" x2="393" y2="430" stroke="var(--ink)" stroke-width="2"/>
+              <g id="points"></g>
+              <text x="200" y="150">George Town</text>
+              <text x="92" y="268">Balik Pulau</text>
+              <text x="190" y="408">Bayan Lepas</text>
+              <text x="398" y="122">Butterworth</text>
+              <text x="398" y="262">Bukit Mertajam</text>
+              <text x="410" y="476">Nibong Tebal</text>
+            </svg>
+            <div class="ramp"><span class="bar" aria-hidden="true"></span><span>Shading: share living over 3 km from a clinic, 4% to 21%</span></div>
+            <p class="fig-caption pt-count" aria-live="polite"></p>
+          </figure>
+          <div>
+            <div class="key" aria-hidden="true"><span><i class="b1"></i>Under 1 km</span><span><i class="b2"></i>1 to 3 km</span><span><i class="b3"></i>Over 3 km</span></div>
+            <div class="table-wrap">
+              <table class="board dist">
+                <thead><tr><th scope="col">District</th><th scope="col">Distance to nearest clinic</th><th scope="col" class="num">Over 3 km (95% CI)</th><th scope="col" class="num hide-xs">Residents</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="readout" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="foot"><span>Road distance from population-weighted mukim centroids. Census 2020 population.</span><a href="#method">How this was measured</a></div>
+      </section>
+    </div>
+
+    <section class="part" aria-labelledby="key-h">
+      <h2 id="key-h">Key numbers</h2>
+      <div class="keynums">
+        <div><strong>21%</strong><p>of Seberang Perai Selatan residents live over 3 km from a public clinic.</p><span class="ci">95% interval 18 to 24%</span></div>
+        <div><strong>412</strong><p>public service points mapped: clinics, schools and transit stops.</p><span class="ci">Public facilities only, private clinics excluded</span></div>
+        <div><strong>5</strong><p>districts compared on the same distance bands.</p><span class="ci">Mukim centroids hide variation inside each district</span></div>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="src-h">
+      <h2 id="src-h">Data sources</h2>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th scope="col">Source</th><th scope="col">Publisher</th><th scope="col">What we used</th><th scope="col">Licence</th><th scope="col">Retrieved</th></tr></thead>
+          <tbody>
+            <tr><td>PeGIS facility layers</td><td>Penang state GIS portal</td><td>Locations of public clinics, schools and transit stops</td><td class="nw">CC BY 4.0</td><td class="nw">2026-09-28</td></tr>
+            <tr><td>Census 2020 population by mukim</td><td>DOSM</td><td>Resident counts and mukim boundaries</td><td>Open government licence</td><td class="nw">2026-09-28</td></tr>
+            <tr><td>Road network</td><td>OpenStreetMap</td><td>Drivable and walkable roads for network distance</td><td class="nw">ODbL</td><td class="nw">2026-09-29</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="part" id="method" aria-labelledby="method-h">
+      <h2 id="method-h">Method</h2>
+      <ol class="steps">
+        <li>Collect public clinic, school and transit stop points from the PeGIS layers.</li>
+        <li>Join each mukim to its Census 2020 population.</li>
+        <li>Compute road network distance from each population-weighted mukim centroid to the nearest facility of each type.</li>
+        <li>Band the distances into under 1 km, 1 to 3 km and over 3 km, and sum residents per band and district.</li>
+        <li>Bootstrap mukims within each district to get 95% intervals.</li>
+      </ol>
+    </section>
+
+    <section class="part" aria-labelledby="lim-h">
+      <h2 id="lim-h">Limitations</h2>
+      <ul class="limits">
+        <li>Mukim centroids hide variation within each mukim, so people at the edges may be further away than shown.</li>
+        <li>Private clinics are excluded, so the gap overstates distance to any clinic.</li>
+        <li>OpenStreetMap road coverage is thinner in rural Seberang Perai, which can stretch distances there.</li>
+        <li>The 2020 census population is six years old.</li>
+      </ul>
+    </section>
+
+    <section class="part" aria-labelledby="rep-h">
+      <h2 id="rep-h">Reproduce</h2>
+      <div>
+        <pre class="code"><code>uv sync
+uv run python -m analysis.penang.build --from-cache
+npm run dev</code></pre>
+        <dl class="meta">
+          <dt>Commit</dt><dd>a1c9e04</dd>
+          <dt>Manifest</dt><dd>manifest.json</dd>
+          <dt>Python</dt><dd>3.12</dd>
+          <dt>Last run</dt><dd>2026-10-01</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="disc-h">
+      <h2 id="disc-h">Discuss</h2>
+      <p><a href="https://github.com/SubaashNair/ai-observatory-portfolio/discussions">Discuss this study on GitHub</a>. Corrections and better data sources are welcome.</p>
+    </section>
+
+    <nav class="pager" aria-label="More case studies">
+      <a href="index.html"><span>Back to</span><strong>All case studies</strong></a>
+      <a class="next" href="forecasting-lab.html"><span>Next study</span><strong>Forecasting Lab</strong></a>
+    </nav>
+  </main>
+
+  <footer class="site"><span>Subaash Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer>
+</div>
+<div class="mock-note">Prototype: Leaderboard. All figures and map points are illustrative.</div>
+<script src="../app.js"></script>
+</body>
+</html>

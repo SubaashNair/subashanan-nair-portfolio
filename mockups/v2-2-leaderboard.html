@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup 2 · Leaderboard · Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #f5f6f8;
+    --panel: #ffffff;
+    --ink: #0f1729;
+    --slate: #5b6578;
+    --rule: #d9dde5;
+    --blue: #2f54eb;
+    --marker: #ffe45c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--ink);
+    font: 17px/1.55 "IBM Plex Sans", system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  header.site { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .wordmark { font-family: "IBM Plex Sans Condensed"; font-weight: 700; font-size: 21px; text-decoration: none; }
+  nav.primary { display: flex; gap: 24px; font-size: 15px; }
+  nav.primary a { text-decoration: none; }
+  nav.primary a:hover { text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 5px; text-decoration-thickness: 2px; }
+
+  .hero { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; padding: 48px 0 96px; }
+  .hero h1 { font-family: "IBM Plex Sans Condensed"; font-weight: 700; font-size: clamp(48px, 6vw, 84px); line-height: .95; letter-spacing: -0.02em; margin: 0 0 22px; }
+  .hero .lede { font-size: 20px; line-height: 1.5; max-width: 32ch; margin: 0 0 30px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 12px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .btn.primary { background: var(--ink); color: #fff; }
+  .btn.primary:hover { background: var(--blue); }
+  .btn.quiet { border: 1.5px solid var(--rule); background: var(--panel); }
+  .btn.quiet:hover { border-color: var(--ink); }
+
+  /* Results panel */
+  .panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 28px 28px 22px; box-shadow: 0 24px 48px -28px rgba(15,23,41,.28); }
+  .panel h2 { font-family: "IBM Plex Sans Condensed"; font-size: 26px; font-weight: 600; margin: 0 0 4px; line-height: 1.15; }
+  .panel .sub { color: var(--slate); font-size: 15px; margin: 0 0 18px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+  .tabs button { font: inherit; font-size: 14.5px; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--rule); background: var(--page); color: var(--ink); cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  table.board { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .board th { text-align: left; font-weight: 500; color: var(--slate); font-size: 13.5px; padding: 0 10px 8px 0; border-bottom: 1px solid var(--rule); }
+  .board td { padding: 12px 10px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  .board tr:last-child td { border-bottom: 0; }
+  .board .num { text-align: right; white-space: nowrap; }
+  .board .model { white-space: nowrap; }
+  .board .best .model span { background: linear-gradient(transparent 52%, var(--marker) 52%); padding: 0 2px; }
+  .plot { width: 42%; min-width: 140px; }
+  .plot svg { display: block; width: 100%; height: 22px; overflow: visible; }
+  .plot .ci, .plot .dot { transition: transform .45s cubic-bezier(.2,.7,.2,1), width .45s cubic-bezier(.2,.7,.2,1); }
+  .panel .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 14px; font-size: 13.5px; color: var(--slate); }
+
+  /* Sections */
+  section.block { padding: 88px 0; border-top: 1px solid var(--rule); }
+  .block h2.h { font-family: "IBM Plex Sans Condensed"; font-weight: 700; font-size: clamp(34px, 4vw, 48px); letter-spacing: -0.01em; line-height: 1; margin: 0 0 14px; }
+  .block p.intro { color: var(--slate); max-width: 60ch; margin: 0 0 40px; font-size: 18px; }
+
+  table.studies { width: 100%; border-collapse: collapse; }
+  .studies th { text-align: left; font-weight: 500; font-size: 14px; color: var(--slate); padding: 0 20px 12px 0; border-bottom: 2px solid var(--ink); }
+  .studies td { padding: 24px 20px 24px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .studies .name { font-family: "IBM Plex Sans Condensed"; font-weight: 700; font-size: 26px; line-height: 1.1; white-space: nowrap; }
+  .studies .name a { text-decoration: none; }
+  .studies .name a:hover { color: var(--blue); }
+  .studies .result strong { display: block; font-size: 22px; font-family: "IBM Plex Sans Condensed"; font-weight: 600; }
+  .studies .result span { color: var(--slate); font-size: 14.5px; }
+  .pill { display: inline-block; font-size: 13px; padding: 2px 10px; border-radius: 999px; background: #e8edff; color: #1d3bb8; white-space: nowrap; }
+  .pill.plan { background: #eef0f3; color: var(--slate); }
+
+  .tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; }
+  .tool { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .tool h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  .tool h3 a { text-decoration: none; }
+  .tool h3 a:hover { color: var(--blue); }
+  .tool .lang { font-size: 13.5px; color: var(--slate); text-align: right; }
+  .tool p { margin: 0; grid-column: 1 / -1; color: var(--slate); font-size: 15.5px; max-width: 54ch; }
+
+  .about { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; }
+  .about p { margin: 0 0 16px; font-size: 18px; max-width: 58ch; }
+
+  footer.site { display: flex; justify-content: space-between; padding: 28px 0 48px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--slate); }
+
+  .mock-note { position: fixed; right: 14px; bottom: 14px; z-index: 10; background: var(--ink); color: #fff; font: 12.5px/1.3 system-ui, sans-serif; padding: 8px 12px; border-radius: 6px; }
+
+  @media (max-width: 900px) {
+    .hero, .about { grid-template-columns: 1fr; gap: 36px; }
+    .tools { grid-template-columns: 1fr; }
+    .wrap { padding: 0 18px; }
+    .panel { padding: 20px 16px 16px; }
+    .board .hide-sm { display: none; }
+    nav.primary { gap: 14px; font-size: 14px; }
+    .studies thead { display: none; }
+    .studies, .studies tbody, .studies tr, .studies td { display: block; }
+    .studies tr { padding: 20px 0; border-bottom: 1px solid var(--rule); }
+    .studies td { border: 0; padding: 4px 0; }
+    .mock-note { position: static; display: block; margin: 0 18px 18px; }
+  }
+  @media (max-width: 420px) { nav.primary a.gh { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .plot .ci, .plot .dot { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="wordmark" href="#">Subaash Nair</a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#work">Work</a><a href="#experiments">Experiments</a><a href="#about">About</a><a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Subaash Nair</h1>
+        <p class="lede">Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.</p>
+        <div class="actions">
+          <a class="btn primary" href="#work">Read the case studies</a>
+          <a class="btn quiet" href="#about">Get in touch</a>
+        </div>
+      </div>
+
+      <section class="panel" aria-labelledby="board-h">
+        <h2 id="board-h">Which model reads Malaysian text best?</h2>
+        <p class="sub">From the LLM Eval Lab. Pick a task to compare four models.</p>
+        <div class="tabs" role="tablist" aria-label="Task">
+          <button role="tab" aria-selected="true" data-task="sent">Manglish sentiment</button>
+          <button role="tab" aria-selected="false" data-task="ner">BM entity extraction</button>
+          <button role="tab" aria-selected="false" data-task="sum">BM summaries</button>
+        </div>
+        <table class="board">
+          <thead><tr><th>Model</th><th class="plot"><span id="metric">Accuracy</span>, 50 to 100</th><th class="num">Score (95% CI)</th><th class="num hide-sm">Cost / 1k</th><th class="num hide-sm">Latency</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="foot"><span>Prompts v3, 1,200 labelled items, seed 42</span><a href="#">See the method and data</a></div>
+      </section>
+    </div>
+
+    <section class="block" id="work" aria-labelledby="work-h">
+      <h2 class="h" id="work-h">Case studies</h2>
+      <p class="intro">Three questions about Malaysia, answered with public data. Every result links its sources, code, model versions and known limits.</p>
+      <table class="studies">
+        <thead><tr><th>Study</th><th>Question</th><th>Data</th><th>Result so far</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="name"><a href="#">Penang Pulse</a></td>
+            <td>How evenly are clinics, schools and transit stops spread across Penang?</td>
+            <td>PeGIS, DOSM, OpenStreetMap</td>
+            <td class="result"><strong>1 in 5</strong><span>residents of Seberang Perai Selatan live over 3 km from a public clinic</span></td>
+            <td><span class="pill">In progress</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="#">Forecasting Lab</a></td>
+            <td>Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</td>
+            <td>UCI dataset 608</td>
+            <td class="result"><strong>18% lower error</strong><span>for Chronos against the seasonal baseline at a two-hour horizon</span></td>
+            <td><span class="pill">In progress</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="#">LLM Eval Lab</a></td>
+            <td>How well do small and frontier models handle Bahasa Malaysia and Manglish?</td>
+            <td>Hand-labelled BM and Manglish sets</td>
+            <td class="result"><strong>1/50th the cost</strong><span>for a fine-tuned 1B model within 3 points of the frontier model</span></td>
+            <td><span class="pill plan">Planned</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block" id="experiments" aria-labelledby="exp-h">
+      <h2 class="h" id="exp-h">Tools and experiments</h2>
+      <p class="intro">Smaller things I have shipped: libraries, agents and apps. All open source.</p>
+      <div class="tools">
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><span class="lang">JavaScript</span><p>An MCP server that gives coding agents up-to-date library documentation.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><span class="lang">macOS</span><p>A file explorer with an agent inside, ranking files by how you actually use them.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><span class="lang">Go</span><p>Live classroom exam monitoring over LAN, with lock-all and an audit export.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><span class="lang">Python</span><p>Train, register, serve and ship a classifier with MLflow, Docker and Streamlit.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><span class="lang">Python</span><p>Forecasts land subsidence across the Klang Valley from geospatial data.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/ml-review">ml-review</a></h3><span class="lang">Python</span><p>Extended evaluation metrics for scikit-learn models.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></h3><span class="lang">Python</span><p>Reinforcement learning optimisation experiments.</p></div>
+        <div class="tool"><h3><a href="https://github.com/SubaashNair/StatClean">StatClean</a></h3><span class="lang">Python</span><p>Statistical data cleaning and outlier handling.</p></div>
+      </div>
+    </section>
+
+    <section class="block about" id="about" aria-labelledby="about-h">
+      <h2 class="h" id="about-h">About</h2>
+      <div>
+        <p>I am a data scientist based in Penang, Malaysia. I care about questions that matter locally, and about numbers that come with their uncertainty attached.</p>
+        <p>I am open to data science and ML engineering roles, and to collaborations on Malaysian open data.</p>
+        <div class="actions"><a class="btn primary" href="#">Email me</a><a class="btn quiet" href="#">LinkedIn</a><a class="btn quiet" href="#">Download CV</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site"><span>Subaash Nair, Penang</span><a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a></footer>
+</div>
+<div class="mock-note">Mockup 2 of 3: Leaderboard. All figures are illustrative.</div>
+
+<script>
+  const MIN = 50, MAX = 100;
+  // [model, score, ci low, ci high, cost per 1k items, median latency]
+  const tasks = {
+    sent: { metric: "Accuracy", rows: [
+      ["Frontier model", 87, 84, 90, "$2.10", "900 ms"],
+      ["Fine-tuned 1B", 84, 81, 87, "$0.04", "38 ms"],
+      ["Open 8B, zero-shot", 79, 75, 83, "$0.12", "210 ms"],
+      ["TF-IDF + logistic", 71, 67, 75, "<$0.01", "1 ms"]]},
+    ner: { metric: "F1", rows: [
+      ["Frontier model", 83, 80, 86, "$2.40", "1.1 s"],
+      ["Fine-tuned 1B", 78, 74, 81, "$0.05", "45 ms"],
+      ["Open 8B, zero-shot", 70, 66, 74, "$0.14", "260 ms"],
+      ["CRF baseline", 62, 58, 66, "<$0.01", "3 ms"]]},
+    sum: { metric: "Faithfulness", rows: [
+      ["Frontier model", 82, 79, 85, "$4.80", "2.4 s"],
+      ["Open 8B, zero-shot", 71, 67, 75, "$0.30", "640 ms"],
+      ["Fine-tuned 1B", 66, 62, 70, "$0.09", "120 ms"],
+      ["Extractive baseline", 58, 54, 62, "<$0.01", "5 ms"]]}
+  };
+  const pct = v => ((v - MIN) / (MAX - MIN)) * 100;
+  const tbody = document.getElementById("rows");
+  // Four stable rows, so switching tasks slides the marks rather than redrawing them.
+  tbody.innerHTML = Array.from({ length: 4 }, () => `
+    <tr><td class="model"><span></span></td>
+      <td class="plot"><svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="11" x2="100" y2="11" stroke="var(--rule)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        <rect class="ci" x="0" y="9" height="4" rx="2" fill="var(--blue)" opacity=".35"/>
+        <rect class="dot" x="-1.2" y="5" width="2.4" height="12" rx="1.2" fill="var(--blue)"/>
+      </svg></td>
+      <td class="num score"></td><td class="num hide-sm cost"></td><td class="num hide-sm lat"></td></tr>`).join("");
+  function show(key) {
+    const t = tasks[key];
+    document.getElementById("metric").textContent = t.metric;
+    [...tbody.rows].forEach((tr, i) => {
+      const [name, score, lo, hi, cost, lat] = t.rows[i];
+      tr.classList.toggle("best", i === 0);
+      tr.querySelector(".model span").textContent = name;
+      const ci = tr.querySelector(".ci");
+      ci.style.transform = `translateX(${pct(lo)}px)`;
+      ci.setAttribute("width", pct(hi) - pct(lo));
+      tr.querySelector(".dot").style.transform = `translateX(${pct(score)}px)`;
+      tr.querySelector(".score").textContent = `${score} (${lo}–${hi})`;
+      tr.querySelector(".cost").textContent = cost;
+      tr.querySelector(".lat").textContent = lat;
+    });
+  }
+  document.querySelectorAll('[role="tab"]').forEach(tab => tab.addEventListener("click", () => {
+    document.querySelectorAll('[role="tab"]').forEach(t => t.setAttribute("aria-selected", String(t === tab)));
+    show(tab.dataset.task);
+  }));
+  show("sent");
+</script>
+</body>
+</html>

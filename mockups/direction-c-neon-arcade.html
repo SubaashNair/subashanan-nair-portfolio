@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Direction C — Neon Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --base: #0a0a0a;
+    --base-2: #141414;
+    --yellow: #ffd60a;
+    --pink: #ff2d55;
+    --cyan: #00e5ff;
+    --text: #f5f5f5;
+    --muted: #9a9a9a;
+    --line: rgba(245, 245, 245, 0.14);
+    --font-display: "Bungee", sans-serif;
+    --font-body: "Space Grotesk", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--base);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.06;
+    background: repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px);
+  }
+  header {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px clamp(20px, 4vw, 56px);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 16px; letter-spacing: 0.02em; }
+  .brand-mark { width: 14px; height: 14px; background: var(--yellow); box-shadow: 0 0 14px var(--yellow); }
+  nav { display: flex; gap: 28px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  nav a { color: var(--muted); text-decoration: none; transition: color 0.15s, text-shadow 0.15s; }
+  nav a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+  .pill { border: 1px solid var(--pink); color: var(--pink); border-radius: 4px; padding: 8px 14px; }
+  .pill:hover { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
+
+  .hero { position: relative; min-height: 88vh; display: grid; align-items: center; padding: 40px clamp(20px, 6vw, 80px); }
+  .eyebrow { font-family: var(--font-mono); color: var(--cyan); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+  h1 { font-family: var(--font-display); font-size: clamp(44px, 7vw, 92px); line-height: 1.05; margin: 20px 0 24px; max-width: 900px; }
+  h1 .y { color: var(--yellow); text-shadow: 0 0 20px rgba(255, 214, 10, 0.5); }
+  h1 .p { color: var(--pink); text-shadow: 0 0 20px rgba(255, 45, 85, 0.5); }
+  .intro { color: var(--muted); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.6; max-width: 560px; }
+  .actions { display: flex; gap: 22px; margin-top: 36px; align-items: center; }
+  .btn-primary {
+    font-family: var(--font-mono); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    background: var(--yellow); color: #0a0a0a; border: none; border-radius: 4px; padding: 16px 24px; cursor: pointer;
+    box-shadow: 0 0 24px rgba(255, 214, 10, 0.4); transition: transform 0.1s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(255, 214, 10, 0.6); }
+  .btn-text { font-family: var(--font-mono); color: var(--cyan); text-decoration: none; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .arcade { position: absolute; right: 6vw; top: 50%; transform: translateY(-50%); width: min(40vw, 420px); aspect-ratio: 1; }
+  .screen { position: absolute; inset: 0; border: 3px solid var(--pink); border-radius: 18px; background: radial-gradient(circle at 50% 40%, #1a1a2e, #0a0a0a 70%); box-shadow: 0 0 40px rgba(255, 45, 85, 0.3), inset 0 0 60px rgba(0, 229, 255, 0.15); }
+  .grid3d { position: absolute; inset: 12%; background-image: linear-gradient(rgba(0,229,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.3) 1px, transparent 1px); background-size: 24px 24px; transform: perspective(300px) rotateX(55deg); }
+  .score { position: absolute; right: 0; bottom: 6%; background: rgba(10,10,10,0.85); border: 1px solid var(--cyan); border-radius: 8px; padding: 12px 16px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); }
+  .score strong { display: block; font-family: var(--font-display); font-size: 34px; color: var(--yellow); }
+
+  .ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; overflow: hidden; white-space: nowrap; background: var(--base-2); }
+  .ticker span { display: inline-block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); animation: marquee 18s linear infinite; }
+  .ticker b { color: var(--pink); font-weight: 400; margin: 0 18px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .section { max-width: 1240px; margin: auto; padding: 90px clamp(20px, 4vw, 56px); }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 40px; }
+  h2 { font-family: var(--font-display); font-size: clamp(30px, 4.5vw, 52px); line-height: 1.05; }
+  .section-head p { color: var(--muted); max-width: 420px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .card { position: relative; border-radius: 12px; padding: 28px; min-height: 380px; overflow: hidden; border: 1px solid var(--line); background: var(--base-2); transition: transform 0.15s, box-shadow 0.15s; }
+  .card:hover { transform: translateY(-4px); }
+  .card.penang { border-color: var(--cyan); box-shadow: 0 0 0 rgba(0,229,255,0); }
+  .card.penang:hover { box-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
+  .card.forecast { border-color: var(--pink); }
+  .card.forecast:hover { box-shadow: 0 0 30px rgba(255, 45, 85, 0.25); }
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; background: var(--cyan); color: #0a0a0a; }
+  .card.forecast .tag { background: var(--pink); color: #0a0a0a; }
+  .card h3 { font-family: var(--font-display); font-size: clamp(26px, 3.5vw, 40px); margin: 16px 0 10px; }
+  .card p { color: var(--muted); line-height: 1.55; }
+  .card a { display: inline-block; margin-top: 18px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--yellow); text-decoration: none; }
+  .pixel { position: absolute; right: 20px; top: 20px; width: 60px; height: 60px; image-rendering: pixelated; background: conic-gradient(var(--yellow) 0 25%, var(--pink) 0 50%, var(--cyan) 0 75%, var(--yellow) 0); }
+  footer { border-top: 1px solid var(--line); padding: 30px clamp(20px, 4vw, 56px); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="scanlines"></div>
+  <header>
+    <div class="brand"><span class="brand-mark"></span> AI OBSERVATORY</div>
+    <nav>
+      <a href="#">Work</a><a href="#">Experiments</a><a href="#">About</a><a class="pill" href="#">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Data scientist × AI builder</p>
+      <h1>I turn complex data into <span class="y">living</span> <span class="p">intelligence.</span></h1>
+      <p class="intro">Explore the systems, experiments, and spatial stories behind my work in machine learning and applied AI.</p>
+      <div class="actions">
+        <button class="btn-primary">Enter the observatory →</button>
+        <a class="btn-text" href="#">View source ↗</a>
+      </div>
+    </div>
+    <div class="arcade">
+      <div class="screen"><div class="grid3d"></div></div>
+      <div class="score">OBSERVATORY / LIVE <strong>2</strong> active studies</div>
+    </div>
+  </section>
+
+  <div class="ticker"><span>
+    <b>◆</b> Penang Pulse <b>◆</b> Forecasting Lab <b>◆</b> Spatial Access <b>◆</b> Traffic Forecasting <b>◆</b> Reproducible Science <b>◆</b> UCI Dataset 608 <b>◆</b> PeGIS <b>◆</b> OpenStreetMap <b>◆</b>
+    <b>◆</b> Penang Pulse <b>◆</b> Forecasting Lab <b>◆</b> Spatial Access <b>◆</b> Traffic Forecasting <b>◆</b> Reproducible Science <b>◆</b> UCI Dataset 608 <b>◆</b> PeGIS <b>◆</b> OpenStreetMap <b>◆</b>
+  </span></div>
+
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">Selected signals</p><h2>Two systems. One connected story.</h2></div>
+      <p>Move from the geography of public services to the dynamics of traffic forecasting. Every finding includes provenance, methods, uncertainty, and reproducible code.</p>
+    </div>
+    <div class="grid">
+      <article class="card penang">
+        <div class="pixel"></div>
+        <span class="tag">01 / Spatial intelligence</span>
+        <h3>Penang Pulse</h3>
+        <p>How evenly are essential services distributed across Penang?</p>
+        <a href="#">Explore Penang Pulse →</a>
+      </article>
+      <article class="card forecast">
+        <div class="pixel"></div>
+        <span class="tag">02 / Predictive systems</span>
+        <h3>Forecasting Lab</h3>
+        <p>Compare baselines, tree models, and neural forecasts across a connected traffic network.</p>
+        <a href="#">Enter Forecasting Lab →</a>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built by Subaash Nair</span>
+    <span>GitHub · Discuss</span>
+  </footer>
+</body>
+</html>

@@ -9,6 +9,17 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "AI Observatory · Subaash Nair",
   description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
+  openGraph: {
+    title: "AI Observatory · Subaash Nair",
+    description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
+    type: "website",
+    siteName: "AI Observatory",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Observatory · Subaash Nair",
+    description: "An immersive, reproducible data-science portfolio exploring Penang and predictive systems.",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

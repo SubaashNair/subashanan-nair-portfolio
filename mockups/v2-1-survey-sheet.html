@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup 1 · Survey Sheet · Subaash Nair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #edf1ec;
+    --ink: #1d2b2a;
+    --ink-soft: #4a5a58;
+    --sea: #cfe1e8;
+    --sea-line: #2e6c8e;
+    --contour: #b07a45;
+    --magenta: #c0267e;
+    --forest: #5e8b5a;
+    --clinic: #c0267e;
+    --school: #2e6c8e;
+    --transit: #b07a45;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 100;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  header.site {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 28px; max-width: 1240px; margin: 0 auto;
+  }
+  .wordmark {
+    font-weight: 750; font-variation-settings: "wdth" 118; font-size: 20px;
+    text-decoration: none; letter-spacing: -0.01em;
+  }
+  nav.primary { display: flex; gap: 22px; font-size: 15px; }
+  nav.primary a { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav.primary a:hover { border-color: var(--magenta); }
+
+  /* Hero */
+  .hero {
+    display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: center;
+    padding-top: 36px; padding-bottom: 72px;
+  }
+  .hero h1 {
+    font-variation-settings: "wdth" 122; font-weight: 800;
+    font-size: clamp(52px, 6.6vw, 96px); line-height: 0.9; letter-spacing: -0.03em;
+    margin: 0 0 24px;
+  }
+  .hero h1 span { display: block; }
+  .hero p.lede { font-size: 21px; line-height: 1.45; max-width: 30ch; margin: 0 0 32px; color: var(--ink); }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    display: inline-block; padding: 13px 20px; border-radius: 3px; font-weight: 650;
+    text-decoration: none; font-size: 16px;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--magenta); }
+  .btn.quiet { border: 1.5px solid var(--ink); }
+  .btn.quiet:hover { border-color: var(--magenta); color: var(--magenta); }
+
+  /* Map sheet */
+  .sheet {
+    position: relative; background: #f6f8f4;
+    border: 1.5px solid var(--ink); padding: 26px;
+    box-shadow: 0 0 0 5px var(--paper), 0 0 0 6.5px var(--ink);
+  }
+  .sheet svg { display: block; width: 100%; height: auto; }
+  .tick { font-size: 11px; fill: var(--ink-soft); font-variation-settings: "wdth" 75; }
+  .place {
+    font-size: 12.5px; letter-spacing: 0.14em; fill: var(--ink);
+    font-weight: 600; font-variation-settings: "wdth" 80; text-transform: uppercase;
+  }
+  .water {
+    font-size: 13px; font-style: italic; fill: var(--sea-line); letter-spacing: 0.2em;
+    font-variation-settings: "wdth" 90;
+  }
+  .pt { transition: opacity .25s, r .2s; }
+  .pt.off { opacity: 0.08; }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    margin-top: 18px; font-size: 14px;
+  }
+  .legend button {
+    font: inherit; display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; border: 1.5px solid var(--ink); border-radius: 999px;
+    padding: 6px 13px; cursor: pointer; color: var(--ink);
+  }
+  .legend button[aria-pressed="false"] { opacity: .45; border-style: dashed; }
+  .legend .sw { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .caption { font-size: 13px; color: var(--ink-soft); margin: 12px 0 0; }
+
+  /* Sections */
+  section.block { padding: 88px 0; border-top: 1.5px solid var(--ink); }
+  .block-head { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; margin-bottom: 48px; }
+  .block-head h2 {
+    margin: 0; font-variation-settings: "wdth" 118; font-weight: 780;
+    font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -0.02em;
+  }
+  .block-head p { margin: 0; max-width: 56ch; color: var(--ink-soft); font-size: 18px; }
+
+  .study {
+    display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: start;
+    padding: 40px 0; border-top: 1px dashed rgba(29,43,42,.35);
+  }
+  .study:first-of-type { border-top: 0; padding-top: 0; }
+  .study h3 {
+    margin: 0 0 10px; font-variation-settings: "wdth" 112; font-weight: 760;
+    font-size: 32px; letter-spacing: -0.015em; line-height: 1.05;
+  }
+  .study .q { font-size: 19px; margin: 0 0 16px; max-width: 34ch; }
+  .study dl { margin: 0 0 18px; display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 14.5px; }
+  .study dt { color: var(--ink-soft); }
+  .study dd { margin: 0; }
+  .status { display: inline-block; font-size: 13px; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 999px; color: var(--forest); font-weight: 600; }
+  .inset { border: 1.5px solid var(--ink); background: #f6f8f4; padding: 18px; }
+  .inset figcaption { font-size: 14px; margin-top: 10px; color: var(--ink-soft); }
+  .inset .finding { font-size: 17px; color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+
+  /* Gazetteer */
+  .gazetteer { columns: 2; column-gap: 56px; }
+  .entry { break-inside: avoid; padding: 0 0 24px; }
+  .entry h3 { margin: 0; font-size: 20px; font-weight: 720; font-variation-settings: "wdth" 108; }
+  .entry h3 a { text-decoration: none; }
+  .entry h3 a:hover { color: var(--magenta); }
+  .entry .meta { font-size: 13.5px; color: var(--ink-soft); font-style: italic; }
+  .entry p { margin: 4px 0 0; max-width: 52ch; }
+
+  .about { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; }
+  .about h2 { margin: 0; font-variation-settings: "wdth" 118; font-weight: 780; font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -0.02em; }
+  .about p { margin: 0 0 16px; max-width: 58ch; font-size: 18px; }
+  .contact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  footer.site { padding: 32px 28px 48px; max-width: 1240px; margin: 0 auto; font-size: 14px; color: var(--ink-soft); display: flex; justify-content: space-between; border-top: 1.5px solid var(--ink); }
+
+  .mock-note {
+    position: fixed; right: 14px; bottom: 14px; z-index: 10;
+    background: #fff; color: #222; font: 12.5px/1.3 system-ui, sans-serif;
+    padding: 8px 12px; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  }
+
+  @media (max-width: 880px) {
+    .mock-note { position: static; margin: 0 20px 20px; display: block; }
+    .hero, .block-head, .study, .about { grid-template-columns: 1fr; gap: 28px; }
+    .gazetteer { columns: 1; }
+    nav.primary { gap: 14px; font-size: 14px; }
+    header.site { padding: 16px 20px; }
+    .wrap { padding: 0 20px; }
+    .sheet { padding: 14px; }
+    section.block { padding: 64px 0; }
+  }
+  @media (max-width: 420px) {
+    .wordmark { font-size: 17px; }
+    nav.primary a.gh { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <a class="wordmark" href="#">Subaash Nair</a>
+  <nav class="primary" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="#experiments">Experiments</a>
+    <a href="#about">About</a>
+    <a class="gh" href="https://github.com/SubaashNair">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <h1><span>Subaash</span><span>Nair</span></h1>
+      <p class="lede">Data scientist in Penang. I build reproducible ML and LLM systems on Malaysian public data, and publish the sources, code and limits behind every result.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">Read the case studies</a>
+        <a class="btn quiet" href="#about">Get in touch</a>
+      </div>
+    </div>
+
+    <figure class="sheet" style="margin:0">
+      <svg viewBox="0 0 600 500" role="img" aria-labelledby="map-title map-desc">
+        <title id="map-title">Public services across Penang</title>
+        <desc id="map-desc">Schematic map of Penang Island and Seberang Perai with clinics, schools and transit stops plotted as points.</desc>
+        <defs>
+          <path id="island-shape" d="M95 120 C130 95 175 100 205 105 C235 110 255 100 280 115 C300 125 318 140 322 160 C326 185 312 205 318 230 C324 260 315 290 322 320 C330 345 318 370 300 395 C285 415 262 432 240 438 C210 445 180 430 160 420 C130 405 110 385 100 360 C85 330 78 300 80 270 C82 240 70 210 75 180 C78 155 82 135 95 120 Z"/>
+          <clipPath id="island-clip"><use href="#island-shape"/></clipPath>
+        </defs>
+        <rect width="600" height="500" fill="var(--sea)"/>
+        <path d="M380 0 L600 0 L600 500 L395 500 C400 470 385 440 392 410 C398 380 385 350 390 320 C395 290 378 260 385 230 C390 200 375 170 382 140 C388 110 372 80 378 50 C380 30 378 15 380 0 Z" fill="#f6f8f4" stroke="var(--ink)" stroke-width="1.3"/>
+        <use href="#island-shape" fill="#f6f8f4" stroke="var(--ink)" stroke-width="1.3"/>
+        <g clip-path="url(#island-clip)" fill="none" stroke="var(--contour)" stroke-width="0.9" opacity="0.55">
+          <ellipse cx="190" cy="235" rx="92" ry="120" transform="rotate(-12 190 235)"/>
+          <ellipse cx="188" cy="232" rx="70" ry="94" transform="rotate(-8 188 232)"/>
+          <ellipse cx="185" cy="228" rx="50" ry="70" transform="rotate(-4 185 228)"/>
+          <ellipse cx="183" cy="224" rx="32" ry="46"/>
+          <ellipse cx="181" cy="221" rx="15" ry="22"/>
+          <ellipse cx="150" cy="360" rx="40" ry="28"/>
+          <ellipse cx="150" cy="360" rx="20" ry="13"/>
+        </g>
+        <line x1="322" y1="300" x2="390" y2="290" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="303" y1="398" x2="393" y2="430" stroke="var(--ink)" stroke-width="2"/>
+        <text class="place" x="214" y="146">George Town</text>
+        <text class="place" x="225" y="372">Bayan Lepas</text>
+        <text class="place" x="92" y="262">Balik Pulau</text>
+        <text class="place" x="400" y="118">Butterworth</text>
+        <text class="place" x="455" y="300">Bukit Mertajam</text>
+        <text class="place" x="440" y="470">Nibong Tebal</text>
+        <text class="water" x="30" y="56">Selat Melaka</text>
+        <text class="water" x="356" y="300" transform="rotate(-86 356 300)">Penang Strait</text>
+        <g id="points"></g>
+        <g stroke="var(--ink)" stroke-width="1">
+          <line x1="150" y1="0" x2="150" y2="8"/><line x1="300" y1="0" x2="300" y2="8"/><line x1="450" y1="0" x2="450" y2="8"/>
+          <line x1="0" y1="125" x2="8" y2="125"/><line x1="0" y1="250" x2="8" y2="250"/><line x1="0" y1="375" x2="8" y2="375"/>
+        </g>
+        <text class="tick" x="154" y="20">100.25°E</text>
+        <text class="tick" x="304" y="20">100.35°E</text>
+        <text class="tick" x="454" y="20">100.45°E</text>
+        <text class="tick" x="12" y="121">5.45°N</text>
+        <text class="tick" x="12" y="246">5.35°N</text>
+        <text class="tick" x="12" y="371">5.25°N</text>
+      </svg>
+      <div class="legend" role="group" aria-label="Show or hide service types">
+        <button type="button" aria-pressed="true" data-cat="clinic"><span class="sw" style="background:var(--clinic)"></span>Clinics</button>
+        <button type="button" aria-pressed="true" data-cat="school"><span class="sw" style="background:var(--school)"></span>Schools</button>
+        <button type="button" aria-pressed="true" data-cat="transit"><span class="sw" style="background:var(--transit)"></span>Transit stops</button>
+      </div>
+      <figcaption class="caption">From Penang Pulse. Sources: PeGIS, DOSM, OpenStreetMap.</figcaption>
+    </figure>
+  </div>
+
+  <section class="block" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="work-h">Case studies</h2>
+        <p>Three questions about Malaysia, answered with public data. Each study links its sources, code, model versions and known limits, so you can rerun it yourself.</p>
+      </div>
+
+      <article class="study">
+        <div>
+          <h3>Penang Pulse</h3>
+          <p class="q">How evenly are clinics, schools and transit stops spread across Penang?</p>
+          <dl><dt>Data</dt><dd>PeGIS, DOSM census, OpenStreetMap</dd><dt>Methods</dt><dd>Network distance bands, population joins</dd></dl>
+          <span class="status">In progress</span>
+        </div>
+        <figure class="inset" style="margin:0">
+          <svg viewBox="0 0 520 170" role="img" aria-label="Share of residents by distance to nearest clinic, by district">
+            <g font-size="12" fill="var(--ink)">
+              <text x="0" y="28">Timur Laut</text><text x="0" y="68">Barat Daya</text><text x="0" y="108">S. P. Utara</text><text x="0" y="148">S. P. Selatan</text>
+            </g>
+            <rect x="110" y="16" width="300" height="18" fill="var(--forest)"/><rect x="410" y="16" width="80" height="18" fill="var(--contour)"/><rect x="490" y="16" width="20" height="18" fill="var(--magenta)"/>
+            <rect x="110" y="56" width="230" height="18" fill="var(--forest)"/><rect x="340" y="56" width="110" height="18" fill="var(--contour)"/><rect x="450" y="56" width="60" height="18" fill="var(--magenta)"/>
+            <rect x="110" y="96" width="250" height="18" fill="var(--forest)"/><rect x="360" y="96" width="100" height="18" fill="var(--contour)"/><rect x="460" y="96" width="50" height="18" fill="var(--magenta)"/>
+            <rect x="110" y="136" width="180" height="18" fill="var(--forest)"/><rect x="290" y="136" width="120" height="18" fill="var(--contour)"/><rect x="410" y="136" width="100" height="18" fill="var(--magenta)"/>
+          </svg>
+          <figcaption><span class="finding">1 in 5 residents of Seberang Perai Selatan live more than 3 km from a public clinic.</span>Green under 1 km, brown 1 to 3 km, magenta over 3 km.</figcaption>
+        </figure>
+      </article>
+
+      <article class="study">
+        <div>
+          <h3>Forecasting Lab</h3>
+          <p class="q">Can a pre-trained time-series model beat a tuned baseline on traffic sensors?</p>
+          <dl><dt>Data</dt><dd>UCI dataset 608, traffic sensor network</dd><dt>Models</dt><dd>Seasonal naive, gradient boosting, small neural net, Chronos</dd></dl>
+          <span class="status">In progress</span>
+        </div>
+        <figure class="inset" style="margin:0">
+          <svg viewBox="0 0 520 170" role="img" aria-label="Forecast error by horizon for four models">
+            <g stroke="rgba(29,43,42,.18)"><line x1="40" y1="20" x2="510" y2="20"/><line x1="40" y1="70" x2="510" y2="70"/><line x1="40" y1="120" x2="510" y2="120"/></g>
+            <line x1="40" y1="150" x2="510" y2="150" stroke="var(--ink)"/>
+            <polyline fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-dasharray="5 4" points="40,110 130,90 220,70 310,55 400,42 510,30"/>
+            <polyline fill="none" stroke="var(--contour)" stroke-width="2" points="40,125 130,112 220,98 310,86 400,76 510,66"/>
+            <polyline fill="none" stroke="var(--sea-line)" stroke-width="2" points="40,128 130,118 220,104 310,94 400,85 510,77"/>
+            <polyline fill="none" stroke="var(--magenta)" stroke-width="2.5" points="40,131 130,122 220,110 310,101 400,93 510,86"/>
+            <g font-size="12" fill="var(--ink-soft)"><text x="40" y="166">15 min</text><text x="462" y="166">2 hours</text></g>
+          </svg>
+          <figcaption><span class="finding">Chronos holds the lowest error past one hour, without any tuning.</span>Lower is better. Dashed line is the seasonal baseline.</figcaption>
+        </figure>
+      </article>
+
+      <article class="study">
+        <div>
+          <h3>LLM Eval Lab</h3>
+          <p class="q">How well do small and frontier models handle Bahasa Malaysia and Manglish?</p>
+          <dl><dt>Tasks</dt><dd>Sentiment, entity extraction, summarisation</dd><dt>Reports</dt><dd>Accuracy with 95% intervals, cost, latency, versioned prompts</dd></dl>
+          <span class="status">Planned</span>
+        </div>
+        <figure class="inset" style="margin:0">
+          <svg viewBox="0 0 520 150" role="img" aria-label="Accuracy with confidence intervals for three model types">
+            <g font-size="12" fill="var(--ink)"><text x="0" y="34">TF-IDF + logistic</text><text x="0" y="78">Fine-tuned 1B</text><text x="0" y="122">Frontier model</text></g>
+            <line x1="150" y1="10" x2="150" y2="135" stroke="rgba(29,43,42,.2)"/>
+            <g stroke-width="2.5">
+              <line x1="190" y1="30" x2="280" y2="30" stroke="var(--ink-soft)"/><circle cx="235" cy="30" r="6" fill="var(--ink-soft)"/>
+              <line x1="330" y1="74" x2="400" y2="74" stroke="var(--sea-line)"/><circle cx="365" cy="74" r="6" fill="var(--sea-line)"/>
+              <line x1="370" y1="118" x2="440" y2="118" stroke="var(--magenta)"/><circle cx="405" cy="118" r="6" fill="var(--magenta)"/>
+            </g>
+            <g font-size="11" fill="var(--ink-soft)"><text x="150" y="148">50%</text><text x="480" y="148">100%</text></g>
+          </svg>
+          <figcaption><span class="finding">On Manglish sentiment, a fine-tuned 1B model lands within the frontier model's interval at a fiftieth of the cost.</span>Dots are accuracy, lines are 95% intervals.</figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="experiments" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="exp-h">Tools and experiments</h2>
+        <p>Smaller things I have shipped: libraries, agents and apps. Each one is open source.</p>
+      </div>
+      <div class="gazetteer">
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/documentation-mcp-server">documentation-mcp-server</a></h3><div class="meta">JavaScript, MCP server</div><p>Gives coding agents up-to-date documentation for popular libraries.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/exam-monitor-app">exam-monitor-app</a></h3><div class="meta">Go, desktop app</div><p>Lets a teacher watch every student screen live over the classroom LAN, with lock-all and an audit export.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/Land-subsidence-Prediction">Land-subsidence-Prediction</a></h3><div class="meta">Python, geospatial ML</div><p>Forecasts land subsidence across the Klang Valley from geospatial and temporal data.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/matomari">matomari</a></h3><div class="meta">macOS app with an agent</div><p>A native file explorer that scores every file's importance from how you actually use it.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/ml-review">ml-review</a></h3><div class="meta">Python package</div><p>Extended evaluation metrics for scikit-learn models.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/OptimRL">OptimRL</a></h3><div class="meta">Python, reinforcement learning</div><p>Reinforcement learning optimisation experiments.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/pima-diabetes-mlflow">pima-diabetes-mlflow</a></h3><div class="meta">Python, MLOps</div><p>Trains, registers, serves and ships a classifier end to end with MLflow, Docker and Streamlit.</p></div>
+        <div class="entry"><h3><a href="https://github.com/SubaashNair/StatClean">StatClean</a></h3><div class="meta">Python package</div><p>Statistical data cleaning and outlier handling.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about" aria-labelledby="about-h">
+    <div class="wrap about">
+      <h2 id="about-h">About</h2>
+      <div>
+        <p>I am a data scientist based in Penang, Malaysia. I like questions that matter locally and answers that hold up when someone else reruns them.</p>
+        <p>I am open to data science and ML engineering roles, and to collaborations on Malaysian open data.</p>
+        <ul class="contact-list">
+          <li><a class="btn primary" href="#">Email me</a></li>
+          <li><a class="btn quiet" href="#">LinkedIn</a></li>
+          <li><a class="btn quiet" href="#">Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <span>Subaash Nair, Penang</span>
+  <a href="https://github.com/SubaashNair/ai-observatory-portfolio">Source for this site</a>
+</footer>
+
+<div class="mock-note">Mockup 1 of 3: Survey Sheet. Figures and map points are illustrative.</div>
+
+<script>
+  // Seeded jitter so the illustrative points are stable between reloads.
+  let s = 7;
+  const rand = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const clusters = [
+    [300, 175, 18, 14], [298, 335, 14, 8], [215, 405, 18, 4], [120, 300, 16, 4],
+    [180, 125, 24, 5], [425, 175, 24, 10], [500, 250, 34, 8], [470, 410, 40, 6], [540, 110, 30, 3]
+  ];
+  const cats = ["clinic", "school", "transit"];
+  const g = document.getElementById("points");
+  clusters.forEach(([cx, cy, spread, n]) => {
+    for (let i = 0; i < n; i++) {
+      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const cat = cats[Math.floor(rand() * 3)];
+      c.setAttribute("cx", (cx + (rand() - 0.5) * spread * 2).toFixed(1));
+      c.setAttribute("cy", (cy + (rand() - 0.5) * spread * 2).toFixed(1));
+      c.setAttribute("r", "4.2");
+      c.setAttribute("fill", `var(--${cat})`);
+      c.setAttribute("stroke", "#f6f8f4");
+      c.setAttribute("stroke-width", "1.2");
+      c.classList.add("pt");
+      c.dataset.cat = cat;
+      g.appendChild(c);
+    }
+  });
+  document.querySelectorAll(".legend button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const on = btn.getAttribute("aria-pressed") !== "true";
+      btn.setAttribute("aria-pressed", String(on));
+      document.querySelectorAll(`.pt[data-cat="${btn.dataset.cat}"]`).forEach(p => p.classList.toggle("off", !on));
+    });
+  });
+</script>
+</body>
+</html>
