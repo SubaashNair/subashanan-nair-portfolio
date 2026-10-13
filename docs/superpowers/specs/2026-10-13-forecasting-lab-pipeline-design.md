@@ -220,3 +220,16 @@ Every test is written before its code and seen to fail first.
 12. Web: publish the results and update the study record.
 13. CV PDFs.
 14. Final checks and pull request.
+
+## 17. Changes during implementation
+
+- **Challenger selection.** The tuned model shown against persistence and against Chronos is chosen by validation error, not by test error. The answer says so ("the tuned model chosen on validation data", "the better tuned model on validation data").
+- **Chronos context.** Chronos sees the last 512 readings (about five days) at each forecast. This is disclosed in the method and the limitations.
+- **Clock offset.** The speculation that the dataset's clock may be offset from local time was removed from the answer; the limitations keep only the plain statement that clock times are the dataset's own.
+- **CV tech line.** The Forecasting Lab tech line drops Pydantic, which the pipeline does not use, and names PyTorch and Chronos.
+- **Window selection.** Each chart sensor is shown at the test window where its flow changed most over two hours. The figure caption and the scoring method step now say so, and that these windows are harder than average.
+- **Highway count.** The dataset covers two highways near Washington DC, not one corridor. The caveat, limitation and fixture say "Two highways".
+- **Extra answer sentence.** When Chronos has the lowest MAE at every horizon, the generated answer adds a sentence saying so. If its first-horizon lead over the runner-up is under 5% relative, the sentence adds that the lead is small and was not tested.
+- **Two-decimal table.** The error table shows two decimals so close values do not look tied; the bold marks the true minimum.
+- **CV wording.** The first candidate wording for the Forecasting Lab bullet includes the 95% interval and the Chronos comparison, all parsed from the results file. The earlier wordings remain as fallbacks.
+- **Smaller fixes.** A zip without the .mat file raises a clear error; CI runs with read-only contents permission; the interval limitation says it covers only the two test days.
