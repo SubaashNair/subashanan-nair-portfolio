@@ -1,0 +1,450 @@
+{
+  "answer": "At 15 minutes, gradient boosting, the tuned model chosen on validation data, has 23% lower error than persistence (95% interval 16 to 30%). At 2 hours, Chronos, used with no tuning, has 26% lower error than gradient boosting, the better tuned model on validation data (95% interval 17 to 34%).",
+  "keyNumbers": [
+    {
+      "value": "23%",
+      "label": "lower error than persistence for gradient boosting at 15 minutes.",
+      "caveat": "95% interval 16 to 30%, from a block bootstrap over the test window."
+    },
+    {
+      "value": "26%",
+      "label": "lower error for Chronos, with no tuning, than gradient boosting at 2 hours.",
+      "caveat": "95% interval 17 to 34%, from a block bootstrap over the test window."
+    },
+    {
+      "value": "36",
+      "label": "sensors scored at 5 horizons on the final 51 hours of data.",
+      "caveat": "One highway corridor near Washington DC, so treat the ranking as local."
+    }
+  ],
+  "run": {
+    "commit": "f64486e",
+    "manifest": "analysis/outputs/forecasting-lab-manifest.json",
+    "python": "3.12.11",
+    "lastRun": "2026-10-13"
+  },
+  "retrieved": {
+    "Dataset 608": "2026-10-13",
+    "chronos-t5-small": "2026-10-13"
+  },
+  "horizons": [
+    15,
+    30,
+    60,
+    90,
+    120
+  ],
+  "models": [
+    {
+      "id": "persistence",
+      "name": "Persistence",
+      "mae": [
+        2.51,
+        3.59,
+        5.71,
+        7.94,
+        9.99
+      ]
+    },
+    {
+      "id": "seasonal",
+      "name": "Daily seasonal naive",
+      "mae": [
+        4.74,
+        4.74,
+        4.74,
+        4.75,
+        4.74
+      ]
+    },
+    {
+      "id": "gb",
+      "name": "Gradient boosting",
+      "mae": [
+        1.94,
+        2.24,
+        2.66,
+        3.16,
+        3.59
+      ]
+    },
+    {
+      "id": "mlp",
+      "name": "Spatial MLP",
+      "mae": [
+        2.4,
+        3.02,
+        3.63,
+        4.1,
+        4.54
+      ]
+    },
+    {
+      "id": "chronos",
+      "name": "Chronos, zero-shot",
+      "mae": [
+        1.88,
+        2.09,
+        2.33,
+        2.55,
+        2.67
+      ]
+    }
+  ],
+  "sensors": [
+    {
+      "id": "s23",
+      "label": "Sensor 23",
+      "originMinutes": 105,
+      "stepMinutes": 15,
+      "pastSteps": 36,
+      "actual": [
+        19.24,
+        14.99,
+        14.85,
+        14.29,
+        14.39,
+        12.14,
+        13.03,
+        14.43,
+        12.24,
+        10.56,
+        10.79,
+        9.34,
+        9.76,
+        7.24,
+        5.84,
+        7.99,
+        8.22,
+        6.31,
+        5.28,
+        4.67,
+        4.44,
+        3.64,
+        3.22,
+        3.46,
+        2.52,
+        1.77,
+        1.96,
+        2.06,
+        2.06,
+        1.96,
+        1.91,
+        2.38,
+        3.18,
+        3.83,
+        4.9,
+        5.37,
+        6.77,
+        9.53,
+        10.93,
+        15.6,
+        20.78,
+        23.59,
+        28.12,
+        32.13,
+        38.11
+      ],
+      "forecasts": {
+        "persistence": [
+          6.77,
+          6.77,
+          6.77,
+          6.77,
+          6.77,
+          6.77,
+          6.77,
+          6.77,
+          6.77
+        ],
+        "seasonal": [
+          6.77,
+          4.3,
+          6.45,
+          7.15,
+          8.83,
+          8.13,
+          9.53,
+          11.82,
+          13.08
+        ],
+        "gb": [
+          6.77,
+          9.02,
+          11.84,
+          17.34,
+          21.38,
+          23.63,
+          23.22,
+          25.93,
+          26.11
+        ],
+        "mlp": [
+          6.77,
+          8.59,
+          10.82,
+          16.41,
+          20.65,
+          17.05,
+          22.38,
+          28.52,
+          24.1
+        ],
+        "chronos": [
+          6.77,
+          8.17,
+          10.33,
+          12.48,
+          15.62,
+          18.69,
+          22.22,
+          24.38,
+          27.78
+        ]
+      },
+      "windowMae": {
+        "persistence": 15.58,
+        "seasonal": 13.69,
+        "gb": 3.36,
+        "mlp": 3.99,
+        "chronos": 4.89
+      }
+    },
+    {
+      "id": "s2",
+      "label": "Sensor 2",
+      "originMinutes": 75,
+      "stepMinutes": 15,
+      "pastSteps": 36,
+      "actual": [
+        35.78,
+        31.71,
+        30.69,
+        30.17,
+        25.04,
+        27.0,
+        24.33,
+        25.6,
+        24.15,
+        21.67,
+        21.21,
+        19.9,
+        20.22,
+        19.52,
+        15.55,
+        13.26,
+        10.18,
+        10.51,
+        10.42,
+        8.03,
+        6.54,
+        5.74,
+        5.32,
+        3.64,
+        3.55,
+        3.13,
+        3.13,
+        2.1,
+        2.57,
+        3.46,
+        3.36,
+        3.64,
+        3.22,
+        4.06,
+        5.18,
+        6.54,
+        9.2,
+        13.5,
+        19.01,
+        27.32,
+        31.9,
+        39.89,
+        49.74,
+        55.91,
+        61.98
+      ],
+      "forecasts": {
+        "persistence": [
+          9.2,
+          9.2,
+          9.2,
+          9.2,
+          9.2,
+          9.2,
+          9.2,
+          9.2,
+          9.2
+        ],
+        "seasonal": [
+          9.2,
+          11.35,
+          11.44,
+          15.65,
+          16.07,
+          20.88,
+          26.3,
+          29.19,
+          24.85
+        ],
+        "gb": [
+          9.2,
+          12.58,
+          17.51,
+          23.25,
+          29.87,
+          40.98,
+          48.86,
+          42.38,
+          46.57
+        ],
+        "mlp": [
+          9.2,
+          12.02,
+          15.5,
+          23.59,
+          35.02,
+          35.03,
+          43.67,
+          51.81,
+          37.78
+        ],
+        "chronos": [
+          9.2,
+          12.07,
+          16.5,
+          20.09,
+          24.51,
+          32.16,
+          45.19,
+          50.69,
+          56.79
+        ]
+      },
+      "windowMae": {
+        "persistence": 28.21,
+        "seasonal": 17.94,
+        "gb": 4.93,
+        "mlp": 6.38,
+        "chronos": 5.16
+      }
+    },
+    {
+      "id": "s11",
+      "label": "Sensor 11",
+      "originMinutes": 45,
+      "stepMinutes": 15,
+      "pastSteps": 36,
+      "actual": [
+        33.96,
+        34.42,
+        32.7,
+        32.93,
+        32.88,
+        28.58,
+        26.16,
+        26.06,
+        28.12,
+        21.3,
+        23.73,
+        26.16,
+        24.38,
+        23.45,
+        18.54,
+        20.36,
+        19.34,
+        15.23,
+        13.03,
+        11.77,
+        11.4,
+        11.12,
+        8.78,
+        6.82,
+        7.01,
+        7.01,
+        6.12,
+        6.77,
+        5.6,
+        5.56,
+        5.14,
+        6.12,
+        6.87,
+        7.57,
+        9.11,
+        11.91,
+        14.62,
+        16.44,
+        19.57,
+        29.85,
+        37.69,
+        47.73,
+        53.76,
+        65.3,
+        73.61
+      ],
+      "forecasts": {
+        "persistence": [
+          14.62,
+          14.62,
+          14.62,
+          14.62,
+          14.62,
+          14.62,
+          14.62,
+          14.62,
+          14.62
+        ],
+        "seasonal": [
+          14.62,
+          16.21,
+          21.77,
+          32.7,
+          41.2,
+          47.17,
+          56.56,
+          66.28,
+          72.3
+        ],
+        "gb": [
+          14.62,
+          18.18,
+          21.97,
+          34.9,
+          41.32,
+          50.94,
+          60.71,
+          73.23,
+          75.41
+        ],
+        "mlp": [
+          14.62,
+          19.85,
+          28.46,
+          35.95,
+          54.19,
+          59.71,
+          70.03,
+          81.56,
+          75.99
+        ],
+        "chronos": [
+          14.62,
+          16.95,
+          21.54,
+          29.74,
+          38.49,
+          45.58,
+          54.33,
+          66.01,
+          67.81
+        ]
+      },
+      "windowMae": {
+        "persistence": 28.37,
+        "seasonal": 1.8,
+        "gb": 4.09,
+        "mlp": 10.22,
+        "chronos": 1.58
+      }
+    }
+  ]
+}

@@ -1,0 +1,861 @@
+{
+  "study": "forecasting-lab",
+  "source": {
+    "title": "UCI Machine Learning Repository dataset 608, Traffic Flow Forecasting",
+    "url": "https://archive.ics.uci.edu/static/public/608/traffic+flow+forecasting.zip",
+    "page": "https://archive.ics.uci.edu/dataset/608/traffic+flow+forecasting",
+    "doi": "10.24432/C57897",
+    "licence": "CC BY 4.0",
+    "retrieved": "2026-10-13T06:26:34+00:00",
+    "zip_sha256": "b09ebe53ec44228bfd008d35fb34d12174b5523f7a735d159d9eea326163bc45",
+    "mat_sha256": "45a3f8b443fd48e2d687d3169d95ac68b6bc31999343b1885eadb787d3aaedbc"
+  },
+  "calendar": {
+    "step_minutes": 15,
+    "steps_per_day": 96,
+    "weekdays_only": true,
+    "note": "Clock times follow the publisher's hour and weekday fields in tra_X_tr, checked at load time."
+  },
+  "split": {
+    "train": [
+      0,
+      864
+    ],
+    "val": [
+      864,
+      1056
+    ],
+    "test": [
+      1056,
+      1261
+    ]
+  },
+  "features": [
+    "lag_0",
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_4",
+    "lag_5",
+    "lag_6",
+    "lag_7",
+    "lag_8",
+    "lag_9",
+    "neighbour_now",
+    "neighbour_mean_4",
+    "slot_sin",
+    "slot_cos",
+    "weekday_0",
+    "weekday_1",
+    "weekday_2",
+    "weekday_3",
+    "weekday_4"
+  ],
+  "horizon_steps": [
+    1,
+    2,
+    4,
+    6,
+    8
+  ],
+  "forecast_steps": 8,
+  "seeds": {
+    "models": 42,
+    "bootstrap": 42,
+    "torch": 42
+  },
+  "bootstrap": {
+    "method": "non-overlapping block bootstrap over test origins",
+    "block_origins": 8,
+    "resamples": 2000,
+    "percentiles": [
+      2.5,
+      97.5
+    ]
+  },
+  "tuning": {
+    "gb": {
+      "1": {
+        "params": {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.02408556165787315,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.024358137570629844
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.02408556165787315
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.024215912254554613
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.024146817220821144
+          }
+        ]
+      },
+      "2": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.029289892923428516,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.02982481184494699
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.029407090191321112
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.02950915410392681
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.029289892923428516
+          }
+        ]
+      },
+      "3": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.03245748795381331,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.03344760269488238
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.032655426756840314
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.032934708148638574
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.03245748795381331
+          }
+        ]
+      },
+      "4": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.03549148441917886,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.03702407311908147
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.03578185716606544
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.03647754877453887
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.03549148441917886
+          }
+        ]
+      },
+      "5": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.039135212194798145,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.040799712785067305
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.039703681816712334
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04003270938432098
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.039135212194798145
+          }
+        ]
+      },
+      "6": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.042216442131808286,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04455309275571474
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.04281806295128303
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04311445783684101
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.042216442131808286
+          }
+        ]
+      },
+      "7": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.04436565668377095,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04686184115705119
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.04504971255033593
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04568555101113687
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.04436565668377095
+          }
+        ]
+      },
+      "8": {
+        "params": {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        },
+        "val_mae": 0.04713913441593073,
+        "candidates": [
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.048757576636418117
+          },
+          {
+            "learning_rate": 0.05,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.04725152065828726
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 15,
+            "val_mae": 0.04752015407546074
+          },
+          {
+            "learning_rate": 0.1,
+            "max_leaf_nodes": 31,
+            "val_mae": 0.04713913441593073
+          }
+        ]
+      }
+    },
+    "mlp": {
+      "1": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.001
+        },
+        "val_mae": 0.029700018999318623,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.030099202799891058
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.029804003074490305
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.030337379647075377
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.029700018999318623
+          }
+        ]
+      },
+      "2": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        },
+        "val_mae": 0.03537132300167252,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.0376205353904575
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.037487258373607536
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.03537132300167252
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.03542096475495685
+          }
+        ]
+      },
+      "3": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.001
+        },
+        "val_mae": 0.04020768163115277,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.04027806107372557
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04022793815847506
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.04043579804567952
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04020768163115277
+          }
+        ]
+      },
+      "4": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.001
+        },
+        "val_mae": 0.04146252634944085,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.04496110309809321
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.0447110299983101
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.04215617095068147
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04146252634944085
+          }
+        ]
+      },
+      "5": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.001
+        },
+        "val_mae": 0.04287238426760267,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.047303859924028885
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04715062503505443
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.04439720735202531
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04287238426760267
+          }
+        ]
+      },
+      "6": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        },
+        "val_mae": 0.047619621692227866,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.052565724982363976
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.052551439504177976
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.047619621692227866
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.04831265350179657
+          }
+        ]
+      },
+      "7": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        },
+        "val_mae": 0.05108153886350307,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.05660942990911784
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.05660730327121606
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.05108153886350307
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.05188082353982417
+          }
+        ]
+      },
+      "8": {
+        "params": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.001
+        },
+        "val_mae": 0.052515603405435304,
+        "candidates": [
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.05856736571036948
+          },
+          {
+            "hidden_layer_sizes": [
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.05853895297216484
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.0001,
+            "val_mae": 0.05467962478560791
+          },
+          {
+            "hidden_layer_sizes": [
+              128,
+              64
+            ],
+            "alpha": 0.001,
+            "val_mae": 0.052515603405435304
+          }
+        ]
+      }
+    }
+  },
+  "chronos": {
+    "model": "amazon/chronos-t5-small",
+    "revision": "a971ba21945c4f1796b17a91fe69214b5f4ad472",
+    "licence": "Apache 2.0",
+    "context_length": 512,
+    "num_samples": 20,
+    "point_forecast": "median of samples"
+  },
+  "scores": {
+    "test_origins": [
+      1055,
+      1252
+    ],
+    "mae_index_points": {
+      "persistence": [
+        {
+          "minutes": 15,
+          "point": 2.5113,
+          "low": 2.2155,
+          "high": 2.8376
+        },
+        {
+          "minutes": 30,
+          "point": 3.5943,
+          "low": 3.1036,
+          "high": 4.1944
+        },
+        {
+          "minutes": 60,
+          "point": 5.7123,
+          "low": 4.7269,
+          "high": 6.7935
+        },
+        {
+          "minutes": 90,
+          "point": 7.9358,
+          "low": 6.4151,
+          "high": 9.6553
+        },
+        {
+          "minutes": 120,
+          "point": 9.9884,
+          "low": 8.0029,
+          "high": 12.3612
+        }
+      ],
+      "seasonal": [
+        {
+          "minutes": 15,
+          "point": 4.7419,
+          "low": 3.4971,
+          "high": 6.1669
+        },
+        {
+          "minutes": 30,
+          "point": 4.7418,
+          "low": 3.4887,
+          "high": 6.1493
+        },
+        {
+          "minutes": 60,
+          "point": 4.7441,
+          "low": 3.5154,
+          "high": 6.0956
+        },
+        {
+          "minutes": 90,
+          "point": 4.7483,
+          "low": 3.5133,
+          "high": 6.1038
+        },
+        {
+          "minutes": 120,
+          "point": 4.7362,
+          "low": 3.4522,
+          "high": 6.172
+        }
+      ],
+      "gb": [
+        {
+          "minutes": 15,
+          "point": 1.9445,
+          "low": 1.6897,
+          "high": 2.202
+        },
+        {
+          "minutes": 30,
+          "point": 2.2356,
+          "low": 1.9175,
+          "high": 2.5625
+        },
+        {
+          "minutes": 60,
+          "point": 2.6575,
+          "low": 2.2892,
+          "high": 3.0289
+        },
+        {
+          "minutes": 90,
+          "point": 3.1585,
+          "low": 2.6887,
+          "high": 3.6234
+        },
+        {
+          "minutes": 120,
+          "point": 3.5908,
+          "low": 3.0283,
+          "high": 4.1378
+        }
+      ],
+      "mlp": [
+        {
+          "minutes": 15,
+          "point": 2.4049,
+          "low": 2.0696,
+          "high": 2.7526
+        },
+        {
+          "minutes": 30,
+          "point": 3.0222,
+          "low": 2.6907,
+          "high": 3.3438
+        },
+        {
+          "minutes": 60,
+          "point": 3.629,
+          "low": 3.2162,
+          "high": 4.0516
+        },
+        {
+          "minutes": 90,
+          "point": 4.1044,
+          "low": 3.5794,
+          "high": 4.6151
+        },
+        {
+          "minutes": 120,
+          "point": 4.5382,
+          "low": 3.7685,
+          "high": 5.3709
+        }
+      ],
+      "chronos": [
+        {
+          "minutes": 15,
+          "point": 1.8776,
+          "low": 1.6256,
+          "high": 2.1285
+        },
+        {
+          "minutes": 30,
+          "point": 2.0859,
+          "low": 1.7975,
+          "high": 2.398
+        },
+        {
+          "minutes": 60,
+          "point": 2.3294,
+          "low": 1.9621,
+          "high": 2.7076
+        },
+        {
+          "minutes": 90,
+          "point": 2.5546,
+          "low": 2.096,
+          "high": 3.0585
+        },
+        {
+          "minutes": 120,
+          "point": 2.6705,
+          "low": 2.1561,
+          "high": 3.2593
+        }
+      ]
+    },
+    "short": {
+      "model": "gb",
+      "against": "persistence",
+      "minutes": 15,
+      "reduction_percent": {
+        "point": 22.5698,
+        "low": 16.1529,
+        "high": 29.5534
+      }
+    },
+    "long": {
+      "model": "chronos",
+      "against": "gb",
+      "minutes": 120,
+      "reduction_percent": {
+        "point": 25.6294,
+        "low": 16.5392,
+        "high": 34.1468
+      }
+    },
+    "chronos_model": "amazon/chronos-t5-small"
+  },
+  "export_scale": 100,
+  "packages": {
+    "python": "3.12.11",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.1",
+    "chronos-forecasting": "2.3.2"
+  },
+  "git": {
+    "commit": "f64486e",
+    "dirty": false
+  },
+  "results_file": "apps/web/src/content/results/forecasting-lab.json"
+}
