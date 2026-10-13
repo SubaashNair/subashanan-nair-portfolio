@@ -37,7 +37,7 @@ export function AnswerChapter({ study, results }: { study: StudyRecord; results:
             <h3 className="sub">Key numbers</h3>
             <div className="num-run">
               {results.data.keyNumbers.map((n) => (
-                <div key={n.value} className="tile-frame num-tile">
+                <div key={n.label} className="tile-frame num-tile">
                   <strong>{n.value}</strong>
                   <p>{n.label}</p>
                   <p className="caveat">{n.caveat}</p>
