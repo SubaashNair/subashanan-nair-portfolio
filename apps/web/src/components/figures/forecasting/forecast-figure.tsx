@@ -30,7 +30,7 @@ export function ForecastFigure({ data }: { data: ForecastResults }) {
       <div className="stack">
         <figure className="tile-frame" id="forecast-panel" role="tabpanel" aria-labelledby={tabId("sensor", sensorId)}>
           <ForecastChart sensor={sensor} models={data.models} visible={visible} />
-          <figcaption className="figcap">Vehicles per 5 minutes. The shaded window is the forecast; the seasonal naive line is dashed.</figcaption>
+          <figcaption className="figcap">Flow index per {sensor.stepMinutes} minutes, where 100 is the busiest reading in the dataset. The shaded window is the forecast; the persistence line is dashed. Clock times are the dataset&apos;s own.</figcaption>
           <h4 className="panel-title" id="window-mae-h" style={{ marginTop: 20, fontSize: 17 }}>Mean absolute error in this window</h4>
           <ul className="band-legend mae-list" aria-labelledby="window-mae-h">
             {data.models.map((m) => <li key={m.id}><Swatch id={m.id} />{m.name}<strong>{sensor.windowMae[m.id].toFixed(1)}</strong></li>)}
@@ -38,7 +38,7 @@ export function ForecastFigure({ data }: { data: ForecastResults }) {
         </figure>
         <figure className="tile-frame">
           <h4 className="panel-title">Error by horizon</h4>
-          <p className="figcap" style={{ margin: "0 0 14px" }}>Mean absolute error on the test window, all sensors, vehicles per 5 minutes. Lower is better.</p>
+          <p className="figcap" style={{ margin: "0 0 14px" }}>Mean absolute error on the test window, all sensors, in flow index points. Lower is better.</p>
           <HorizonChart horizons={data.horizons} models={data.models} visible={visible} />
           <div className="table-wrap" role="region" aria-label="Mean absolute error by horizon" tabIndex={0} style={{ marginTop: 18 }}>
             <table>

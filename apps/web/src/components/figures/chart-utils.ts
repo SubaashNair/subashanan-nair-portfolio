@@ -18,5 +18,18 @@ export const gauss = (rand: () => number): number => (rand() + rand() + rand() +
 export const pathOf = (points: ReadonlyArray<readonly [number, number]>): string =>
   points.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("");
 
-export const clock = (minutes: number): string =>
-  `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+const DAY_MINUTES = 24 * 60;
+
+/** Minutes after midnight as a 24-hour clock. Values before midnight or past the end of the day wrap around. */
+export const clock = (minutes: number): string => {
+  const m = ((minutes % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+};
+
+/** The smallest of 1, 2, 2.5 or 5 times a power of ten that is at least `raw`, for evenly spaced axis ticks. */
+export function niceStep(raw: number): number {
+  if (!(raw > 0)) return 1;
+  const power = 10 ** Math.floor(Math.log10(raw));
+  const factor = [1, 2, 2.5, 5, 10].find((f) => f * power >= raw * (1 - 1e-9)) ?? 10;
+  return Number((factor * power).toPrecision(6));
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { clock, pathOf, scale, seeded } from "./chart-utils";
+import { clock, niceStep, pathOf, scale, seeded } from "./chart-utils";
 
 describe("chart utils", () => {
   it("maps a domain onto a range, including reversed ranges", () => {
@@ -22,5 +22,15 @@ describe("chart utils", () => {
 
   it("formats minutes after midnight as a clock", () => {
     expect(clock(17 * 60 + 5)).toBe("17:05");
+  });
+
+  it("wraps clock times across midnight", () => {
+    expect(clock(-45)).toBe("23:15");
+    expect(clock(24 * 60 + 30)).toBe("00:30");
+  });
+
+  it("picks round tick steps", () => {
+    expect([niceStep(0.21), niceStep(0.7), niceStep(2), niceStep(3), niceStep(5.47), niceStep(30)]).toEqual([0.25, 1, 2, 5, 10, 50]);
+    expect(niceStep(0)).toBe(1);
   });
 });

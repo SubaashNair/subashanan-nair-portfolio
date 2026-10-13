@@ -5,7 +5,7 @@ import { useRef } from "react";
 import type { ForecastModel } from "@/content/types";
 import { palette } from "@/styles/palette";
 
-import { pathOf, scale } from "../chart-utils";
+import { niceStep, pathOf, scale } from "../chart-utils";
 import { useChartWidth } from "../use-chart-width";
 import { MODEL_STYLE } from "./model-style";
 
@@ -21,12 +21,15 @@ export function HorizonChart({ horizons, models, visible }: HorizonChartProps) {
   const h = Math.round(Math.min(340, Math.max(260, w * 0.42)));
   const pad = { l: 40, r: 18, t: 18, b: 40 };
   const x = (i: number): number => pad.l + 20 + i * ((w - pad.l - pad.r - 40) / (horizons.length - 1));
-  const y = scale(0, 18, h - pad.b, pad.t);
+  const top = Math.max(...models.flatMap((m) => m.mae));
+  const step = niceStep(top / 3);
+  const ticks = Array.from({ length: Math.max(1, Math.ceil(top / step)) + 1 }, (_, i) => Number((i * step).toPrecision(6)));
+  const y = scale(0, ticks[ticks.length - 1], h - pad.b, pad.t);
 
   return (
     <div className="chart" ref={ref}>
       <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label="Mean absolute error by forecast horizon for each model">
-        {[0, 6, 12, 18].map((v) => (
+        {ticks.map((v) => (
           <g key={v}>
             <line x1={pad.l} x2={w - pad.r} y1={y(v)} y2={y(v)} stroke={palette.ink} strokeOpacity={v ? 0.1 : 1} strokeWidth={v ? 1 : 1.5} />
             <text x={pad.l - 8} y={y(v) + 4} textAnchor="end">{v}</text>
