@@ -64,10 +64,11 @@ def headline_text(results: dict[str, Any], head: str) -> str | None:
     if not (label and chronos_label and interval):
         return None
     hours = results["horizons"][-1] // 60
+    name, rival = label["name"], chronos_label["name"]
     return (
-        f"{head} MAE fell {short['value']} (95% interval {interval['low']} to {interval['high']}%) versus persistence with "
-        f"{label['name']} at {results['horizons'][0]} minutes; zero-shot Chronos had {long['value']} lower error than "
-        f"{chronos_label['name']} at {hours} hours."
+        f"{head} {name[0].upper()}{name[1:]} cut MAE {short['value']} (95% interval {interval['low']} to {interval['high']}%) "
+        f"versus persistence at {results['horizons'][0]} minutes; zero-shot Chronos beat {'it' if rival == name else rival} "
+        f"by {long['value']} at {hours} hours."
     )
 
 
