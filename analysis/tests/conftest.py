@@ -1,12 +1,16 @@
 """A tiny synthetic stand-in for traffic_dataset.mat: 4 sensors, 1100 steps, the publisher's calendar fields."""
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pytest
 import scipy.io
 
-from forecasting.data import HOUR_COLUMNS, STEPS_PER_DAY, WEEKDAY_COLUMNS, Traffic, hour_of, load, weekday_of
+from forecasting.data import HOUR_COLUMNS, STEPS_PER_DAY, WEEKDAY_COLUMNS, Traffic, hour_of, load, make_split, weekday_of
+
+if TYPE_CHECKING:
+    from forecasting.pipeline import RunResult
 
 SENSORS = 4
 STEPS = 1100
@@ -45,3 +49,13 @@ def tiny_mat(tmp_path_factory: pytest.TempPathFactory) -> Path:
 @pytest.fixture(scope="session")
 def tiny(tiny_mat: Path) -> Traffic:
     return load(tiny_mat)
+
+
+@pytest.fixture(scope="session")
+def tiny_run(tiny: Traffic) -> "RunResult":
+    """One full pipeline run on the synthetic file, shared by the pipeline, export and CLI tests."""
+    from forecasting.pipeline import run
+
+    from .fakes import QUICK, FakeChronos
+
+    return run(tiny, make_split(tiny.series.shape[1]), FakeChronos(), QUICK, seed=42)
