@@ -32,7 +32,19 @@ describe("ForecastFigure", () => {
   it("bolds the lowest error in each horizon column", () => {
     render(<ForecastFigure data={forecastFixture} />);
     const bold = screen.getByRole("table").querySelectorAll("b");
-    expect([...bold].map((b) => b.textContent)).toEqual(["2.4", "3.4", "6.4", "4.9", "5.8"]); // row order: gb, mlp, chronos
+    expect([...bold].map((b) => b.textContent)).toEqual(["2.40", "3.40", "6.40", "4.90", "5.80"]); // row order: gb, mlp, chronos
+  });
+
+  it("shows the table to two decimals so close errors do not look tied", () => {
+    render(<ForecastFigure data={forecastFixture} />);
+    const cells = [...screen.getByRole("table").querySelectorAll("td")].map((td) => td.textContent);
+    expect(cells).toContain("3.10");
+    expect(cells).not.toContain("3.1");
+  });
+
+  it("discloses how the sensor windows were chosen", () => {
+    render(<ForecastFigure data={forecastFixture} />);
+    expect(screen.getByText(/Each sensor is shown at the test window where its flow changed most over two hours, so these windows are harder than average\./)).toBeInTheDocument();
   });
 
   it("labels the time axis every hour for 15 minute steps, across midnight", () => {

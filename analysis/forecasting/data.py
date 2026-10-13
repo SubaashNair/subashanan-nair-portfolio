@@ -79,6 +79,8 @@ def fetch(raw_dir: Path) -> RawFiles:
         stamp = datetime.now(UTC).replace(microsecond=0).isoformat()
         stamp_path.write_text(json.dumps({"retrieved": stamp}))
     with zipfile.ZipFile(zip_path) as archive:
+        if MAT_NAME not in archive.namelist():
+            raise ValueError(f"{zip_path} does not contain {MAT_NAME}")
         archive.extract(MAT_NAME, raw_dir)
     retrieved = json.loads(stamp_path.read_text())["retrieved"]
     return RawFiles(zip_path=zip_path, mat_path=raw_dir / MAT_NAME, retrieved=retrieved)

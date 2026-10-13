@@ -24,7 +24,8 @@ SENTENCE_NAMES = {
     "mlp": "the spatial MLP",
     "chronos": "Chronos",
 }
-LOCAL_CAVEAT = "One highway corridor near Washington DC, so treat the ranking as local."
+LOCAL_CAVEAT = "Two highways near Washington DC, so treat the ranking as local."
+SMALL_LEAD = 0.05  # a first-horizon lead under 5% relative is called small
 
 
 def whole(value: float) -> str:
@@ -61,6 +62,21 @@ def answer_text(short: Comparison, long: Comparison) -> str:
         f"{direction(long.estimate)} error than {SENTENCE_NAMES[long.against]}, the better tuned model on validation data ({interval(long.estimate)})."
     )
     return f"{first} {second}"
+
+
+def lead_sentence(mae: dict[str, list[Estimate]]) -> str:
+    """Extra sentence when Chronos has the lowest MAE at every horizon, else nothing."""
+    others = [m for m in mae if m != "chronos"]
+    horizons = range(len(mae["chronos"]))
+    if not all(mae["chronos"][i].point < min(mae[m][i].point for m in others) for i in horizons):
+        return ""
+    base = "Chronos also had the lowest error at every horizon"
+    runner_up = min(others, key=lambda m: mae[m][0].point)
+    lead = (mae[runner_up][0].point - mae["chronos"][0].point) / mae[runner_up][0].point
+    if lead >= SMALL_LEAD:
+        return f"{base}."
+    minutes = HORIZON_STEPS[0] * STEP_MINUTES
+    return f"{base}, although its lead over {SENTENCE_NAMES[runner_up]} at {minutes} minutes is small and was not tested."
 
 
 def key_numbers(short: Comparison, long: Comparison, sensors: int, test_hours: int) -> list[dict[str, str]]:
@@ -121,7 +137,7 @@ def sensor_entry(result: RunResult, series: np.ndarray, sensor: int) -> dict[str
 def build_results(result: RunResult, series: np.ndarray, test: Block, run: dict[str, str], retrieved: dict[str, str]) -> dict[str, Any]:
     test_hours = (test.stop - test.start) * STEP_MINUTES // 60
     return {
-        "answer": answer_text(result.short, result.long),
+        "answer": " ".join(filter(None, [answer_text(result.short, result.long), lead_sentence(result.mae)])),
         "keyNumbers": key_numbers(result.short, result.long, series.shape[0], test_hours),
         "run": run,
         "retrieved": retrieved,

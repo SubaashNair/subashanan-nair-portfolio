@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -50,8 +51,28 @@ def change(name: str, percent: float) -> str:
     return f"{'fell' if percent >= 0 else 'rose'} {round(abs(percent))}% with {name}"
 
 
+HEADLINE_LABEL = re.compile(r"^lower error than persistence for (?P<name>.+) at \d+ minutes\.$")
+HEADLINE_INTERVAL = re.compile(r"95% interval (?P<low>\d+) to (?P<high>\d+)%")
+CHRONOS_LABEL = re.compile(r"^lower error for Chronos, with no tuning, than (?P<name>.+) at \d+ hours\.$")
+
+
+def headline_text(results: dict[str, Any], head: str) -> str | None:
+    """The wording with the published interval, parsed from keyNumbers. None unless both changes are reductions."""
+    short, long = results["keyNumbers"][0], results["keyNumbers"][1]
+    label, chronos_label = HEADLINE_LABEL.match(short["label"]), CHRONOS_LABEL.match(long["label"])
+    interval = HEADLINE_INTERVAL.search(short["caveat"])
+    if not (label and chronos_label and interval):
+        return None
+    hours = results["horizons"][-1] // 60
+    return (
+        f"{head} MAE fell {short['value']} (95% interval {interval['low']} to {interval['high']}%) versus persistence with "
+        f"{label['name']} at {results['horizons'][0]} minutes; zero-shot Chronos had {long['value']} lower error than "
+        f"{chronos_label['name']} at {hours} hours."
+    )
+
+
 def forecast_text(results: dict[str, Any]) -> tuple[str, ...]:
-    """Candidate wordings, longest first, built only from numbers in the results file."""
+    """Candidate wordings, preferred first, built only from numbers in the results file."""
     first = {m["id"]: m["mae"][0] for m in results["models"]}
     cut = {k: 100 * (1 - first[k] / first["persistence"]) for k in ("gb", "mlp", "chronos")}
     minutes = results["horizons"][0]
@@ -62,7 +83,8 @@ def forecast_text(results: dict[str, Any]) -> tuple[str, ...]:
         f"{change('a spatial MLP', cut['mlp'])} and {change('zero-shot Chronos', cut['chronos'])}."
     )
     short = f"{head} At {minutes} minutes, MAE {change('gradient boosting', cut['gb'])} versus persistence."
-    return (full, short)
+    preferred = headline_text(results, head)
+    return (full, short) if preferred is None else (preferred, full, short)
 
 
 def wrap(text: str, width: Width, limits: list[float]) -> list[str] | None:

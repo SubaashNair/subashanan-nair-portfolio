@@ -72,7 +72,7 @@ export const forecastFixture: ForecastResults = {
   keyNumbers: [
     { value: "23%", label: "lower error than persistence for gradient boosting at 15 minutes.", caveat: "95% interval 16 to 30%, from a block bootstrap over the test window." },
     { value: "2%", label: "higher error for Chronos, with no tuning, than the spatial MLP at 2 hours.", caveat: "95% interval 1 to 4%, from a block bootstrap over the test window." },
-    { value: "36", label: "sensors scored at 5 horizons on the final 51 hours of data.", caveat: "One highway corridor near Washington DC, so treat the ranking as local." },
+    { value: "36", label: "sensors scored at 5 horizons on the final 51 hours of data.", caveat: "Two highways near Washington DC, so treat the ranking as local." },
   ],
   run: { commit: "a1c9e04", manifest: "analysis/outputs/forecasting-lab-manifest.json", python: "3.12", lastRun: "2026-10-01" },
   retrieved: { "Dataset 608": "2026-09-20", "chronos-t5-small": "2026-09-21" },

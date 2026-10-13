@@ -29,7 +29,7 @@ class RunResult:
     actual: np.ndarray  # (origins, sensors, MAX_STEPS)
     forecasts: dict[str, np.ndarray]  # model id to (origins, sensors, MAX_STEPS)
     mae: dict[str, list[Estimate]]  # model id to one estimate per horizon in HORIZON_STEPS
-    short: Comparison  # best challenger against persistence at the first horizon
+    short: Comparison  # the better tuned model, chosen on validation MAE, against persistence at the first horizon
     long: Comparison  # Chronos against the better tuned model at the last horizon
     tuning: dict[str, dict[int, dict[str, Any]]]
 

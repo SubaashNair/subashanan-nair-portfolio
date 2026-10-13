@@ -65,6 +65,14 @@ def test_fetch_reuses_the_cache_without_the_network(tmp_path: Path, monkeypatch:
     assert raw.retrieved == "2026-10-13T01:02:03+00:00"
 
 
+def test_fetch_names_a_zip_that_lacks_the_mat_file(tmp_path: Path) -> None:
+    with zipfile.ZipFile(tmp_path / data.ZIP_NAME, "w") as archive:
+        archive.writestr("other.txt", b"x")
+    (tmp_path / data.RETRIEVED_NAME).write_text(json.dumps({"retrieved": "2026-10-13T01:02:03+00:00"}))
+    with pytest.raises(ValueError, match=data.MAT_NAME):
+        data.fetch(tmp_path)
+
+
 def test_calendar_helpers_follow_the_publisher_fields() -> None:
     assert (data.weekday_of(0), data.hour_of(0)) == (0, 0)
     assert (data.weekday_of(95), data.hour_of(95)) == (0, 23)

@@ -4,7 +4,7 @@ import numpy as np
 
 from forecasting.data import Traffic, make_split
 from forecasting.evaluate import Estimate
-from forecasting.export import EXPORT_SCALE, PAST_STEPS, answer_text, build_results, key_numbers, pick_sensors
+from forecasting.export import EXPORT_SCALE, PAST_STEPS, answer_text, build_results, key_numbers, lead_sentence, pick_sensors
 from forecasting.models import MAX_STEPS, MODEL_IDS
 from forecasting.pipeline import Comparison, RunResult
 
@@ -76,3 +76,35 @@ def test_picks_three_distinct_sensors_from_low_to_high_flow(tiny: Traffic) -> No
     assert picked == [0, 1, 2]
     wide = np.tile(np.arange(36.0)[:, None], (1, 1300)) / 36
     assert pick_sensors(wide, make_split(1300).test) == [5, 17, 29]
+
+
+def table(first: dict[str, float], rest: float = 1.0) -> dict[str, list[Estimate]]:
+    """Fabricated MAEs: the first horizon from `first`, then Chronos lowest at the other four unless `rest` is high."""
+    out = {}
+    for model, value in first.items():
+        later = 0.5 if model == "chronos" else rest
+        out[model] = [Estimate(point=v, low=v, high=v) for v in (value, later, later, later, later)]
+    return out
+
+
+def test_lead_sentence_calls_a_narrow_first_horizon_lead_small() -> None:
+    mae = table({"persistence": 2.0, "gb": 1.02, "mlp": 1.5, "chronos": 1.0})  # 2% lead over gradient boosting
+    assert lead_sentence(mae) == (
+        "Chronos also had the lowest error at every horizon, although its lead over gradient boosting at 15 minutes is small and was not tested."
+    )
+
+
+def test_lead_sentence_drops_the_small_claim_for_a_clear_lead() -> None:
+    mae = table({"persistence": 2.0, "gb": 1.5, "mlp": 1.6, "chronos": 1.0})  # 33% lead
+    assert lead_sentence(mae) == "Chronos also had the lowest error at every horizon."
+
+
+def test_lead_sentence_is_empty_unless_chronos_wins_every_horizon() -> None:
+    mae = table({"persistence": 2.0, "gb": 1.02, "mlp": 1.5, "chronos": 1.0})
+    mae["gb"][3] = Estimate(point=0.1, low=0.1, high=0.1)
+    assert lead_sentence(mae) == ""
+    assert not DASHES.search(lead_sentence(table({"persistence": 2.0, "gb": 1.02, "chronos": 1.0})))
+
+
+def test_the_local_caveat_names_both_highways(tiny: Traffic, tiny_run: RunResult) -> None:
+    assert results(tiny, tiny_run)["keyNumbers"][2]["caveat"] == "Two highways near Washington DC, so treat the ranking as local."
