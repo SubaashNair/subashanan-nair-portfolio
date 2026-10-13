@@ -4,10 +4,11 @@ export interface ContactLinks {
   cv?: string;
 }
 
-// Contact links shown on the About page and the home About band. A missing value (the CV for now) hides its button.
+// Contact links shown on the About page and the home About band. A missing value hides its button.
 const contact: ContactLinks = {
   email: "subaashnair12@gmail.com",
   linkedin: "https://www.linkedin.com/in/subashanan-nair/",
+  cv: "/subashanan-nair-cv.pdf",
 };
 
 export const profile = {
