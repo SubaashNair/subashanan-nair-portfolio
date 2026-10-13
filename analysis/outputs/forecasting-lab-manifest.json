@@ -854,7 +854,7 @@
     "chronos-forecasting": "2.3.2"
   },
   "git": {
-    "commit": "f64486e",
+    "commit": "f678130",
     "dirty": false
   },
   "results_file": "apps/web/src/content/results/forecasting-lab.json"

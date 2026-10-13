@@ -1,5 +1,5 @@
 {
-  "answer": "At 15 minutes, gradient boosting, the tuned model chosen on validation data, has 23% lower error than persistence (95% interval 16 to 30%). At 2 hours, Chronos, used with no tuning, has 26% lower error than gradient boosting, the better tuned model on validation data (95% interval 17 to 34%).",
+  "answer": "At 15 minutes, gradient boosting, the tuned model chosen on validation data, has 23% lower error than persistence (95% interval 16 to 30%). At 2 hours, Chronos, used with no tuning, has 26% lower error than gradient boosting, the better tuned model on validation data (95% interval 17 to 34%). Chronos also had the lowest error at every horizon, although its lead over gradient boosting at 15 minutes is small and was not tested.",
   "keyNumbers": [
     {
       "value": "23%",
@@ -14,11 +14,11 @@
     {
       "value": "36",
       "label": "sensors scored at 5 horizons on the final 51 hours of data.",
-      "caveat": "One highway corridor near Washington DC, so treat the ranking as local."
+      "caveat": "Two highways near Washington DC, so treat the ranking as local."
     }
   ],
   "run": {
-    "commit": "f64486e",
+    "commit": "f678130",
     "manifest": "analysis/outputs/forecasting-lab-manifest.json",
     "python": "3.12.11",
     "lastRun": "2026-10-13"
