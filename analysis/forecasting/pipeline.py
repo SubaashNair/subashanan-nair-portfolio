@@ -43,6 +43,7 @@ def run(traffic: Traffic, split: Split, predictor: SamplePredictor, settings: Se
     origins = eval_origins(split.test)
     gb, gb_tuning = tuned_forecasts("gb", series, adjacency, split, origins, settings, seed)
     mlp, mlp_tuning = tuned_forecasts("mlp", series, adjacency, split, origins, settings, seed)
+    tuning = {"gb": gb_tuning, "mlp": mlp_tuning}
     forecasts = {
         "persistence": persistence(series, origins),
         "seasonal": seasonal(series, origins),
@@ -59,22 +60,21 @@ def run(traffic: Traffic, split: Split, predictor: SamplePredictor, settings: Se
         actual=actual,
         forecasts=forecasts,
         mae=scores,
-        short=compare_short(errors, resamples),
-        long=compare_long(errors, resamples),
-        tuning={"gb": gb_tuning, "mlp": mlp_tuning},
+        short=compare_short(errors, tuning, resamples),
+        long=compare_long(errors, tuning, resamples),
+        tuning=tuning,
     )
 
 
-def compare_short(errors: dict[str, dict[int, np.ndarray]], resamples: list[np.ndarray]) -> Comparison:
+def compare_short(errors: dict[str, dict[int, np.ndarray]], tuning: dict[str, dict[int, dict[str, Any]]], resamples: list[np.ndarray]) -> Comparison:
     first = HORIZON_STEPS[0]
-    challengers = [m for m in MODEL_IDS if m != "persistence"]
-    best = min(challengers, key=lambda m: errors[m][first].mean())
+    best = min(TUNED, key=lambda m: tuning[m][first]["val_mae"])
     estimate = reduction(errors[best][first], errors["persistence"][first], resamples)
     return Comparison(model=best, against="persistence", minutes=first * STEP_MINUTES, estimate=estimate)
 
 
-def compare_long(errors: dict[str, dict[int, np.ndarray]], resamples: list[np.ndarray]) -> Comparison:
+def compare_long(errors: dict[str, dict[int, np.ndarray]], tuning: dict[str, dict[int, dict[str, Any]]], resamples: list[np.ndarray]) -> Comparison:
     last = HORIZON_STEPS[-1]
-    tuned = min(TUNED, key=lambda m: errors[m][last].mean())
+    tuned = min(TUNED, key=lambda m: tuning[m][last]["val_mae"])
     estimate = reduction(errors["chronos"][last], errors[tuned][last], resamples)
     return Comparison(model="chronos", against=tuned, minutes=last * STEP_MINUTES, estimate=estimate)
