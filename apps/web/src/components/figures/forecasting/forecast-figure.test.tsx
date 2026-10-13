@@ -3,14 +3,16 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { forecastFixture } from "@/content/fixtures/forecasting";
+import type { ForecastModelId } from "@/content/types";
 
 import { ForecastFigure } from "./forecast-figure";
+import { HorizonChart } from "./horizon-chart";
 
 describe("ForecastFigure", () => {
   it("server-renders both charts with every model line", () => {
     const html = renderToStaticMarkup(<ForecastFigure data={forecastFixture} />);
     expect(html).toContain("Traffic flow for Sensor 12");
-    expect((html.match(/class="model-line"/g) ?? []).length).toBe(8); // 4 forecast lines and 4 horizon lines
+    expect((html.match(/class="model-line"/g) ?? []).length).toBe(10); // 5 forecast lines and 5 horizon lines
   });
 
   it("switches sensor and updates the window error list", () => {
@@ -24,12 +26,47 @@ describe("ForecastFigure", () => {
   it("hides a model from both charts", () => {
     const { container } = render(<ForecastFigure data={forecastFixture} />);
     fireEvent.click(screen.getByRole("button", { name: "Chronos, zero-shot" }));
-    expect(container.querySelectorAll(".model-line")).toHaveLength(6);
+    expect(container.querySelectorAll(".model-line")).toHaveLength(8);
   });
 
   it("bolds the lowest error in each horizon column", () => {
     render(<ForecastFigure data={forecastFixture} />);
     const bold = screen.getByRole("table").querySelectorAll("b");
-    expect([...bold].map((b) => b.textContent)).toEqual(["6.1", "7.9", "10.1", "11.6", "13.4"]);
+    expect([...bold].map((b) => b.textContent)).toEqual(["2.40", "3.40", "6.40", "4.90", "5.80"]); // row order: gb, mlp, chronos
+  });
+
+  it("shows the table to two decimals so close errors do not look tied", () => {
+    render(<ForecastFigure data={forecastFixture} />);
+    const cells = [...screen.getByRole("table").querySelectorAll("td")].map((td) => td.textContent);
+    expect(cells).toContain("3.10");
+    expect(cells).not.toContain("3.1");
+  });
+
+  it("discloses how the sensor windows were chosen", () => {
+    render(<ForecastFigure data={forecastFixture} />);
+    expect(screen.getByText(/Each sensor is shown at the test window where its flow changed most over two hours, so these windows are harder than average\./)).toBeInTheDocument();
+  });
+
+  it("labels the time axis every hour for 15 minute steps, across midnight", () => {
+    const sensor = { ...forecastFixture.sensors[0], originMinutes: 60 };
+    const html = renderToStaticMarkup(<ForecastFigure data={{ ...forecastFixture, sensors: [sensor] }} />);
+    expect(html).toContain(">16:00<");
+    expect(html).toContain(">00:00<");
+    expect(html).toContain(">03:00<");
+  });
+
+  it("starts the flow axis at zero for a quiet sensor", () => {
+    const s = forecastFixture.sensors[0];
+    const quiet = (values: readonly number[]): number[] => values.map((v) => v / 10);
+    const forecasts = Object.fromEntries(Object.entries(s.forecasts).map(([id, values]) => [id, quiet(values)])) as Record<ForecastModelId, number[]>;
+    const html = renderToStaticMarkup(<ForecastFigure data={{ ...forecastFixture, sensors: [{ ...s, actual: quiet(s.actual), forecasts }] }} />);
+    expect(html).not.toContain(">-25<");
+    expect(html).toContain('text-anchor="end">0<');
+  });
+
+  it("scales the error axis to the largest error", () => {
+    const models = [{ id: "gb" as const, name: "Gradient boosting", mae: [12, 18, 24, 31, 38] }];
+    const html = renderToStaticMarkup(<HorizonChart horizons={forecastFixture.horizons} models={models} visible={new Set(["gb"])} />);
+    expect([...html.matchAll(/text-anchor="end">([\d.]+)</g)].map((m) => m[1])).toEqual(["0", "20", "40"]);
   });
 });

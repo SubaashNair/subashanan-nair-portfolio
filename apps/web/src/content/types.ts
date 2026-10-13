@@ -83,7 +83,7 @@ export interface PenangResults extends BaseResults {
   pointsNote: string;
 }
 
-export type ForecastModelId = "naive" | "gb" | "gru" | "chronos";
+export type ForecastModelId = "persistence" | "seasonal" | "gb" | "mlp" | "chronos";
 export interface ForecastModel {
   id: ForecastModelId;
   name: string;

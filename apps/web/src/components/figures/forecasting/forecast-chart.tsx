@@ -24,17 +24,19 @@ export function ForecastChart({ sensor, models, visible }: ForecastChartProps) {
   const ahead = sensor.actual.length - past - 1;
   const shown = models.filter((m) => visible.has(m.id));
   const values = [...sensor.actual, ...shown.flatMap((m) => sensor.forecasts[m.id])];
-  const lo = Math.floor((Math.min(...values) - 5) / 25) * 25;
+  const min = Math.min(...values);
+  // Pad below the lowest value, but not past zero unless a value is negative.
+  const lo = Math.floor((min >= 0 ? Math.max(0, min - 5) : min - 5) / 25) * 25;
   const hi = Math.ceil((Math.max(...values) + 5) / 25) * 25;
   const x = scale(-past, ahead, pad.l, w - pad.r);
   const y = scale(lo, hi, h - pad.b, pad.t);
   const yTicks = Array.from({ length: (hi - lo) / 25 + 1 }, (_, i) => lo + i * 25);
-  const hourStep = w < 520 ? 24 : 12;
+  const hourStep = (w < 520 ? 120 : 60) / sensor.stepMinutes;
   const xTicks = Array.from({ length: Math.floor((past + ahead) / hourStep) + 1 }, (_, i) => -past + i * hourStep);
 
   return (
     <div className="chart" ref={ref}>
-      <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`Traffic flow for ${sensor.label}, actual and forecast, vehicles per 5 minutes`}>
+      <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`Traffic flow for ${sensor.label}, actual and forecast, flow index per ${sensor.stepMinutes} minutes`}>
         <rect x={x(0)} y={pad.t} width={x(ahead) - x(0)} height={h - pad.b - pad.t} fill={palette.sky} />
         <text className="strong" x={x(0) + 8} y={pad.t - 12}>Next 2 hours</text>
         {yTicks.map((v) => (

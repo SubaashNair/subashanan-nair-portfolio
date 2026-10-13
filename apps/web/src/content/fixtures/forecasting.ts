@@ -3,24 +3,25 @@ import { gauss, seeded } from "@/components/figures/chart-utils";
 import type { ForecastModel, ForecastModelId, ForecastResults, SensorSeries } from "../types";
 
 // Illustrative only. Each forecast is the actual series plus smooth seeded error whose size follows the MAE table,
-// so relative accuracy matches it. Never shown in a production build.
+// so relative accuracy matches it. Never shown in a production build, and hidden once real results are published.
 const HORIZONS = [15, 30, 60, 90, 120] as const;
 const ORIGIN = 17 * 60;
-const STEP = 5;
+const STEP = 15;
 const PAST = 36;
-const AHEAD = 24;
+const AHEAD = 8;
 
 const MODELS: readonly ForecastModel[] = [
-  { id: "naive", name: "Seasonal naive", mae: [9.8, 11.2, 13.5, 15.1, 16.4] },
-  { id: "gb", name: "Gradient boosting", mae: [6.1, 7.9, 10.6, 12.4, 14.0] },
-  { id: "gru", name: "Small neural net (GRU)", mae: [6.4, 8.1, 10.4, 12.0, 13.6] },
-  { id: "chronos", name: "Chronos, zero-shot", mae: [7.0, 8.3, 10.1, 11.6, 13.4] },
+  { id: "persistence", name: "Persistence", mae: [3.1, 4.6, 6.9, 8.4, 9.6] },
+  { id: "seasonal", name: "Daily seasonal naive", mae: [6.2, 6.3, 6.5, 6.7, 6.9] },
+  { id: "gb", name: "Gradient boosting", mae: [2.4, 3.5, 5.0, 5.9, 6.6] },
+  { id: "mlp", name: "Spatial MLP", mae: [2.5, 3.4, 5.1, 6.0, 6.4] },
+  { id: "chronos", name: "Chronos, zero-shot", mae: [2.7, 3.7, 4.9, 5.8, 6.5] },
 ];
-const MODEL_SEEDS: Readonly<Record<ForecastModelId, number>> = { naive: 11, gb: 23, gru: 37, chronos: 53 };
+const MODEL_SEEDS: Readonly<Record<ForecastModelId, number>> = { persistence: 11, seasonal: 17, gb: 23, mlp: 37, chronos: 53 };
 const SENSORS = [
-  { id: "s12", label: "Sensor 12", seed: 12, base: 96, peak: 82, peakAt: 17 * 60 + 50, k: 1 },
-  { id: "s47", label: "Sensor 47", seed: 47, base: 64, peak: 58, peakAt: 18 * 60 + 5, k: 0.8 },
-  { id: "s103", label: "Sensor 103", seed: 103, base: 128, peak: 64, peakAt: 17 * 60 + 35, k: 1.2 },
+  { id: "s12", label: "Sensor 12", seed: 12, base: 24, peak: 30, peakAt: 17 * 60 + 50, k: 1 },
+  { id: "s47", label: "Sensor 47", seed: 47, base: 16, peak: 22, peakAt: 18 * 60 + 5, k: 0.8 },
+  { id: "s103", label: "Sensor 103", seed: 103, base: 32, peak: 26, peakAt: 17 * 60 + 35, k: 1.2 },
 ] as const;
 
 /** MAE at any horizon in minutes, linear between the published horizons. */
@@ -37,7 +38,7 @@ function sensorSeries(s: (typeof SENSORS)[number]): SensorSeries {
   const r = seeded(s.seed * 97);
   const actual = Array.from({ length: PAST + AHEAD + 1 }, (_, i) => {
     const m = ORIGIN + (i - PAST) * STEP;
-    return s.base + s.peak * Math.exp(-(((m - s.peakAt) / 58) ** 2)) + 6 * Math.sin(m / 37 + s.seed) * s.k + gauss(r) * 3.2 * s.k;
+    return s.base + s.peak * Math.exp(-(((m - s.peakAt) / 150) ** 2)) + 3 * Math.sin(m / 90 + s.seed) * s.k + gauss(r) * 1.2 * s.k;
   });
   const at = (t: number): number => actual[t + PAST];
 
@@ -52,7 +53,7 @@ function sensorSeries(s: (typeof SENSORS)[number]): SensorSeries {
     return { values, mae };
   };
 
-  const built = Object.fromEntries(MODELS.map((m) => [m.id, build(m)])) as Record<ForecastModelId, { values: readonly number[]; mae: number }>;
+  const built = MODELS.map((m) => [m.id, build(m)] as const);
   return {
     id: s.id,
     label: s.label,
@@ -60,20 +61,20 @@ function sensorSeries(s: (typeof SENSORS)[number]): SensorSeries {
     stepMinutes: STEP,
     pastSteps: PAST,
     actual,
-    forecasts: { naive: built.naive.values, gb: built.gb.values, gru: built.gru.values, chronos: built.chronos.values },
-    windowMae: { naive: built.naive.mae, gb: built.gb.mae, gru: built.gru.mae, chronos: built.chronos.mae },
+    forecasts: Object.fromEntries(built.map(([id, b]) => [id, b.values])) as Record<ForecastModelId, readonly number[]>,
+    windowMae: Object.fromEntries(built.map(([id, b]) => [id, b.mae])) as Record<ForecastModelId, number>,
   };
 }
 
 export const forecastFixture: ForecastResults = {
   answer:
-    "At short horizons a tuned gradient boosting model is hard to beat. Past one hour, Chronos, used with no tuning at all, has the lowest error, about 18% below the seasonal baseline at two hours.",
+    "At 15 minutes, gradient boosting is the strongest challenger, with 23% lower error than persistence. At 2 hours, Chronos, used with no tuning, has 2% higher error than the spatial MLP.",
   keyNumbers: [
-    { value: "18%", label: "lower error for Chronos than the seasonal baseline at 2 hours.", caveat: "Interval 12 to 23%, from a bootstrap over test days." },
-    { value: "4", label: "models compared on the same chronological splits.", caveat: "One dataset from one city, so treat the ranking as local." },
-    { value: "0", label: "hours of tuning for Chronos.", caveat: "Its context length still caps how much history it sees." },
+    { value: "23%", label: "lower error than persistence for gradient boosting at 15 minutes.", caveat: "95% interval 16 to 30%, from a block bootstrap over the test window." },
+    { value: "2%", label: "higher error for Chronos, with no tuning, than the spatial MLP at 2 hours.", caveat: "95% interval 1 to 4%, from a block bootstrap over the test window." },
+    { value: "36", label: "sensors scored at 5 horizons on the final 51 hours of data.", caveat: "Two highways near Washington DC, so treat the ranking as local." },
   ],
-  run: { commit: "a1c9e04", manifest: "manifest.json", python: "3.12", lastRun: "2026-10-01" },
+  run: { commit: "a1c9e04", manifest: "analysis/outputs/forecasting-lab-manifest.json", python: "3.12", lastRun: "2026-10-01" },
   retrieved: { "Dataset 608": "2026-09-20", "chronos-t5-small": "2026-09-21" },
   horizons: HORIZONS,
   models: MODELS,

@@ -5,8 +5,15 @@ import { getStudyResults } from "./study-results";
 describe("getStudyResults", () => {
   it("returns nothing in production when no results are published", () => {
     expect(getStudyResults("penang-pulse", "production")).toBeNull();
-    expect(getStudyResults("forecasting-lab", "production")).toBeNull();
     expect(getStudyResults("llm-eval-lab", "production")).toBeNull();
+  });
+
+  it("returns published results in every environment, never flagged as a preview", () => {
+    for (const env of ["production", "development", "test", undefined]) {
+      const loaded = getStudyResults("forecasting-lab", env);
+      expect(loaded?.preview).toBe(false);
+      expect(loaded?.data.models).toHaveLength(5);
+    }
   });
 
   afterEach(() => vi.unstubAllEnvs());

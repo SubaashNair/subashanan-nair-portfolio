@@ -42,15 +42,16 @@ describe("fixtures", () => {
   it("gives every forecast series the right length", () => {
     const f = fixtures["forecasting-lab"]!;
     for (const s of f.sensors) {
-      expect(s.actual.length).toBe(s.pastSteps + 25);
-      for (const m of f.models) expect(s.forecasts[m.id].length).toBe(25);
+      expect(s.stepMinutes).toBe(15);
+      expect(s.actual.length).toBe(s.pastSteps + 9);
+      for (const m of f.models) expect(s.forecasts[m.id].length).toBe(9);
     }
   });
 
-  it("keeps the seasonal baseline worst in every sensor window", () => {
+  it("keeps persistence worst in every sensor window", () => {
     for (const s of fixtures["forecasting-lab"]!.sensors) {
-      const others = (["gb", "gru", "chronos"] as const).map((id) => s.windowMae[id]);
-      expect(s.windowMae.naive).toBeGreaterThan(Math.max(...others));
+      const others = (["seasonal", "gb", "mlp", "chronos"] as const).map((id) => s.windowMae[id]);
+      expect(s.windowMae.persistence).toBeGreaterThan(Math.max(...others));
     }
   });
 });
