@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import platform
 import subprocess
 from datetime import UTC, datetime
@@ -85,6 +86,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--raw-dir", type=Path, default=ANALYSIS_DIR / "data/raw")
     args = parser.parse_args(argv)
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
 
     raw = data.fetch(args.raw_dir)
     traffic = data.load(raw.mat_path)

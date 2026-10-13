@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from typing import Any
 
@@ -13,6 +14,8 @@ from .evaluate import Estimate, block_resamples, mae, origin_errors, reduction
 from .models import HORIZON_STEPS, MAX_STEPS, MODEL_IDS, Settings, eval_origins, persistence, seasonal, tuned_forecasts
 
 TUNED = ("gb", "mlp")
+
+log = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -41,9 +44,12 @@ def actual_ahead(series: np.ndarray, origins: np.ndarray) -> np.ndarray:
 def run(traffic: Traffic, split: Split, predictor: SamplePredictor, settings: Settings, seed: int) -> RunResult:
     series, adjacency = traffic.series, traffic.adjacency
     origins = eval_origins(split.test)
+    log.info("stage 1/3: gradient boosting")
     gb, gb_tuning = tuned_forecasts("gb", series, adjacency, split, origins, settings, seed)
+    log.info("stage 2/3: spatial MLP")
     mlp, mlp_tuning = tuned_forecasts("mlp", series, adjacency, split, origins, settings, seed)
     tuning = {"gb": gb_tuning, "mlp": mlp_tuning}
+    log.info("stage 3/3: Chronos on %d test origins", origins.size)
     forecasts = {
         "persistence": persistence(series, origins),
         "seasonal": seasonal(series, origins),

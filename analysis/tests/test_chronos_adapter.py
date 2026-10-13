@@ -35,3 +35,9 @@ def test_importing_the_adapter_does_not_import_torch() -> None:
     import sys
 
     assert "torch" not in sys.modules
+
+
+def test_logs_progress_every_ten_origins_and_at_the_end(tiny: Traffic, caplog: pytest.LogCaptureFixture) -> None:
+    with caplog.at_level("INFO", logger="forecasting"):
+        chronos_forecasts(tiny.series, np.arange(500, 525), 8, FakeChronos())
+    assert [r.getMessage() for r in caplog.records] == ["Chronos: origin 10/25", "Chronos: origin 20/25", "Chronos: origin 25/25"]

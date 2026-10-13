@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from typing import Any
 
@@ -13,6 +14,8 @@ from sklearn.preprocessing import StandardScaler
 
 from .data import STEPS_PER_DAY, Block, Split
 from .features import FIRST_ORIGIN, build_features, targets
+
+log = logging.getLogger(__name__)
 
 MAX_STEPS = 8
 HORIZON_STEPS = (1, 2, 4, 6, 8)
@@ -109,6 +112,7 @@ def tuned_forecasts(
     columns: list[np.ndarray] = []
     chosen: dict[int, dict[str, Any]] = {}
     for steps in range(1, MAX_STEPS + 1):
+        log.info("%s: tuning step %d/%d", MODEL_NAMES[kind], steps, MAX_STEPS)
         tuned = tune(kind, series, adjacency, split, steps, settings, seed)
         columns.append(tuned.estimator.predict(x).reshape(origins.size, sensors))
         chosen[steps] = {"params": tuned.params, "val_mae": tuned.val_mae, "candidates": tuned.candidates}

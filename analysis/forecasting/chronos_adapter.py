@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Protocol
 
 import numpy as np
@@ -11,6 +12,9 @@ CHRONOS_REVISION = "a971ba21945c4f1796b17a91fe69214b5f4ad472"  # Hugging Face co
 CHRONOS_LICENCE = "Apache 2.0"
 CONTEXT_LENGTH = 512  # chronos-t5 context window
 NUM_SAMPLES = 20
+LOG_EVERY = 10  # origins between progress lines
+
+log = logging.getLogger(__name__)
 
 
 class SamplePredictor(Protocol):
@@ -23,12 +27,14 @@ def chronos_forecasts(series: np.ndarray, origins: np.ndarray, steps: int, predi
     """(origins, sensors, steps): the median sample path, given each sensor's history up to and including the origin."""
     sensors = series.shape[0]
     rows: list[np.ndarray] = []
-    for origin in origins:
+    for done, origin in enumerate(origins, start=1):
         context = series[:, max(0, origin + 1 - CONTEXT_LENGTH) : origin + 1]
         samples = np.asarray(predictor(context, steps))
         if samples.ndim != 3 or samples.shape[0] != sensors or samples.shape[2] != steps:
             raise ValueError(f"predictor returned shape {samples.shape}, expected ({sensors}, samples, {steps})")
         rows.append(np.median(samples, axis=1))
+        if done % LOG_EVERY == 0 or done == origins.size:
+            log.info("Chronos: origin %d/%d", done, origins.size)
     return np.stack(rows)
 
 
