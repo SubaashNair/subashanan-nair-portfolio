@@ -1,5 +1,5 @@
 {
-  "answer": "In Timur Laut, 33% of residents live within 1 km of a public clinic by road. In Seberang Perai Selatan, 20% live more than 3 km away. For schools, the largest share more than 3 km away is 13%, in Seberang Perai Tengah; for Rapid Penang stops, it is 29%, in Seberang Perai Selatan.",
+  "answer": "In Timur Laut, 33% of residents live within 1 km of a public clinic by road. In Seberang Perai Tengah and Seberang Perai Selatan, 20% live more than 3 km away. For schools, the largest share more than 3 km away is 13%, in Seberang Perai Tengah; for Rapid Penang stops, it is 29%, in Seberang Perai Selatan.",
   "keyNumbers": [
     {
       "value": "20%",
@@ -18,7 +18,7 @@
     }
   ],
   "run": {
-    "commit": "d5fbd23",
+    "commit": "9954a8e",
     "manifest": "analysis/outputs/penang-pulse-manifest.json",
     "python": "3.12.11",
     "lastRun": "2026-10-14"

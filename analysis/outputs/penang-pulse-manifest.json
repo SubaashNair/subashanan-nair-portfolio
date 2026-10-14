@@ -296,7 +296,7 @@
     "shapely": "2.2.0"
   },
   "git": {
-    "commit": "d5fbd23",
+    "commit": "9954a8e",
     "dirty": false
   },
   "results_file": "apps/web/src/content/results/penang-pulse.json"
