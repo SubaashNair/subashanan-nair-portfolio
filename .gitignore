@@ -17,3 +17,5 @@ __pycache__/
 analysis/data/raw/
 analysis/data/staged/
 .worktrees/
+.context/
+.superpowers/

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { findStudy } from "../studies";
 import { published } from "./index";
 
-const DASHES = /[–—]/; // en and em dashes
+const DASHES = /[–—→←↑↓]/; // en and em dashes and arrows
 
 describe("published results", () => {
   const forecasting = published["forecasting-lab"]!;

@@ -34,6 +34,16 @@ def test_the_answer_names_the_best_and_worst_district_from_the_rounded_shares() 
     )
 
 
+def test_tied_rounded_clinic_shares_name_every_district_but_key_number_one_names_the_unrounded_worst() -> None:
+    clinic = [*CLINIC[:3], (60.4, 20.0, 19.6), (40.0, 39.6, 20.4)]  # SP Tengah and SP Selatan both round to 20%
+    f = findings(shares(clinic=clinic))
+    assert "In Seberang Perai Tengah and Seberang Perai Selatan, 20% live more than 3 km away." in answer_text(f)
+    first = key_numbers(f, "2026-10-14")[0]
+    assert first["value"] == "20%"
+    assert "Seberang Perai Selatan residents" in first["label"]
+    assert "Tengah" not in first["label"]
+
+
 def test_a_different_worst_district_with_meta_adds_a_sentence() -> None:
     meta_clinic = [*CLINIC[:1], (40.0, 35.0, 25.0), *CLINIC[2:]]
     assert answer_text(findings(meta=shares(clinic=meta_clinic))).endswith(
@@ -44,7 +54,7 @@ def test_a_different_worst_district_with_meta_adds_a_sentence() -> None:
 def test_a_share_that_rounds_to_zero_reads_under_1_percent() -> None:
     low = [(99.5, 0.2, 0.3)] * 5
     text = answer_text(findings(shares(clinic=low, school=low, transit=low)))
-    assert "In Timur Laut, under 1% live more than 3 km away." in text
+    assert "In Timur Laut, Barat Daya, Seberang Perai Utara, Seberang Perai Tengah and Seberang Perai Selatan, under 1% live more than 3 km away." in text
     assert "is under 1%, in Timur Laut, Barat Daya, Seberang Perai Utara, Seberang Perai Tengah and Seberang Perai Selatan;" in text
     assert key_numbers(findings(transit_near=0.4), "2026-10-14")[2]["value"] == "under 1%"
 

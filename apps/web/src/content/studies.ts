@@ -37,6 +37,7 @@ export const studies: readonly StudyRecord[] = [
       "Population is modelled on a 100 m grid, not counted.",
       "Road distance is not travel time, and says nothing about how often buses run.",
       "Every road is treated as two-way.",
+      "Clinics, schools and stops across the state border in Kedah and Perak are not counted, so shares near the border may be too high.",
     ],
     reproduce: {
       commands: ["cd analysis", "uv sync", "uv run python -m pulse.cli", "cd .. && npm run dev"],

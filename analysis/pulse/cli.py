@@ -68,10 +68,12 @@ def main(argv: list[str] | None = None) -> None:
     fetched = [*files.values(), osm]
     git = git_state()
     packages = {"python": platform.python_version(), **{name: version(name) for name in LIBRARIES}}
-    write_json(MANIFEST_PATH, build_manifest(fetched, result, packages, git))
+    manifest = build_manifest(fetched, result, packages, git)
     run_info = {"commit": git["commit"], "manifest": str(MANIFEST_PATH.relative_to(REPO_DIR)), "python": packages["python"], "lastRun": datetime.now(UTC).date().isoformat()}
     retrieved = {f.name: f.retrieved[:10] for f in fetched}
-    write_json(RESULTS_PATH, build_results(result.findings, result.geometry, result.points, run_info, retrieved, files[GTFS].retrieved))
+    results = build_results(result.findings, result.geometry, result.points, run_info, retrieved, files[GTFS].retrieved)
+    write_json(MANIFEST_PATH, manifest)
+    write_json(RESULTS_PATH, results)
     print(f"wrote {RESULTS_PATH.relative_to(REPO_DIR)} and {MANIFEST_PATH.relative_to(REPO_DIR)}")
 
 

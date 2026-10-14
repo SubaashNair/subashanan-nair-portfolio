@@ -52,20 +52,25 @@ def worst(shares: np.ndarray) -> int:
     return int(np.argmax(shares[:, CLINIC, FAR]))
 
 
-def largest_far(r: np.ndarray, category: int) -> str:
-    """The largest rounded share over 3 km for a category, and every district that has it."""
+def far_ties(r: np.ndarray, category: int) -> tuple[int, str]:
+    """The largest rounded share over 3 km for a category, and the names of every district that has it."""
     far = r[:, category, FAR]
-    names = [DISTRICTS[i].name for i in np.flatnonzero(far == far.max())]
-    return f"{pct(int(far.max()))}, in {join_names(names)}"
+    return int(far.max()), join_names([DISTRICTS[i].name for i in np.flatnonzero(far == far.max())])
+
+
+def largest_far(r: np.ndarray, category: int) -> str:
+    q, names = far_ties(r, category)
+    return f"{pct(q)}, in {names}"
 
 
 def answer_text(f: Findings) -> str:
     wp, meta = f.shares["worldpop"], f.shares["meta"]
     r = rounded(wp)
     best, bad = int(np.argmax(wp[:, CLINIC, NEAR])), worst(wp)
+    clinic_q, clinic_names = far_ties(r, CLINIC)
     sentences = [
         f"In {DISTRICTS[best].name}, {pct(int(r[best, CLINIC, NEAR]))} of residents live within 1 km of a public clinic by road.",
-        f"In {DISTRICTS[bad].name}, {pct(int(r[bad, CLINIC, FAR]))} live more than 3 km away.",
+        f"In {clinic_names}, {pct(clinic_q)} live more than 3 km away.",
         f"For schools, the largest share more than 3 km away is {largest_far(r, SCHOOL)}; for Rapid Penang stops, it is {largest_far(r, TRANSIT)}.",
     ]
     if worst(meta) != bad:
