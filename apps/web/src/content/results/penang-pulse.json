@@ -18,7 +18,7 @@
     }
   ],
   "run": {
-    "commit": "6cdf83f",
+    "commit": "d5fbd23",
     "manifest": "analysis/outputs/penang-pulse-manifest.json",
     "python": "3.12.11",
     "lastRun": "2026-10-14"
@@ -12344,7 +12344,7 @@
     "places": [
       {
         "text": "George Town",
-        "x": 245.4,
+        "x": 195.4,
         "y": 188.5
       },
       {
@@ -12359,7 +12359,7 @@
       },
       {
         "text": "Butterworth",
-        "x": 326.7,
+        "x": 372.7,
         "y": 194.6
       },
       {
