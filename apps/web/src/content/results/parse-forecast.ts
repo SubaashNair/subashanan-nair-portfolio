@@ -1,59 +1,9 @@
 import type { ForecastModelId, ForecastResults } from "../types";
+import { checks, type Json } from "./parse-checks";
 
 // Checks a results file against the ForecastResults shape and the chart contract before the site uses it.
-// It throws on the first problem, so a bad file fails the build instead of reaching a page.
 const MODEL_IDS: readonly ForecastModelId[] = ["persistence", "seasonal", "gb", "mlp", "chronos"];
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
-
-type Json = Record<string, unknown>;
-
-function fail(path: string, problem: string): never {
-  throw new Error(`forecasting-lab results: ${path} ${problem}`);
-}
-
-function object(value: unknown, path: string): Json {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) fail(path, "must be an object");
-  return value as Json;
-}
-
-function text(value: unknown, path: string): string {
-  if (typeof value !== "string" || value.trim() === "") fail(path, "must be a non-empty string");
-  return value;
-}
-
-function isoDate(value: unknown, path: string): string {
-  if (!ISO_DATE.test(text(value, path))) fail(path, "must be a YYYY-MM-DD date");
-  return value as string;
-}
-
-function finite(value: unknown, path: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value)) fail(path, "must be a finite number");
-  return value;
-}
-
-function list(value: unknown, path: string, length?: number): unknown[] {
-  if (!Array.isArray(value)) fail(path, "must be an array");
-  if (length !== undefined && value.length !== length) fail(path, `must have ${length} items, found ${value.length}`);
-  return value;
-}
-
-function numbers(value: unknown, path: string, length?: number): number[] {
-  return list(value, path, length).map((v, i) => finite(v, `${path}[${i}]`));
-}
-
-function checkBase(root: Json): void {
-  text(root.answer, "answer");
-  list(root.keyNumbers, "keyNumbers", 3).forEach((n, i) => {
-    const k = object(n, `keyNumbers[${i}]`);
-    for (const field of ["value", "label", "caveat"]) text(k[field], `keyNumbers[${i}].${field}`);
-  });
-  const run = object(root.run, "run");
-  for (const field of ["commit", "manifest", "python"]) text(run[field], `run.${field}`);
-  isoDate(run.lastRun, "run.lastRun");
-  const retrieved = object(root.retrieved, "retrieved");
-  if (Object.keys(retrieved).length === 0) fail("retrieved", "must name at least one source");
-  for (const [name, date] of Object.entries(retrieved)) isoDate(date, `retrieved.${name}`);
-}
+const { fail, object, text, finite, list, numbers, base } = checks("forecasting-lab");
 
 function checkModels(root: Json, horizons: number): void {
   const ids = list(root.models, "models").map((m, i) => {
@@ -86,7 +36,7 @@ function checkSensor(value: unknown, path: string): void {
 
 export function parseForecastResults(json: unknown): ForecastResults {
   const root = object(json, "file");
-  checkBase(root);
+  base(root);
   const horizons = numbers(root.horizons, "horizons");
   if (horizons.length === 0 || horizons.some((h) => h <= 0)) fail("horizons", "must be positive minutes");
   checkModels(root, horizons.length);
