@@ -10,7 +10,8 @@ const pulse = findStudy("penang-pulse")!;
 
 describe("StudyCard", () => {
   it("shows a visible preview label above the key number in a preview", () => {
-    const { container } = render(<StudyCard study={pulse} results={getStudyResults("penang-pulse", "development")} headingLevel={3} />);
+    const llm = findStudy("llm-eval-lab")!;
+    const { container } = render(<StudyCard study={llm} results={getStudyResults("llm-eval-lab", "development")} headingLevel={3} />);
     const flag = screen.getByText("Illustrative preview");
     expect(flag).toHaveClass("preview-flag");
     expect(flag).not.toHaveClass("sr");
