@@ -20,9 +20,9 @@ SIMPLIFY_PX = 0.8  # outlines lose detail finer than this, with shared edges sim
 MIN_BRIDGE_M = 500.0  # pieces of a bridge's ways over water shorter than this are coastal slivers, not the span
 WATER = {"text": "Selat Melaka", "x": 22, "y": 52}  # top left of the map is open sea west of the island
 # ponytail: hand-set nudges, because the George Town and Butterworth nodes sit about 40 px apart across the channel and
-# a label is about 140 px wide in map units on a phone, so centred labels would overlap. Replace with label collision
+# a label is about 160 px wide in map units on a phone, so centred labels would overlap. Replace with label collision
 # handling if more labels are added.
-LABEL_NUDGE_PX = {"George Town": (-62.0, 0.0), "Butterworth": (58.0, 0.0)}
+LABEL_NUDGE_PX = {"George Town": (-70.0, 0.0), "Butterworth": (66.0, 0.0)}
 
 
 @dataclass(frozen=True)
