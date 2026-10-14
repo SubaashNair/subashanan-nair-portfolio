@@ -125,7 +125,7 @@ All text is generated from computed numbers by templates in `pulse/export.py`.
 - `types.ts`: add `far` to `District`.
 - `content/fixtures/penang.ts`: add illustrative `far` values; the fixture stays dev-only.
 - New `parsePenangResults(json: unknown): PenangResults`, a hand-written type guard with tests for one valid file and several malformed ones. `content/results/index.ts` sets `published["penang-pulse"]` from the validated JSON.
-- New `ServiceTable` component under the district panel. It has rows for the 5 districts and columns for clinic, school and transit stop, showing the % over 3 km. The selected district's row is highlighted, it uses a real `<table>` with a caption, and each column is sortable only if that is trivial; otherwise the table has a fixed order.
+- New `ServiceTable` component under the district panel. It has rows for the 5 districts and columns for clinic, school and transit stop, showing the % over 3 km. The selected district's row is highlighted, and it uses a real `<table>` with a caption. Rows keep the fixed district order, with no sorting.
 - `penang-figure.tsx` caption: "Shares are of residents, by road distance from each populated 100 m cell." This replaces the mukim centroid wording.
 - `studies.ts`: status published.
   - Sources: the state open data CSVs, GTFS, DOSM, geoBoundaries, WorldPop, Meta and OpenStreetMap, each with its licence.
