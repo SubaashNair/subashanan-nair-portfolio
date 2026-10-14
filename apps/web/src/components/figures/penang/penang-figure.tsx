@@ -9,6 +9,7 @@ import { palette } from "@/styles/palette";
 import { DistrictPanel } from "./district-panel";
 import { DistrictTiles } from "./district-tiles";
 import { CATEGORY_COLOUR, PenangMap } from "./penang-map";
+import { ServiceTable } from "./service-table";
 
 const CATEGORIES = [
   { id: "clinic", label: "Clinics", shape: "sw" },
@@ -42,7 +43,8 @@ export function PenangFigure({ data }: { data: PenangResults }) {
         <div>
           <DistrictTiles districts={data.districts} selected={selected} onSelect={setSelected} />
           <DistrictPanel district={district} />
-          <p className="figcap"><abbr title="Seberang Perai">SP</abbr> is Seberang Perai. Shares are of residents, by road distance from population-weighted mukim centroids.</p>
+          <ServiceTable districts={data.districts} selected={district.id} />
+          <p className="figcap"><abbr title="Seberang Perai">SP</abbr> is Seberang Perai. Shares are of residents, by road distance from each populated 100 m cell.</p>
         </div>
       </div>
     </div>

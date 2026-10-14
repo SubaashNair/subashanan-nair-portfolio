@@ -20,6 +20,13 @@ describe("PenangFigure", () => {
     expect(screen.getByRole("tabpanel")).toHaveTextContent("Timur Laut");
     expect(screen.getByRole("tabpanel")).toHaveTextContent("72%");
     expect(container.querySelector('.district.on[data-district="tl"]')).not.toBeNull();
+    expect(container.querySelector("tbody tr.on th")).toHaveTextContent("Timur Laut");
+  });
+
+  it("captions shares as road distance from populated cells", () => {
+    render(<PenangFigure data={penangFixture} />);
+    expect(screen.getByText(/by road distance from each populated 100 m cell/)).toBeInTheDocument();
+    expect(screen.queryByText(/mukim/)).not.toBeInTheDocument();
   });
 
   it("hides a category of points", () => {

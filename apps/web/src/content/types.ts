@@ -56,6 +56,7 @@ export interface District {
   short: string;
   bands: readonly [number, number, number]; // % under 1 km, 1 to 3 km, over 3 km
   population: number;
+  far: Readonly<Record<ServiceCategory, number>>; // % of residents over 3 km from the nearest clinic, school and transit stop
 }
 export interface ServicePoint {
   category: ServiceCategory;
