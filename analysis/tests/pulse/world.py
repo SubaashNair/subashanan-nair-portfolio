@@ -7,6 +7,7 @@ import datetime
 import json
 import zipfile
 from pathlib import Path
+from xml.sax.saxutils import quoteattr
 
 import numpy as np
 import pyarrow as pa
@@ -137,4 +138,51 @@ def write_meta(folder: Path) -> Path:
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
         archive.write(tif, META_MEMBER)
     tif.unlink()
+    return path
+
+
+OSM_NODES = {  # id: (lon, lat)
+    **{i: (100.21, 5.295 + 0.01 * i) for i in range(1, 7)},  # island street, 5.305 to 5.355
+    **{10 + i: (100.245, 5.295 + 0.01 * i) for i in range(1, 7)},  # mainland street
+    21: (100.2275, 5.335),  # mid-strait point of the Penang Bridge
+    22: (100.2275, 5.305),  # mid-strait point of the second bridge
+    31: (100.255, 5.355), 32: (100.256, 5.355),  # a fragment joined to nothing
+    51: (101.50, 5.50), 52: (101.51, 5.50),  # a road far outside the Penang box
+    41: (100.21, 5.355), 42: (100.21, 5.305), 43: (100.205, 5.32), 44: (100.24, 5.355), 45: (100.255, 5.33), 46: (100.25, 5.305),
+    47: (100.215, 5.31),  # a neighbourhood that shares the name Bayan Lepas
+}
+OSM_WAYS = [  # id, node ids, tags
+    (101, [1, 2, 3, 4, 5, 6], {"highway": "residential", "name": "Jalan Pulau"}),
+    (102, [11, 12, 13, 14, 15, 16], {"highway": "primary", "name": "Jalan Tanah Besar"}),
+    (103, [4, 21, 14], {"highway": "motorway", "bridge": "yes", "name": "Jambatan Pulau Pinang", "name:en": "Penang Bridge"}),
+    (104, [1, 22, 11], {"highway": "motorway", "bridge": "yes", "name": "Jambatan Sultan Abdul Halim Mu'adzam Shah"}),
+    (105, [6, 16], {"highway": "footway"}),  # footpaths are not roads
+    (106, [5, 15], {"highway": "service", "access": "private"}),  # neither are private roads
+    (107, [3, 13], {"route": "ferry"}),  # nor ferries
+    (108, [31, 32], {"highway": "residential"}),
+    (109, [51, 52], {"highway": "residential"}),
+]
+OSM_PLACES = {  # node id: tags
+    41: {"place": "city", "name": "George Town"},
+    42: {"place": "town", "name": "Bayan Lepas"},
+    43: {"place": "town", "name": "Balik Pulau"},
+    44: {"place": "city", "name": "Butterworth"},
+    45: {"place": "city", "name": "Bukit Mertajam"},
+    46: {"place": "town", "name": "Nibong Tebal"},
+    47: {"place": "neighbourhood", "name": "Bayan Lepas"},
+}
+OSM_BBOX = (100.15, 5.25, 100.31, 5.41)  # the districts' box widened by ROAD_MARGIN_DEG
+
+
+def tag_xml(tags: dict[str, str]) -> str:
+    return "".join(f"<tag k={quoteattr(k)} v={quoteattr(v)}/>" for k, v in tags.items())
+
+
+def write_osm(folder: Path, ways: list[tuple[int, list[int], dict[str, str]]] = OSM_WAYS, places: dict[int, dict[str, str]] = OSM_PLACES) -> Path:
+    """An .osm XML file. pyosmium reads it exactly as it reads the real .osm.pbf."""
+    nodes = [f'<node id="{i}" version="1" lat="{lat}" lon="{lon}">{tag_xml(places.get(i, {}))}</node>' for i, (lon, lat) in OSM_NODES.items()]
+    way_xml = [f'<way id="{i}" version="1">' + "".join(f'<nd ref="{n}"/>' for n in refs) + f"{tag_xml(tags)}</way>" for i, refs, tags in ways]
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / "penang.osm"
+    path.write_text("<?xml version='1.0' encoding='UTF-8'?>\n<osm version=\"0.6\">\n" + "\n".join([*nodes, *way_xml]) + "\n</osm>\n")
     return path
