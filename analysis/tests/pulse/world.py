@@ -8,9 +8,14 @@ import json
 import zipfile
 from pathlib import Path
 
+import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
+import rasterio
+from rasterio.transform import from_origin
 from shapely.geometry import MultiPolygon, box, mapping
+
+from pulse.sources import META_MEMBER
 
 BOXES = {  # min lon, min lat, max lon, max lat
     "Timur Laut": (100.20, 5.33, 100.22, 5.36),
@@ -96,4 +101,40 @@ def write_dosm(folder: Path, thousands: dict[str, float] = THOUSANDS, extra: lis
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / "population_district.parquet"
     pq.write_table(pa.table(columns), path)
+    return path
+
+
+GRID_ORIGIN = (100.20, 5.36)  # top left corner of the population grid
+GRID_STEP = 0.01  # degrees per cell, so cell centres sit at 100.205, 100.215, ...
+LAND_COLUMNS = (0, 1, 3, 4, 5)  # column 2 is the strait
+NODATA_CELL = (0, 0)  # one Timur Laut cell with no data
+
+
+def population_grid(value: float, nodata: float) -> np.ndarray:
+    grid = np.zeros((6, 6))
+    grid[:, list(LAND_COLUMNS)] = value
+    grid[NODATA_CELL] = nodata
+    return grid
+
+
+def write_raster(path: Path, grid: np.ndarray, dtype: str, nodata: float) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    transform = from_origin(*GRID_ORIGIN, GRID_STEP, GRID_STEP)
+    with rasterio.open(path, "w", driver="GTiff", width=6, height=6, count=1, dtype=dtype, crs="EPSG:4326", transform=transform, nodata=nodata) as dst:
+        dst.write(grid.astype(dtype), 1)
+    return path
+
+
+def write_worldpop(folder: Path) -> Path:
+    """WorldPop style: float32 with -99999 for nodata."""
+    return write_raster(folder / "worldpop.tif", population_grid(10.0, -99999.0), "float32", -99999.0)
+
+
+def write_meta(folder: Path) -> Path:
+    """Meta style: a float64 GeoTIFF with NaN for nodata, zipped under the real member name."""
+    tif = write_raster(folder / "meta.tif", population_grid(20.0, np.nan), "float64", np.nan)
+    path = folder / "meta.zip"
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
+        archive.write(tif, META_MEMBER)
+    tif.unlink()
     return path
