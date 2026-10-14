@@ -16,6 +16,8 @@ import rasterio
 from rasterio.transform import from_origin
 from shapely.geometry import MultiPolygon, box, mapping
 
+from pulse.pipeline import Inputs
+from pulse.population import meta_path
 from pulse.sources import META_MEMBER
 
 BOXES = {  # min lon, min lat, max lon, max lat
@@ -186,3 +188,17 @@ def write_osm(folder: Path, ways: list[tuple[int, list[int], dict[str, str]]] = 
     path = folder / "penang.osm"
     path.write_text("<?xml version='1.0' encoding='UTF-8'?>\n<osm version=\"0.6\">\n" + "\n".join([*nodes, *way_xml]) + "\n</osm>\n")
     return path
+
+
+def write_inputs(folder: Path) -> Inputs:
+    """Every input file of the synthetic world, as the pipeline takes them."""
+    return Inputs(
+        health=write_health(folder),
+        schools=write_schools(folder),
+        gtfs=write_gtfs(folder),
+        dosm=write_dosm(folder),
+        boundaries=write_boundaries(folder),
+        worldpop=str(write_worldpop(folder)),
+        meta=meta_path(write_meta(folder)),
+        osm=write_osm(folder),
+    )
