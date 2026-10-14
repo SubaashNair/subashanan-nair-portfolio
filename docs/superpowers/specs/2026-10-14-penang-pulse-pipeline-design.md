@@ -1,8 +1,8 @@
 # Penang Pulse Real-Results Pipeline
 
-> Date: 2026-10-14. Status: draft for review.
+> Date: 2026-10-14. Status: approved by Subashanan on 2026-10-14.
 > Design agreed with Subashanan in conversation on 2026-10-14 (road distance; clinics are every general-care site, dental excluded; schools and transit shown in a table). Sources were checked by script on 2026-10-14; checksums below are from that check.
-> Implementation plan: `docs/superpowers/plans/2026-10-14-penang-pulse-pipeline.md` (to be written after this spec is approved).
+> Implementation plan: `docs/superpowers/plans/2026-10-14-penang-pulse-pipeline.md` .
 
 ## 1. Purpose
 
@@ -102,7 +102,7 @@ far: Readonly<Record<ServiceCategory, number>>; // % of residents over 3 km from
 
 All text is generated from computed numbers by templates in `pulse/export.py`.
 
-- **Answer:** "In {best}, {p}% of residents live within 1 km of a public clinic by road. In {worst}, {q}% live more than 3 km away." Then one sentence naming, for schools and for transit stops, the district with the largest share over 3 km and that share. `best` is the district with the highest clinic share under 1 km; `worst` is the district with the highest clinic share over 3 km. If the Meta run picks a different `worst`, a third sentence says so.
+- **Answer:** "In {best}, {p}% of residents live within 1 km of a public clinic by road. In {worst}, {q}% live more than 3 km away." Then one sentence naming, for schools and for transit stops, the district with the largest share over 3 km and that share. `best` is the district with the highest clinic share under 1 km; `worst` is the district with the highest clinic share over 3 km. If the Meta run picks a different `worst`, a final sentence says so. When districts tie, every tied district is named.
 - **Key numbers:**
   1. `{q}%` "of {worst} residents live more than 3 km by road from a public clinic." Caveat: "{q2}% with Meta's 30 m population map instead of WorldPop."
   2. `{n}` "public clinics, schools and Rapid Penang stops mapped." Caveat: "Dental clinics and private clinics are not included; facility records are dated {first year} to {last year}."
@@ -149,7 +149,7 @@ The `analysis` job is unchanged in shape. The new dependencies install from whee
 
 ## 11. CV
 
-The final task extends `tools/update_cv.py` to replace the "In progress:" Penang Pulse bullet with templated wording read from `penang-pulse.json`, for example: "Road distance from every populated 100 m cell in Penang to the nearest public clinic, school and bus stop; {q}% of {worst} residents live over 3 km from a clinic." The fallback wordings must fit the bullet's existing lines. Both PDFs are rendered and checked, and only the web copy is committed.
+The final task extends `tools/update_cv.py` to replace the "In progress:" Penang Pulse bullet with templated wording read from `penang-pulse.json`, for example: "Road distance from every populated 100 m cell in Penang to the nearest public clinic, school and bus stop; {q}% of {worst} residents live over 3 km from a clinic." The fallback wordings must fit the bullet's existing lines. The Penang Pulse tech line is also replaced with the libraries and data the pipeline uses (approved by Subashanan on 2026-10-14). Both PDFs are rendered and checked, and only the web copy is committed.
 
 ## 12. Error handling
 
