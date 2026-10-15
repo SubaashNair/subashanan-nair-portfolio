@@ -21,20 +21,29 @@ function points(): readonly ServicePoint[] {
 
 export const penangFixture: PenangResults = {
   answer:
-    "Most residents of Timur Laut live within a kilometre of a public clinic. In Seberang Perai Selatan, about 1 in 5 live more than 3 km away, and the gap is widest for clinics rather than schools.",
+    "Most residents of Timur Laut live within a kilometre of a public clinic. In Seberang Perai Selatan, about 1 in 5 live more than 3 km from a clinic, and more than a quarter live that far from a transit stop.",
   keyNumbers: [
-    { value: "21%", label: "of Seberang Perai Selatan residents live over 3 km from a public clinic.", caveat: "95% interval 18 to 24%, from a mukim bootstrap." },
+    { value: "21%", label: "of Seberang Perai Selatan residents live over 3 km from a public clinic.", caveat: "A check with a finer population map would move this by a point or two." },
     { value: "412", label: "public service points mapped across clinics, schools and transit stops.", caveat: "Public facilities only. Private clinics are not included." },
     { value: "5", label: "districts compared on the same distance bands.", caveat: "District averages hide variation inside each mukim." },
   ],
   run: { commit: "a1c9e04", manifest: "manifest.json", python: "3.12", lastRun: "2026-10-01" },
-  retrieved: { PeGIS: "2026-09-28", "Census 2020": "2026-09-28", OpenStreetMap: "2026-09-29" },
+  retrieved: {
+    "Public health facilities 2022": "2026-09-28",
+    "Schools 2022": "2026-09-28",
+    "Rapid Penang GTFS": "2026-09-28",
+    "Population by district": "2026-09-28",
+    "geoBoundaries MYS ADM2": "2026-09-28",
+    "WorldPop 2020 constrained": "2026-09-28",
+    "Meta population map 2020": "2026-09-28",
+    OpenStreetMap: "2026-09-29",
+  },
   districts: [
-    { id: "tl", name: "Timur Laut", short: "Timur Laut", bands: [72, 24, 4], population: 545000 },
-    { id: "bd", name: "Barat Daya", short: "Barat Daya", bands: [48, 34, 18], population: 236000 },
-    { id: "spu", name: "Seberang Perai Utara", short: "SP Utara", bands: [55, 33, 12], population: 330000 },
-    { id: "spt", name: "Seberang Perai Tengah", short: "SP Tengah", bands: [61, 30, 9], population: 402000 },
-    { id: "sps", name: "Seberang Perai Selatan", short: "SP Selatan", bands: [41, 38, 21], population: 205000 },
+    { id: "tl", name: "Timur Laut", short: "Timur Laut", bands: [72, 24, 4], population: 545000, far: { clinic: 4, school: 2, transit: 1 } },
+    { id: "bd", name: "Barat Daya", short: "Barat Daya", bands: [48, 34, 18], population: 236000, far: { clinic: 18, school: 9, transit: 22 } },
+    { id: "spu", name: "Seberang Perai Utara", short: "SP Utara", bands: [55, 33, 12], population: 330000, far: { clinic: 12, school: 6, transit: 15 } },
+    { id: "spt", name: "Seberang Perai Tengah", short: "SP Tengah", bands: [61, 30, 9], population: 402000, far: { clinic: 9, school: 4, transit: 8 } },
+    { id: "sps", name: "Seberang Perai Selatan", short: "SP Selatan", bands: [41, 38, 21], population: 205000, far: { clinic: 21, school: 11, transit: 27 } },
   ],
   points: points(),
   pointsNote: "Schematic, not to scale. Points are an illustrative sample of the 412 public service points mapped. Dashed lines mark district boundaries.",

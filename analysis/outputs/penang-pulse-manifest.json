@@ -1,0 +1,303 @@
+{
+  "study": "penang-pulse",
+  "sources": [
+    {
+      "name": "Public health facilities 2022",
+      "url": "https://archive.data.gov.my/data/dataset/20a4c459-5329-450a-8cad-938957f2eefe/resource/95ed70e3-955f-43a8-a99d-072accc49ed0/download/_202310251223490_pusat_kesihatan_awam_2022_p.csv",
+      "licence": "CC BY",
+      "retrieved": "2026-10-14T14:08:52+00:00",
+      "bytes": 26373,
+      "sha256": "30d7abe179258b20944c775605d9a466bfb8f92c519e5f586d52961848742f68"
+    },
+    {
+      "name": "Schools 2022",
+      "url": "https://archive.data.gov.my/data/dataset/13d6b29c-2460-4f3e-ba6e-5fb58e407e15/resource/0566082a-6a70-4f2e-9f8c-bd587d2f8cb0/download/_202310251214180_be0010_sekolah_2022_p.csv",
+      "licence": "CC BY",
+      "retrieved": "2026-10-14T14:08:53+00:00",
+      "bytes": 145133,
+      "sha256": "dc84127ba313d11d0fe70b2ae8f6d70221dbede4077a90f0b2c843fd483e734e"
+    },
+    {
+      "name": "Rapid Penang GTFS",
+      "url": "https://api.data.gov.my/gtfs-static/prasarana?category=rapid-bus-penang",
+      "licence": "CC BY 4.0",
+      "retrieved": "2026-10-14T14:08:55+00:00",
+      "bytes": 4457025,
+      "sha256": "9823a7c793108805560a826070ca9c89089c685f9d28c8869337b425aa669c73"
+    },
+    {
+      "name": "Population by district",
+      "url": "https://storage.dosm.gov.my/population/population_district.parquet",
+      "licence": "CC BY 4.0",
+      "retrieved": "2026-10-14T14:08:55+00:00",
+      "bytes": 264746,
+      "sha256": "456bca234306c740c523753c62630d409c8713c82cd94b596074a7ca3a024742"
+    },
+    {
+      "name": "geoBoundaries MYS ADM2",
+      "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09592ced973a3448cf66b6100b741b64c0d/releaseData/gbOpen/MYS/ADM2/geoBoundaries-MYS-ADM2.geojson",
+      "licence": "CC BY 3.0",
+      "retrieved": "2026-10-14T14:08:56+00:00",
+      "bytes": 1932621,
+      "sha256": "1a7db3b44563073171b02eba59b109fc1bc6256ab0b011531ea6d5053515e550"
+    },
+    {
+      "name": "WorldPop 2020 constrained",
+      "url": "https://data.worldpop.org/GIS/Population/Global_2000_2020_Constrained/2020/BSGM/MYS/mys_ppp_2020_UNadj_constrained.tif",
+      "licence": "CC BY 4.0",
+      "retrieved": "2026-10-14T14:14:43+00:00",
+      "bytes": 9789326,
+      "sha256": "b54a9a075af3d0964794af77d958d679aebbd01c4b2a340f3fdef0a287de981c"
+    },
+    {
+      "name": "Meta population map 2020",
+      "url": "https://data.humdata.org/dataset/f165a732-7125-4321-baad-1b7005ed93d0/resource/e8e63524-9f06-486a-afd8-cbf752073d08/download/mys_general_2020_geotiff.zip",
+      "licence": "CC BY",
+      "retrieved": "2026-10-14T14:19:40+00:00",
+      "bytes": 42122823,
+      "sha256": "31317c66c4d6506267c432cfa7161d3b2927b4adbf6760bad66931581da9250f"
+    },
+    {
+      "name": "OpenStreetMap",
+      "url": "https://download.geofabrik.de/asia/malaysia-singapore-brunei-261013.osm.pbf",
+      "licence": "ODbL",
+      "retrieved": "2026-10-14T14:38:40+00:00",
+      "bytes": 251941851,
+      "sha256": "a6fd09add532999b10a50a720ceeee191e982c67a0e27ab231d0d90219a6d4ce"
+    }
+  ],
+  "geofabrik_date": "2026-10-13",
+  "facilities": {
+    "used": {
+      "clinic": 120,
+      "school": 432,
+      "transit": 1885
+    },
+    "outside_districts": {
+      "clinic": 2,
+      "school": 2,
+      "transit": 0
+    },
+    "years": [
+      2013,
+      2022
+    ]
+  },
+  "roads": {
+    "nodes": 538379,
+    "edges": 584804,
+    "dropped_nodes": 5546
+  },
+  "cells": {
+    "worldpop": {
+      "tl": 6811,
+      "bd": 6462,
+      "spu": 19339,
+      "spt": 16782,
+      "sps": 10677
+    },
+    "meta": {
+      "tl": 42923,
+      "bd": 36306,
+      "spu": 65250,
+      "spt": 85402,
+      "sps": 47393
+    }
+  },
+  "band_edges_m": [
+    1000.0,
+    3000.0
+  ],
+  "shares_percent": {
+    "worldpop": {
+      "tl": {
+        "clinic": [
+          33.4,
+          62.9,
+          3.8
+        ],
+        "school": [
+          68.4,
+          30.0,
+          1.6
+        ],
+        "transit": [
+          95.1,
+          4.9,
+          0.0
+        ]
+      },
+      "bd": {
+        "clinic": [
+          27.0,
+          57.5,
+          15.5
+        ],
+        "school": [
+          51.6,
+          47.8,
+          0.6
+        ],
+        "transit": [
+          91.3,
+          8.5,
+          0.2
+        ]
+      },
+      "spu": {
+        "clinic": [
+          25.0,
+          67.9,
+          7.1
+        ],
+        "school": [
+          48.1,
+          48.5,
+          3.4
+        ],
+        "transit": [
+          68.2,
+          24.4,
+          7.3
+        ]
+      },
+      "spt": {
+        "clinic": [
+          16.4,
+          63.9,
+          19.6
+        ],
+        "school": [
+          38.0,
+          48.7,
+          13.2
+        ],
+        "transit": [
+          60.2,
+          32.1,
+          7.7
+        ]
+      },
+      "sps": {
+        "clinic": [
+          18.0,
+          62.3,
+          19.8
+        ],
+        "school": [
+          39.3,
+          55.7,
+          5.0
+        ],
+        "transit": [
+          34.0,
+          36.6,
+          29.4
+        ]
+      }
+    },
+    "meta": {
+      "tl": {
+        "clinic": [
+          32.9,
+          62.2,
+          4.9
+        ],
+        "school": [
+          68.9,
+          28.2,
+          2.9
+        ],
+        "transit": [
+          93.9,
+          5.6,
+          0.4
+        ]
+      },
+      "bd": {
+        "clinic": [
+          27.4,
+          57.8,
+          14.8
+        ],
+        "school": [
+          51.4,
+          47.1,
+          1.4
+        ],
+        "transit": [
+          89.4,
+          10.0,
+          0.6
+        ]
+      },
+      "spu": {
+        "clinic": [
+          27.8,
+          66.3,
+          5.9
+        ],
+        "school": [
+          52.6,
+          45.6,
+          1.8
+        ],
+        "transit": [
+          69.8,
+          23.7,
+          6.5
+        ]
+      },
+      "spt": {
+        "clinic": [
+          16.7,
+          63.4,
+          19.9
+        ],
+        "school": [
+          40.0,
+          46.5,
+          13.5
+        ],
+        "transit": [
+          60.8,
+          31.1,
+          8.1
+        ]
+      },
+      "sps": {
+        "clinic": [
+          17.8,
+          60.9,
+          21.3
+        ],
+        "school": [
+          39.6,
+          55.4,
+          5.1
+        ],
+        "transit": [
+          30.8,
+          39.4,
+          29.8
+        ]
+      }
+    }
+  },
+  "transit_within_1km_percent": 74.4,
+  "packages": {
+    "python": "3.12.11",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "networkx": "3.7",
+    "osmium": "4.3.1",
+    "pyarrow": "26.0.0",
+    "rasterio": "1.5.2",
+    "shapely": "2.2.0"
+  },
+  "git": {
+    "commit": "9954a8e",
+    "dirty": false
+  },
+  "results_file": "apps/web/src/content/results/penang-pulse.json"
+}

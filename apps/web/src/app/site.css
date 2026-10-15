@@ -166,6 +166,10 @@ figure { margin: 0; }
 .band-legend strong { margin-left: auto; font-size: 18px; }
 .panel .callout { margin: 0; padding-top: 14px; border-top: 1.5px dashed var(--ink); font-size: 16px; }
 .panel .callout strong { font-size: 22px; display: block; }
+.service-table { margin-top: 22px; color: var(--ink); }
+.service-table table { min-width: 0; }
+.service-table th, .service-table td { padding: 10px 12px; }
+.service-table tr.on > * { background: rgba(217, 162, 27, .2); font-weight: 650; }
 
 /* Key numbers */
 .numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
