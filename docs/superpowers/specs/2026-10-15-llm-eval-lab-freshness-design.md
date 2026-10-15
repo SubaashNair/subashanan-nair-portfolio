@@ -1,6 +1,6 @@
 # LLM Eval Lab: Finding the Latest Official Figure
 
-> Date: 2026-10-15. Status: draft for review.
+> Date: 2026-10-15. Status: approved by Subashanan on 2026-10-15.
 > Design agreed with Subashanan in conversation on 2026-10-15. Evidence for the premise: `.context/dgm-freshness-report.md` (data.gov.my freshness audit, 2026-10-15).
 > Implementation plan: `docs/superpowers/plans/2026-10-15-llm-eval-lab-freshness.md`, written after this spec is approved.
 
