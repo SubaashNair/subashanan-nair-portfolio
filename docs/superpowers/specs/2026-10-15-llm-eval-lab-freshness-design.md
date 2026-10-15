@@ -30,9 +30,9 @@ Success means:
 
 ## 3. Scope
 
-In scope: an `evallab` package in `analysis/`; a frozen snapshot; the question set and review sheet; the runner, scoring and export; a results validator; site type and figure changes; the study record; CI; the CV bullet.
+In scope: DOSM, BNM and MYNIC; an `evallab` package in `analysis/`; a frozen snapshot; the question set and review sheet; the runner, scoring and export; a results validator; site type and figure changes; the study record; CI; the CV bullet.
 
-Out of scope: local models (may be added later as extra rows); departments other than DOSM and BNM; any live querying at answer time (tools read only the snapshot); fine-tuning.
+Out of scope: local models (may be added later as extra rows); agencies other than DOSM, BNM and MYNIC (MOH could not be fetched by script in the audit); any live querying at answer time (tools read only the snapshot); fine-tuning.
 
 ## 4. Premise, from the freshness audit
 
@@ -44,12 +44,13 @@ Of 295 data.gov.my datasets assessed on 2026-10-15, 50 (17%) were behind their o
 - **Datasets:** the parquet files for the chosen series, from the data.gov.my storage URLs in the catalogue.
 - **DOSM releases:** the release index in the same repository (the `pub-dosm` folder, 1,509 releases with dates and file links on 2026-10-15) and the release files (PDF or XLSX) for the chosen series, newest first, back far enough to cover the questions.
 - **BNM:** the statistics pages or files for money supply and interest rates, cited as "Source: Bank Negara Malaysia" per BNM's terms.
+- **MYNIC:** the statistics page's JSON endpoint (`/ajax/statistics?type=active|ipv6|dnssec|idn&year=YYYY` on mynic.my), no login. The page states "Copyright 2026 MYNIC. All rights reserved" and no open licence was found (checked 2026-10-15), so the raw MYNIC snapshot stays local and is never committed or republished; only individual figures appear in the question set and on the site, credited "Source: MYNIC". The out-of-date comparison uses data.gov.my's MYNIC datasets, which are CC BY 4.0. The audit found the `domains` dataset ending January 2025 while MYNIC's page showed September 2026.
 - The snapshot is taken once, on a recorded date, and stored under `analysis/data/raw/evallab/` (gitignored). The manifest records every URL, retrieval time, size and SHA-256. A rerun from the cached snapshot is byte-identical.
 - PDF text is extracted once into the snapshot (`pypdf` or PyMuPDF, chosen in the plan after a test on real releases). XLSX is read with `openpyxl`. Extraction quality is good for headline sentences and weak for wide tables (audit finding), so questions target headline figures.
 
 ## 6. Questions and correct answers
 
-- About 30 statistics: mostly DOSM (CPI and inflation, overall and youth unemployment, GDP growth, exports and imports, industrial production, net FDI and others), plus BNM money supply (M3) and interest rates. The set includes series where the dataset is current and series where it is behind; the split is recorded.
+- About 30 statistics: mostly DOSM (CPI and inflation, overall and youth unemployment, GDP growth, exports and imports, industrial production, net FDI and others), plus BNM money supply (M3) and interest rates, and 2 to 4 MYNIC series (for example total active .my domains, and IPv6 and DNSSEC counts). The set includes series where the dataset is current and series where it is behind; the split is recorded.
 - 4 questions per statistic, 120 in all: 2 in English and 2 in Bahasa Malaysia, with different phrasings.
 - For each statistic the pipeline drafts the correct answer from the latest release in the snapshot: the value, its unit, the period it covers and the release URL. It also records the dataset's latest value and period, so each question is marked current or out of date.
 - **Review sheet:** `analysis/evallab/questions.csv` with the drafted answers and a `verified` column. Subashanan checks every row against the linked release and corrects any value. The runner refuses to run while any row is unverified.
@@ -108,7 +109,7 @@ All prose comes from templates in `evallab/export.py`, from computed numbers:
 - Types and figure: the role and cost changes in section 9.1; the chart's x axis becomes "tool calls per answer"; role colours and legend labels become cloud model and baseline.
 - Fixture `content/fixtures/llm-eval.ts` updated to the new shape (dev-only, illustrative).
 - `parseLlmEvalResults` validator with tests; `published["llm-eval-lab"]` set from the validated file.
-- Study record: the new question, planned answer, figure plan, data line, sources (data.gov.my CC BY 4.0, DOSM releases, BNM with attribution, the two models via Ollama Cloud, the question set by this project under CC BY 4.0), method, limitations, reproduce commands.
+- Study record: the new question, planned answer, figure plan, data line, sources (data.gov.my CC BY 4.0, DOSM releases, BNM with attribution, MYNIC figures with attribution, the two models via Ollama Cloud, the question set by this project under CC BY 4.0), method, limitations, reproduce commands.
 - Limitations to state: the snapshot date (results describe that day); headline figures only, because table extraction from PDFs is unreliable; cloud models change, so results are dated; Ollama does not publish how cloud usage is counted; one reviewer verified the answers.
 
 ## 11. CI
@@ -132,15 +133,16 @@ Final task: `tools/update_cv.py` replaces the LLM Eval Lab bullet ("Designing a 
 
 ## 15. Decisions this spec makes that the conversation did not
 
-1. Questions target headline figures only, because the audit found table extraction from PDFs unreliable.
-2. Bootstrap resamples statistics, not questions, because the 4 questions of a statistic are not independent.
-3. The memory tab has no baseline row, because the baseline has no memory mode.
-4. Temperature 0 with one run per question; run-to-run variation is not measured (stated as a limitation).
+1. MYNIC is the third agency (Subashanan chose it on 2026-10-15 from the audit's options); its figures are used under attribution with no raw republishing, because its page reserves all rights.
+2. Questions target headline figures only, because the audit found table extraction from PDFs unreliable.
+3. Bootstrap resamples statistics, not questions, because the 4 questions of a statistic are not independent.
+4. The memory tab has no baseline row, because the baseline has no memory mode.
+5. Temperature 0 with one run per question; run-to-run variation is not measured (stated as a limitation).
 
 ## 16. Build order (outline for the plan)
 
 1. Site: type changes, fixture, figure axis and roles, validator.
-2. Analysis: snapshot fetch and freeze (catalogue, datasets, DOSM release index and files, BNM), text extraction.
+2. Analysis: snapshot fetch and freeze (catalogue, datasets, DOSM release index and files, BNM, MYNIC), text extraction.
 3. Analysis: the four tools and the baseline script.
 4. Analysis: question drafting and the review sheet.
 5. Pause: Subashanan verifies the 120 answers.
