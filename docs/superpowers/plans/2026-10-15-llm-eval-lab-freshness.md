@@ -638,6 +638,12 @@ git commit -m "feat: validate LLM Eval Lab results files"
 
 ### Task 3: Python: dependencies, the statistics and the snapshot
 
+> **Security amendment (controller, 2026-10-15, binding; added after a background security review flagged SSRF and local file read in `analysis/evallab/snapshot.py`).** URLs and file names in this task partly come from downloaded data (catalogue `link_parquet`, DOSM release file links, BNM links, release ids), so the code in this task must also do the following, test first:
+> 1. `http_get` accepts only `https` URLs whose host is in `ALLOWED_HOSTS = frozenset({"api.github.com", "codeload.github.com", "storage.data.gov.my", "storage.dosm.gov.my", "open.dosm.gov.my", "www.bnm.gov.my", "mynic.my"})`, checked with `urllib.parse.urlsplit` before any request; anything else (`file://`, `http://`, `ftp://`, other hosts, URLs with userinfo or a non-default port) raises `ValueError` naming the URL.
+> 2. Redirects are re-checked: use an opener whose redirect handler applies the same check to every redirect target (subclass `urllib.request.HTTPRedirectHandler` and validate `newurl` in `redirect_request`), so an allowed host cannot bounce the fetch to a local or internal address.
+> 3. `Freezer.save` resolves `self.raw_dir / name` and raises `ValueError` unless the resolved path is inside `self.raw_dir.resolve()`; file names built from release ids or dataset ids are additionally restricted to `[A-Za-z0-9._-]` (reject otherwise).
+> 4. Tests in `tests/evallab/test_snapshot.py`: `file:///etc/passwd`, `http://storage.dosm.gov.my/x`, `https://169.254.169.254/latest`, `https://evil.example/x` and `https://user@storage.dosm.gov.my/x` are all rejected by `http_get` without any network call; a redirect from an allowed host to `file:///etc/passwd` is rejected (use a fake handler or monkeypatched opener); `Freezer.save` rejects `../escape.txt` and an id containing `/`. Offline tests keep injecting their own `get` callable, so no test needs a local-file URL.
+
 **Files:**
 - Modify: `analysis/pyproject.toml`, `analysis/uv.lock` (generated)
 - Create: `analysis/evallab/__init__.py` (empty), `analysis/evallab/statistics.py`, `analysis/evallab/sources.py`, `analysis/evallab/snapshot.py`, `analysis/tests/evallab/__init__.py` (empty), `analysis/tests/evallab/world.py`
