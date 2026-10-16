@@ -96,3 +96,27 @@ def test_an_answer_may_cite_any_dataset_or_release_in_the_snapshot(store: Store)
     sources = store.sources()
     assert {"lfs_month_youth", "https://open.dosm.gov.my/publications/labour_month_2026-08", "https://www.bnm.gov.my/documents/20124/999/1.3.xlsx"} <= sources
     assert "cpi_headline" not in sources and "https://open.dosm.gov.my/publications/labour_month_2026-05" not in sources
+
+
+def test_after_accepts_any_iso_form_and_filters_the_same_way(store: Store) -> None:
+    expected = [r["id"] for r in search_releases(store, "labour force", after="2026-09-01")]
+    assert expected == ["labour_month_2026-08", "labour_month_2026-07"]
+    for form in ("20260901", "2026-W36-2"):  # ISO basic date; ISO week date (Tuesday of week 36 is 2026-09-01)
+        assert [r["id"] for r in search_releases(store, "labour force", after=form)] == expected
+
+
+@pytest.mark.parametrize("bad_id", ["../manifest.json", "/etc/passwd", ".."])
+def test_ids_shaped_like_paths_are_just_unknown_ids(store: Store, monkeypatch: pytest.MonkeyPatch, bad_id: str) -> None:
+    def forbidden(*args: Any, **kwargs: Any) -> None:
+        raise AssertionError("a file was read")
+
+    monkeypatch.setattr(Store, "rows", forbidden)
+    monkeypatch.setattr(Store, "pages", forbidden)
+    assert "no dataset" in read_dataset(store, bad_id)["error"]
+    assert "no release" in read_release(store, bad_id)["error"]
+
+
+def test_a_dataset_in_the_snapshot_with_no_rows_is_an_error_not_a_crash(store: Store, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(Store, "rows", lambda self, dataset_id: [])
+    assert read_dataset(store, "lfs_month")["error"] == "dataset 'lfs_month' has no rows"
+    assert json.loads(call_tool(store, "read_dataset", {"id": "lfs_month"}))["error"] == "dataset 'lfs_month' has no rows"

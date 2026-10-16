@@ -54,6 +54,8 @@ def read_dataset(store: Store, id: str, last_n: Any = 3) -> dict[str, Any]:
     if not dataset.in_snapshot:
         return {"error": f"dataset {id!r} is in the catalogue but not in this snapshot"}
     rows = store.rows(id)
+    if not rows:
+        return {"error": f"dataset {id!r} has no rows"}
     dates = sorted({r["date"] for r in rows})[-min(max(as_int(last_n, 3), 1), MAX_DATES):]
     chosen = [{**r, "date": r["date"].isoformat()} for r in rows if r["date"] in dates][-MAX_ROWS:]
     return {"id": id, "title": dataset.title, "frequency": dataset.frequency, "url": dataset.url, "columns": list(chosen[0]), "rows": chosen}
@@ -72,7 +74,7 @@ def release_score(store: Store, release: Release, wanted: frozenset[str]) -> tup
 def search_releases(store: Store, query: str, after: str | None = None) -> list[dict[str, Any]] | dict[str, str]:
     if after:
         try:
-            date.fromisoformat(after)
+            after = date.fromisoformat(after).isoformat()  # Python 3.12 also accepts 20260901 and 2026-W36-2; release dates are compared as YYYY-MM-DD text
         except ValueError:
             return {"error": f"after must be a YYYY-MM-DD date, not {after!r}"}
     wanted = tokens(query)
