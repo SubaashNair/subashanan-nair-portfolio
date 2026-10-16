@@ -6,6 +6,7 @@ import inspect
 import json
 import logging
 import re
+from collections.abc import Callable
 from datetime import date
 from functools import cache
 from pathlib import Path
@@ -111,7 +112,7 @@ TOOLS = [
     _schema("read_release", "Read one page of an official release's text.",
             {"id": {"type": "string"}, "page": {"type": "integer", "description": "Page number, starting at 1"}}, ["id"]),
 ]
-HANDLERS = {"search_datasets": search_datasets, "read_dataset": read_dataset, "search_releases": search_releases, "read_release": read_release}
+HANDLERS: dict[str, Callable[..., Any]] = {"search_datasets": search_datasets, "read_dataset": read_dataset, "search_releases": search_releases, "read_release": read_release}
 
 
 def call_tool(store: Store, name: str, arguments: Any) -> str:
