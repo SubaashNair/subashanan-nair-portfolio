@@ -96,9 +96,12 @@ export const studies: readonly StudyRecord[] = [
     tint: "roseTint",
     themeClass: "s-llm",
     sources: [
-      { name: "Manglish and BM sets", publisher: "This project", used: "Hand-labelled items for sentiment and entities", licence: "CC BY 4.0" },
-      { name: "Malaysian news headlines", publisher: "Public news sites", used: "Articles for the summary task", licence: "Public, research use" },
-      { name: "Models", publisher: "Model APIs and open weights", used: "Every model, listed with its version", licence: "Per provider" },
+      { name: "data.gov.my datasets", publisher: "Government of Malaysia, via data.gov.my", used: "Catalogue metadata and the latest value of each series", licence: "CC BY 4.0" },
+      { name: "DOSM releases", publisher: "Department of Statistics Malaysia, via OpenDOSM", used: "Release text for the latest official figures; cited, not republished", licence: "DOSM terms" },
+      { name: "Bank Negara Malaysia", publisher: "Bank Negara Malaysia", used: "Money supply and interest rate tables. Source: Bank Negara Malaysia", licence: "Terms of Use for BNM Datasets" },
+      { name: "MYNIC", publisher: "MYNIC Berhad", used: "Domain statistics; single figures cited, raw data not republished. Source: MYNIC", licence: "All rights reserved" },
+      { name: "Ollama Cloud", publisher: "Ollama", used: "gpt-oss:120b-cloud and deepseek-v4.1-flash:cloud, with their versions in the manifest", licence: "Provider terms" },
+      { name: "Question set", publisher: "This project", used: "Every question, with its answer verified against the official release", licence: "CC BY 4.0" },
     ],
     method: [
       "Write and freeze the labelling guidelines.",

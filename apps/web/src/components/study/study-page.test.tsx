@@ -15,7 +15,7 @@ describe("StudyPage", () => {
     expect(screen.getByRole("heading", { level: 1, name: "LLM Eval Lab" })).toBeInTheDocument();
     expect(screen.getByText(llm.plannedAnswer)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /the analysis is in progress/i })).toBeInTheDocument();
-    expect(screen.queryAllByText("3 points")).toHaveLength(0);
+    expect(screen.queryAllByText("47 points")).toHaveLength(0);
     expect(screen.queryByText(/preview with illustrative data/i)).not.toBeInTheDocument();
     expect(screen.queryByText("a1c9e04")).not.toBeInTheDocument();
     expect(container.querySelectorAll(".num-tile")).toHaveLength(0);
@@ -40,7 +40,7 @@ describe("StudyPage", () => {
 
   it("preview mode shows fixture numbers under a visible preview label", () => {
     render(<StudyPage study={llm} results={getStudyResults("llm-eval-lab", "development")} />);
-    expect(screen.getAllByText("3 points").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("47 points").length).toBeGreaterThan(0);
     expect(screen.getAllByText(/preview with illustrative data/i).length).toBeGreaterThan(0);
   });
 

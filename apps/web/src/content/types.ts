@@ -108,16 +108,16 @@ export interface ForecastResults extends BaseResults {
 
 export type AssistantResults = BaseResults;
 
-export type ModelRole = "frontier" | "ft" | "open" | "base";
+export type ModelRole = "cloud" | "baseline";
 export interface EvalRow {
   model: string;
   role: ModelRole;
-  score: number;
-  low: number;
+  score: number; // % of questions answered with the latest official figure
+  low: number; // 95% interval
   high: number;
-  costPer1k: number;
-  costLabel: string;
-  latency: string;
+  callsPerAnswer: number; // mean tool calls per answer
+  callsLabel: string;
+  latency: string; // median seconds per answer, as text
 }
 export interface EvalTask {
   id: string;
