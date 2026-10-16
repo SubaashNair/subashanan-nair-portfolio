@@ -111,7 +111,8 @@ def no_network(monkeypatch: pytest.MonkeyPatch) -> None:
 @pytest.mark.parametrize("url", [
     "file:///etc/passwd", "http://storage.dosm.gov.my/x", "ftp://storage.dosm.gov.my/x", "https://169.254.169.254/latest", "https://evil.example/x",
     "https://user@storage.dosm.gov.my/x", "https://storage.dosm.gov.my:8443/x", "https://storage.dosm.gov.my@evil.example/x",
-    "https://storage.dosm.gov.my.evil.example/x", "https://storage.dosm.gov.my./x", "", "/etc/passwd"])
+    "https://storage.dosm.gov.my.evil.example/x", "https://storage.dosm.gov.my./x", "", "/etc/passwd",
+    "https://stor\tage.dosm.gov.my/x", "https://storage.dosm.gov.my/x\n", " https://storage.dosm.gov.my/x", "https://storage.dosm.gov.my/a b", "https://storage.dosm.gov.my/\x00"])
 def test_http_get_refuses_any_url_off_the_allow_list(url: str, no_network: None) -> None:
     with pytest.raises(ValueError, match="refusing to fetch"):
         http_get(url)
@@ -127,25 +128,51 @@ def test_the_publishers_own_urls_pass_the_check() -> None:
         assert check_url(url) == url
 
 
-class Bounce(urllib.request.HTTPSHandler):
-    """An allowed host that answers every request with a redirect to `location`."""
+class Bounce(urllib.request.HTTPSHandler, urllib.request.HTTPHandler):
+    """Redirects the first request to `location`, answers any later request with 200, and records every request, so nothing touches the network."""
 
     location = ""
+    requested: list[str] = []
 
     def https_open(self, req: urllib.request.Request):  # type: ignore[override]
-        response = urllib.response.addinfourl(io.BytesIO(b""), email.message.Message(), req.full_url, 302)
-        response.msg = "Found"
-        response.headers["Location"] = self.location
+        self.requested.append(req.full_url)
+        status = 302 if len(self.requested) == 1 else 200
+        response = urllib.response.addinfourl(io.BytesIO(b"followed"), email.message.Message(), req.full_url, status)
+        response.msg = "Found" if status == 302 else "OK"
+        if status == 302:
+            response.headers["Location"] = self.location
         return response
 
+    http_open = https_open  # type: ignore[assignment]
 
-@pytest.mark.parametrize("target", ["file:///etc/passwd", "https://169.254.169.254/latest", "http://localhost:11434/api", "https://evil.example/x"])
-def test_a_redirect_off_the_allow_list_is_refused(target: str, monkeypatch: pytest.MonkeyPatch) -> None:
-    bounce = type("BounceTo", (Bounce,), {"location": target})
+
+def bounce_to(target: str, monkeypatch: pytest.MonkeyPatch) -> list[str]:
+    requested: list[str] = []
+    bounce = type("BounceTo", (Bounce,), {"location": target, "requested": requested})
     monkeypatch.setattr(snapshot_module, "opener", lambda: urllib.request.build_opener(snapshot_module.CheckedRedirects, bounce))
     monkeypatch.setattr(snapshot_module, "POLITE_SECONDS", 0)
+    return requested
+
+
+@pytest.mark.parametrize("target", ["https://169.254.169.254/latest", "http://localhost:11434/api", "https://evil.example/x", "https://storage.dosm.gov.my@evil.example/x"])
+def test_a_redirect_off_the_allow_list_is_refused_before_it_is_requested(target: str, monkeypatch: pytest.MonkeyPatch) -> None:
+    requested = bounce_to(target, monkeypatch)
+    with pytest.raises(ValueError, match="refusing to fetch"):
+        http_get("https://storage.dosm.gov.my/x")
+    assert requested == ["https://storage.dosm.gov.my/x"]  # the redirect target was never asked for
+
+
+def test_a_redirect_to_a_file_is_refused(monkeypatch: pytest.MonkeyPatch) -> None:
+    requested = bounce_to("file:///etc/passwd", monkeypatch)
     with pytest.raises((ValueError, urllib.error.HTTPError)):  # urllib itself rejects a file:// target before our handler sees it
         http_get("https://storage.dosm.gov.my/x")
+    assert requested == ["https://storage.dosm.gov.my/x"]
+
+
+def test_a_redirect_to_another_allowed_host_is_fetched(monkeypatch: pytest.MonkeyPatch) -> None:
+    requested = bounce_to("https://storage.data.gov.my/y", monkeypatch)
+    assert http_get("https://storage.dosm.gov.my/x") == b"followed"
+    assert requested == ["https://storage.dosm.gov.my/x", "https://storage.data.gov.my/y"]
 
 
 def test_a_redirect_to_another_allowed_host_is_followed() -> None:

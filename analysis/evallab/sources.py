@@ -88,7 +88,7 @@ def bnm_text(path: Path, table: str, columns: dict[int, str]) -> str:
 
 def mynic_points(path: Path) -> list[tuple[str, int]]:
     """Monthly totals from one MYNIC statistics response, as (YYYY-MM, total), months without data left out."""
-    data = json.loads(path.read_text())
+    data = json.loads(path.read_text("utf-8"))
     year = int(data["year"])
     return [(f"{year}-{int(month):02d}", int(total)) for month, total in sorted(data["chartData"].items(), key=lambda kv: int(kv[0])) if total is not None]
 

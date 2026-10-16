@@ -45,6 +45,8 @@ HTTPS_PORT = 443
 
 def check_url(url: str) -> str:
     """The URL, if it is https, on a publisher's host, with no userinfo and no unusual port. Links in downloaded data pass through here."""
+    if re.search(r"[\s\x00-\x1f\x7f]", url):  # urlsplit silently drops tabs and newlines, so a URL holding them would not be the URL that is requested
+        raise ValueError(f"refusing to fetch {url!r}: it contains whitespace or control characters")
     parts = urllib.parse.urlsplit(url)
     try:
         port = parts.port
@@ -151,8 +153,8 @@ def freeze_dosm(f: Freezer, index: list[dict[str, Any]], patterns: Iterable[str]
 
 
 def freeze_bnm(f: Freezer, statistics: list[Statistic]) -> list[dict[str, Any]]:
-    edition_url, period = latest_edition(f.fetch(BNM_LISTING, "releases/bnm_mhs_listing.html").read_text())
-    edition = f.fetch(edition_url, f"releases/bnm_mhs_{safe_id(period)}_edition.html").read_text()
+    edition_url, period = latest_edition(f.fetch(BNM_LISTING, "releases/bnm_mhs_listing.html").read_text("utf-8"))
+    edition = f.fetch(edition_url, f"releases/bnm_mhs_{safe_id(period)}_edition.html").read_text("utf-8")
     entries = []
     for table in sorted({s.release.split(":")[0] for s in statistics}):
         columns = {int(s.release.split(":")[1]): s.name_en for s in statistics if s.release.startswith(table + ":")}
@@ -194,7 +196,7 @@ def take(raw_dir: Path, statistics: list[Statistic], today: date, get: Get) -> d
 
 def verify(raw_dir: Path) -> dict[str, Any]:
     """The frozen snapshot, after checking every file against its recorded SHA-256."""
-    snapshot = json.loads((raw_dir / SNAPSHOT).read_text())
+    snapshot = json.loads((raw_dir / SNAPSHOT).read_text("utf-8"))
     for entry in snapshot["files"]:
         path = raw_dir / entry["path"]
         if not path.exists():
@@ -208,5 +210,5 @@ def freeze(raw_dir: Path, statistics: list[Statistic], today: date, get: Get = h
     """Take the snapshot unless one exists, then verify it. Only the first call touches the network."""
     if not (raw_dir / SNAPSHOT).exists():
         snapshot = take(raw_dir, statistics, today, get)
-        (raw_dir / SNAPSHOT).write_text(json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n")
+        (raw_dir / SNAPSHOT).write_text(json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n", "utf-8")
     return verify(raw_dir)
