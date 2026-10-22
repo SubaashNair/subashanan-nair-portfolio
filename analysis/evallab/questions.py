@@ -78,8 +78,9 @@ def from_release(store: Store, s: Statistic) -> tuple[float | None, str, Release
         release = frozen_releases(store, s, rf"_table_{re.escape(table)}$")[0]
         found = bnm_latest(store.root / str(release.raw), int(column))
         if found is None:
-            raise ValueError(f"{s.id}: table {table} has no value in column {column}")
-        return found[0] * s.release_scale, found[1], release, f"Table {table}, column {column}, row {found[1]}"
+            raise ValueError(f"{s.id}: table {table} has no value")
+        column_letter = chr(ord("A") + int(column))  # BNM column index is 0-based, so A is the first blank index
+        return found[0] * s.release_scale, found[1], release, f"Table {table}, column {column_letter}, row {found[1]}"
     points = [(period, total, r) for r in frozen_releases(store, s, rf"^mynic_{s.release}_\d{{4}}$") for period, total in mynic_points(store.root / str(r.raw))]
     if not points:
         raise ValueError(f"{s.id}: the MYNIC {s.release} chart has no months with data")
