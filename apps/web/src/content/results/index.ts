@@ -1,6 +1,8 @@
 import type { StudyResultsBySlug } from "../types";
+import assistantResults from "./penang-ai-assistant.json";
 import forecastingLab from "./forecasting-lab.json";
 import llmEvalLab from "./llm-eval-lab.json";
+import { parseAssistantResults } from "./parse-assistant";
 import { parseForecastResults } from "./parse-forecast";
 import { parseLlmEvalResults } from "./parse-llm-eval";
 import { parsePenangResults } from "./parse-penang";
@@ -11,5 +13,6 @@ import penangPulse from "./penang-pulse.json";
 export const published: Partial<StudyResultsBySlug> = {
   "forecasting-lab": parseForecastResults(forecastingLab),
   "llm-eval-lab": parseLlmEvalResults(llmEvalLab),
+  "penang-ai-assistant": parseAssistantResults(assistantResults),
   "penang-pulse": parsePenangResults(penangPulse),
 };

@@ -1,0 +1,18 @@
+{
+  "answer": "All six release gates passed across 45 cases run 3 times each: 81 of 81 supported questions were answered correctly and 77 of 77 prohibited queries were blocked.",
+  "keyNumbers": [
+    { "value": "81/81", "label": "supported questions answered correctly.", "caveat": "Factual and comparison cases, every repeat counted. OpenDOSM snapshot IDs 4 to 6." },
+    { "value": "45/45", "label": "scope cases handled without fabricated facts.", "caveat": "Ambiguity, unsupported and adversarial cases, all repeats." },
+    { "value": "1.6 s", "label": "median answer latency, including the Ollama Cloud round trip.", "caveat": "p95 2.4 s; timeout rate 0 out of 135; results from one model and provider." }
+  ],
+  "run": {
+    "commit": "09c0b81 (dirty build)",
+    "manifest": "20261012T122949_gpt-oss-120b_plan-v6_all.json",
+    "python": "3.12",
+    "lastRun": "2026-10-12"
+  },
+  "retrieved": {
+    "OpenDOSM": "2026-10-12",
+    "Ollama Cloud": "2026-10-12"
+  }
+}

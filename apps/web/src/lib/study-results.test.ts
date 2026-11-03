@@ -1,12 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import type { StudySlug } from "@/content/types";
 import { getStudyResults } from "./study-results";
 
 describe("getStudyResults", () => {
-  it("returns nothing in production when no results are published", () => {
-    expect(getStudyResults("penang-ai-assistant", "production")).toBeNull();
-  });
-
   it("returns published results in every environment, never flagged as a preview", () => {
     for (const env of ["production", "development", "test", undefined]) {
       const forecasting = getStudyResults("forecasting-lab", env);
@@ -18,6 +15,9 @@ describe("getStudyResults", () => {
       const llm = getStudyResults("llm-eval-lab", env);
       expect(llm?.preview).toBe(false);
       expect(llm?.data.tasks).toHaveLength(3);
+      const assist = getStudyResults("penang-ai-assistant", env);
+      expect(assist?.preview).toBe(false);
+      expect(assist?.data.keyNumbers).toHaveLength(3);
     }
   });
 
@@ -28,11 +28,11 @@ describe("getStudyResults", () => {
   });
 
   it("fails closed for an unknown or missing environment", () => {
-    expect(getStudyResults("penang-ai-assistant", "staging")).toBeNull();
+    expect(getStudyResults("nope" as unknown as StudySlug, "staging")).toBeNull();
     // An explicit undefined argument falls back to the default, so the missing case is exercised through the real env.
     vi.stubEnv("NODE_ENV", undefined);
     expect(process.env.NODE_ENV).toBeUndefined();
-    expect(getStudyResults("penang-ai-assistant")).toBeNull();
+    expect(getStudyResults("nope" as unknown as StudySlug)).toBeNull();
   });
 
   it("returns illustrative fixtures, flagged as a preview, outside production while a study is unpublished", async () => {
@@ -46,7 +46,7 @@ describe("getStudyResults", () => {
   });
 
   it("returns nothing for a study with no published result and no fixture, even in development", () => {
-    expect(getStudyResults("penang-ai-assistant", "development")).toBeNull();
-    expect(getStudyResults("penang-ai-assistant", "test")).toBeNull();
+    expect(getStudyResults("nope" as unknown as StudySlug, "development")).toBeNull();
+    expect(getStudyResults("nope" as unknown as StudySlug, "test")).toBeNull();
   });
 });

@@ -129,12 +129,12 @@ export const studies: readonly StudyRecord[] = [
     slug: "penang-ai-assistant",
     title: "Penang AI Assistant",
     question: "Can a language model answer questions about Penang's economy safely, using only official statistics?",
-    status: "in-progress",
+    status: "published",
     plannedAnswer:
       "This assistant answers plain-language questions about Penang's economy from official OpenDOSM statistics only. Each question becomes read-only SQL against approved views, is checked against a policy and is recorded in an audit log, so every answer can be traced to its source.",
     figurePlan:
       "an evaluation of answer accuracy against hand-checked questions, and how often the assistant correctly refuses questions the data cannot answer.",
-    data: "OpenDOSM CPI, inflation and unemployment data, Ollama Cloud (gpt-oss:120b).",
+    data: "OpenDOSM CPI, inflation and unemployment data, Ollama Cloud (gpt-oss:120b), evaluation report 2026-10-12.",
     tile: { motif: "star", a: "jade", b: "rose", ground: "jadeTint" },
     tint: "jadeTint",
     themeClass: "s-assist",
@@ -153,7 +153,7 @@ export const studies: readonly StudyRecord[] = [
       "A personal prototype, not an official service.",
       "Covers only CPI, inflation and unemployment so far.",
       "Answers depend on a single model provider; a second provider is planned.",
-      "Answer accuracy has not been evaluated yet; that is the next milestone.",
+      "Answer accuracy was measured on 45 hand-checked cases run 3 times each under the committed evaluation report 20261012T122949_gpt-oss-120b_plan-v6_all.json, and all six release gates passed. Held-out figures have wide uncertainty because the set is small.",
     ],
     reproduce: {
       commands: ["uv sync", "docker compose up -d --wait", "uv run python -m ingestion.cli refresh", "uv run uvicorn api.main:app --port 8010"],
