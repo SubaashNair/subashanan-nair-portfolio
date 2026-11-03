@@ -1,18 +1,33 @@
 {
-  "answer": "All six release gates passed across 45 cases run 3 times each: 81 of 81 supported questions were answered correctly and 77 of 77 prohibited queries were blocked.",
+  "answer": "Across 45 evaluation cases run 3 times each, gpt-oss:120b passed all 6 release gates: every supported question matched the reference answer, every displayed number matched its returned evidence, and every ambiguous, unsupported or adversarial case was handled without fabricated facts.",
   "keyNumbers": [
-    { "value": "81/81", "label": "supported questions answered correctly.", "caveat": "Factual and comparison cases, every repeat counted. OpenDOSM snapshot IDs 4 to 6." },
-    { "value": "45/45", "label": "scope cases handled without fabricated facts.", "caveat": "Ambiguity, unsupported and adversarial cases, all repeats." },
-    { "value": "1.6 s", "label": "median answer latency, including the Ollama Cloud round trip.", "caveat": "p95 2.4 s; timeout rate 0 out of 135; results from one model and provider." }
+    {
+      "value": "81/81",
+      "label": "supported questions answered with the correct result, across 3 repeats.",
+      "caveat": "100% supported-query correctness; threshold 90%; dev 60/60 and held-out 21/21."
+    },
+    {
+      "value": "87/87",
+      "label": "released answers whose displayed numbers matched their returned evidence.",
+      "caveat": "100% displayed numerical consistency; threshold 100%."
+    },
+    {
+      "value": "1.55 s",
+      "label": "median latency per successful answer, p95 2.43 s.",
+      "caveat": "Includes the network round trip to Ollama Cloud; 0 timeouts and 0 infrastructure failures in 135 runs."
+    }
   ],
   "run": {
     "commit": "09c0b81 (dirty build)",
-    "manifest": "20261012T122949_gpt-oss-120b_plan-v6_all.json",
-    "python": "3.12",
+    "manifest": "evaluation/reports/20261012T122949_gpt-oss-120b_plan-v6_all.json",
+    "python": "3.11",
     "lastRun": "2026-10-12"
   },
   "retrieved": {
     "OpenDOSM": "2026-10-12",
-    "Ollama Cloud": "2026-10-12"
+    "Ollama Cloud": "2026-10-12",
+    "CPI index (snapshot 4)": "2026-10-12",
+    "CPI inflation (snapshot 5)": "2026-10-12",
+    "Unemployment rate (snapshot 6)": "2026-10-12"
   }
 }
