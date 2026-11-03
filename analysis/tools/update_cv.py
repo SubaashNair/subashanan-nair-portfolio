@@ -1,4 +1,4 @@
-"""Rewrites the Forecasting Lab and Penang Pulse entries on page 2 of the CV from the published results.
+"""Rewrites the Forecasting Lab, Penang Pulse and LLM Eval Lab entries on page 2 of the CV from the published results.
 
 Each edit finds the entry in any of its known states (the original wording or an earlier run of this tool), so running it
 again on an updated CV is safe.
@@ -36,6 +36,13 @@ PULSE_TECH_OLD = (
     "Python, NumPy, Pydantic, Penang GeoHub, OpenStreetMap, DOSM data, Next.js",
 )
 PULSE_TECH_NEW = "Python, NumPy, SciPy, NetworkX, rasterio, Shapely, pyosmium, OpenStreetMap, WorldPop, DOSM data, Next.js"
+LLM_HEAD = "Tested whether cloud LLMs find Malaysia's latest official figure when open data lags:"
+LLM_BULLET = ("Designing a benchmark of a classical baseline", LLM_HEAD)
+LLM_TECH_OLD = "Python, LLM APIs, open weight models, bootstrap confidence intervals"
+LLM_TECH_NEW = "Python, Ollama Cloud, tool calling, PyMuPDF, bootstrap intervals, data.gov.my, DOSM, BNM, MYNIC"
+LLM_LABEL_OLD = "  |  In Progress"
+LLM_LABEL_NEW = "  |  LLM Evaluation"
+LABEL = {"fontname": "heit", "fontsize": 9.5, "color": (0, 0, 0)}  # the italic label beside an entry's title
 
 Width = Callable[[str], float]
 
@@ -116,6 +123,26 @@ def pulse_text(results: dict[str, Any]) -> tuple[str, ...]:
     )
 
 
+LLM_COUNT = re.compile(r"^statistics, asked 4 ways each: (?P<questions>[\d,]+) questions verified")
+
+
+def llm_text(results: dict[str, Any]) -> tuple[str, ...]:
+    """Candidate wordings, preferred first, built only from the results file. All start with LLM_HEAD."""
+    stale = next(t for t in results["tasks"] if t["id"] == "stale-tools")["rows"]
+    clouds = [r for r in stale if r["role"] == "cloud"]
+    best, base = max(clouds, key=lambda r: r["score"]), next(r for r in stale if r["role"] == "baseline")
+    count = LLM_COUNT.match(results["keyNumbers"][2]["label"])
+    if count is None:
+        raise SystemExit(f"Unexpected LLM Eval Lab key number label: {results['keyNumbers'][2]['label']!r}")
+    statistics, questions = results["keyNumbers"][2]["value"], count["questions"]
+    claim = f"with tools, {best['model']} gave the latest figure on {best['score']}% of out-of-date questions, versus {base['score']}% for the open data alone."
+    return (
+        f"{LLM_HEAD} {statistics} DOSM, BNM and MYNIC statistics, {questions} verified questions; {claim}",
+        f"{LLM_HEAD} {claim}",
+        f"{LLM_HEAD} with tools, {best['model']} was right on {best['score']}% of out-of-date questions.",
+    )
+
+
 def wrap(text: str, width: Width, limits: list[float]) -> list[str] | None:
     """Greedy word wrap into at most len(limits) lines, line i no wider than limits[i]. None when it does not fit."""
     lines: list[str] = []
@@ -178,19 +205,19 @@ def replace_bullet(page: Any, starts: tuple[str, ...], candidates: tuple[str, ..
         page.insert_text((line.x, line.baseline), words, **BODY)
 
 
-def replace_tech_line(page: Any, old: tuple[str, ...], new: str, fitz: Any) -> None:
-    """Swap the grey tech line that reads any of `old`, or `new` from an earlier run, for `new`."""
+def replace_tech_line(page: Any, old: tuple[str, ...], new: str, fitz: Any, style: dict[str, Any] = TECH) -> None:
+    """Swap the one span that reads any of `old`, or `new` from an earlier run, for `new`: a grey tech line unless another style is given."""
     spans = [s for b in page.get_text("dict")["blocks"] for line in b.get("lines", []) for s in line["spans"] if s["text"] in (*old, new)]
     if len(spans) != 1:
-        raise SystemExit(f"Expected one tech line reading one of {(*old, new)}, found {len(spans)}")
+        raise SystemExit(f"Expected one span reading one of {(*old, new)}, found {len(spans)}")
     span = spans[0]
-    end = span["origin"][0] + fitz.get_text_length(new, fontname=TECH["fontname"], fontsize=TECH["fontsize"])
+    end = span["origin"][0] + fitz.get_text_length(new, fontname=style["fontname"], fontsize=style["fontsize"])
     if end > RIGHT_EDGE:
-        raise SystemExit(f"Tech line {new!r} ends at x = {end:.1f}, past {RIGHT_EDGE}")
+        raise SystemExit(f"{new!r} ends at x = {end:.1f}, past {RIGHT_EDGE}")
     x0, y0, x1, y1 = span["bbox"]
     page.add_redact_annot(fitz.Rect(x0, y0 + TECH_INSET, x1, y1), fill=(1, 1, 1))  # clear of the heading's descenders above
     page.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE, graphics=fitz.PDF_REDACT_LINE_ART_NONE)
-    page.insert_text(span["origin"], new, **TECH)
+    page.insert_text(span["origin"], new, **style)
 
 
 def render(doc: Any, path: Path) -> None:
@@ -209,6 +236,7 @@ def main(argv: list[str] | None = None) -> None:
 
     forecast = json.loads((RESULTS_DIR / "forecasting-lab.json").read_text())
     pulse = json.loads((RESULTS_DIR / "penang-pulse.json").read_text())
+    llm = json.loads((RESULTS_DIR / "llm-eval-lab.json").read_text())
     doc = fitz.open(args.source)
     render(doc, args.png_dir / f"{args.target.stem}-before.png")
     page = doc[PAGE]
@@ -216,6 +244,9 @@ def main(argv: list[str] | None = None) -> None:
     replace_tech_line(page, (FORECAST_TECH_OLD,), FORECAST_TECH_NEW, fitz)
     replace_bullet(page, PULSE_BULLET, pulse_text(pulse), fitz)
     replace_bullet(page, FORECAST_BULLET, forecast_text(forecast), fitz)
+    replace_tech_line(page, (LLM_LABEL_OLD,), LLM_LABEL_NEW, fitz, LABEL)
+    replace_tech_line(page, (LLM_TECH_OLD,), LLM_TECH_NEW, fitz)
+    replace_bullet(page, LLM_BULLET, llm_text(llm), fitz)
     render(doc, args.png_dir / f"{args.target.stem}-after.png")
     args.target.parent.mkdir(parents=True, exist_ok=True)
     scratch = args.target.with_suffix(".tmp.pdf")
