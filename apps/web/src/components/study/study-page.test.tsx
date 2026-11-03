@@ -13,7 +13,7 @@ const llm = findStudy("llm-eval-lab")!;
 describe("StudyPage", () => {
   it("production mode with no results shows the plan and no numbers", () => {
     const assist = findStudy("penang-ai-assistant")!;
-    const { container } = render(<StudyPage study={assist} results={getStudyResults("penang-ai-assistant", "production")} />);
+    const { container } = render(<StudyPage study={assist} results={null} />);
     expect(screen.getByRole("heading", { level: 1, name: "Penang AI Assistant" })).toBeInTheDocument();
     expect(screen.getByText(assist.plannedAnswer)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /the analysis is in progress/i })).toBeInTheDocument();
@@ -54,12 +54,13 @@ describe("StudyPage", () => {
     expect(screen.getAllByText(/preview with illustrative data/i).length).toBeGreaterThan(0);
   });
 
-  it("shows the new assistant study's plan, pending evidence and no preview in development", () => {
+  it("shows the new assistant study's published results and no preview in development", () => {
     const assist = findStudy("penang-ai-assistant")!;
-    const { container } = render(<StudyPage study={assist} results={getStudyResults("penang-ai-assistant", "development")} />);
-    expect(screen.getByText(assist.plannedAnswer)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /the analysis is in progress/i })).toBeInTheDocument();
-    expect(container.querySelectorAll(".num-tile")).toHaveLength(0);
+    const loaded = getStudyResults("penang-ai-assistant", "development")!;
+    const { container } = render(<StudyPage study={assist} results={loaded} />);
+    expect(screen.getByText(loaded.data.answer)).toBeInTheDocument();
+    expect(container.querySelectorAll(".num-tile")).toHaveLength(3);
+    expect(screen.queryAllByText("Not yet retrieved")).toHaveLength(0);
     expect(screen.queryByText(/preview with illustrative data/i)).not.toBeInTheDocument();
   });
 

@@ -9,6 +9,7 @@ describe("published results", () => {
   const forecasting = published["forecasting-lab"]!;
   const pulse = published["penang-pulse"]!;
   const llm = published["llm-eval-lab"]!;
+  const assist = published["penang-ai-assistant"]!;
 
   it("publishes the forecasting lab from the validated results file", () => {
     expect(forecasting.models.map((m) => m.id)).toEqual(["persistence", "seasonal", "gb", "mlp", "chronos"]);
@@ -28,7 +29,12 @@ describe("published results", () => {
     expect(llm.errorExamples.length).toBeLessThanOrEqual(6);
   });
 
-  it.each(["forecasting-lab", "penang-pulse", "llm-eval-lab"] as const)("dates every source %s lists", (slug) => {
+  it("publishes the Penang AI Assistant from the validated results file", () => {
+    expect(assist.keyNumbers).toHaveLength(3);
+    expect(assist.run.commit).toBe("09c0b81 (dirty build)");
+  });
+
+  it.each(["forecasting-lab", "penang-pulse", "llm-eval-lab", "penang-ai-assistant"] as const)("dates every source %s lists", (slug) => {
     for (const source of findStudy(slug)!.sources) {
       expect(published[slug]!.retrieved[source.name]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
