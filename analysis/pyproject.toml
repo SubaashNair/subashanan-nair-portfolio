@@ -8,8 +8,10 @@ dependencies = [
   "scipy>=1.14,<2",
   "scikit-learn>=1.6,<2",
   "networkx==3.7",
+  "openpyxl==3.1.5",
   "osmium==4.3.1",
   "pyarrow==26.0.0",
+  "pymupdf==1.28.2",
   "rasterio==1.5.2",
   "shapely==2.2.0",
 ]
@@ -26,4 +28,7 @@ default-groups = ["dev"]
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q"
-filterwarnings = ["ignore::sklearn.exceptions.ConvergenceWarning"]
+filterwarnings = [
+  "ignore::sklearn.exceptions.ConvergenceWarning",
+  "ignore:builtin type .* has no __module__ attribute:DeprecationWarning",  # PyMuPDF's SWIG bindings on Python 3.12
+]

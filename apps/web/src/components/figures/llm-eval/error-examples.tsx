@@ -4,10 +4,10 @@ export function ErrorExamples({ examples }: { examples: readonly ErrorExample[] 
   return (
     <>
       <h3 className="sub">Error examples</h3>
-      <p className="intro">Three items from the Manglish sentiment set, picked to show where models slip.</p>
+      <p className="intro">Real failures from the run, chosen by rule: an out-of-date figure quoted, the wrong period, or no answer that could be read.</p>
       <div className="examples">
         {examples.map((e) => (
-          <article key={e.input} className="tile-frame">
+          <article key={`${e.model} ${e.input}`} className="tile-frame">
             <span className={e.correct ? "verdict ok" : "verdict miss"}>{e.correct ? "Correct" : "Missed"}</span>
             <blockquote>&ldquo;{e.input}&rdquo;</blockquote>
             <dl>

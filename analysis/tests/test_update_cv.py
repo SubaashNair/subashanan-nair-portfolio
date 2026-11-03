@@ -1,6 +1,9 @@
 import pytest
 
-from tools.update_cv import FORECAST_TECH_NEW, FORECAST_TECH_OLD, PULSE_BULLET, PULSE_TECH_NEW, bullet_lines, change, choose, forecast_text, pulse_text, wrap
+from tools.update_cv import (
+    FORECAST_TECH_NEW, FORECAST_TECH_OLD, LLM_BULLET, LLM_HEAD, LLM_TECH_NEW, PULSE_BULLET, PULSE_TECH_NEW, bullet_lines, change, choose, forecast_text, llm_text,
+    pulse_text, wrap,
+)
 
 RESULTS = {
     "horizons": [15, 30, 60, 90, 120],
@@ -143,3 +146,36 @@ def test_bullet_lines_finds_the_original_bullet_and_stops_at_the_next_one() -> N
     assert [(line.x, line.baseline) for line in bullet_lines(page, PULSE_BULLET)] == [(54.8 + 15, 169.7), (64.9, 181.1)]
     with pytest.raises(SystemExit, match="No line starts with"):
         bullet_lines(page, ("Leakage safe",))
+
+LLM = {
+    "keyNumbers": [{}, {}, {"value": "30", "label": "statistics, asked 4 ways each: 120 questions verified against the official release."}],
+    "tasks": [
+        {"id": "all-tools", "rows": []},
+        {"id": "stale-tools", "rows": [
+            {"model": "gpt-oss 120B", "role": "cloud", "score": 41},
+            {"model": "DeepSeek V4.1 Flash", "role": "cloud", "score": 56},
+            {"model": "Open data only", "role": "baseline", "score": 0},
+        ]},
+    ],
+}
+
+
+def test_llm_text_uses_only_numbers_from_the_results() -> None:
+    preferred, short, shortest = llm_text(LLM)
+    assert preferred == (
+        "Tested whether cloud LLMs find Malaysia's latest official figure when open data lags: 30 DOSM, BNM and MYNIC statistics, 120 verified questions; "
+        "with tools, DeepSeek V4.1 Flash gave the latest figure on 56% of out-of-date questions, versus 0% for the open data alone."
+    )
+    assert short == f"{LLM_HEAD} with tools, DeepSeek V4.1 Flash gave the latest figure on 56% of out-of-date questions, versus 0% for the open data alone."
+    assert shortest.endswith("DeepSeek V4.1 Flash was right on 56% of out-of-date questions.")
+    assert all(text.startswith(LLM_BULLET[-1]) for text in (preferred, short, shortest))  # so a later run finds the bullet again
+
+
+def test_llm_text_stops_on_an_unexpected_label() -> None:
+    odd = {**LLM, "keyNumbers": [{}, {}, {"value": "30", "label": "questions."}]}
+    with pytest.raises(SystemExit, match="Unexpected LLM Eval Lab key number label"):
+        llm_text(odd)
+
+
+def test_llm_tech_line_names_what_the_pipeline_uses() -> None:
+    assert "open weight" not in LLM_TECH_NEW and all(name in LLM_TECH_NEW for name in ("Ollama Cloud", "PyMuPDF", "data.gov.my", "MYNIC"))
