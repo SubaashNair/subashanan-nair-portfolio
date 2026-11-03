@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { llmEvalFixture } from "@/content/fixtures/llm-eval";
 import { findStudy } from "@/content/studies";
-import { getStudyResults } from "@/lib/study-results";
 
 import { StudyCard } from "./study-card";
 
@@ -11,7 +11,7 @@ const pulse = findStudy("penang-pulse")!;
 describe("StudyCard", () => {
   it("shows a visible preview label above the key number in a preview", () => {
     const llm = findStudy("llm-eval-lab")!;
-    const { container } = render(<StudyCard study={llm} results={getStudyResults("llm-eval-lab", "development")} headingLevel={3} />);
+    const { container } = render(<StudyCard study={llm} results={{ data: llmEvalFixture, preview: true }} headingLevel={3} />);
     const flag = screen.getByText("Illustrative preview");
     expect(flag).toHaveClass("preview-flag");
     expect(flag).not.toHaveClass("sr");

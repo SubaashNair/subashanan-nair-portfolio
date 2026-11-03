@@ -1,0 +1,969 @@
+{
+  "study": "llm-eval-lab",
+  "snapshot": {
+    "taken": "2026-10-16",
+    "catalogue": {
+      "repository": "data-gov-my/datagovmy-meta",
+      "commit": "5b2bc41a7e12675d125541994cfb3b561b5b5f27"
+    },
+    "files": [
+      {
+        "path": "catalogue.tar.gz",
+        "url": "https://codeload.github.com/data-gov-my/datagovmy-meta/tar.gz/5b2bc41a7e12675d125541994cfb3b561b5b5f27",
+        "retrieved": "2026-10-16T01:39:35+00:00",
+        "bytes": 616611,
+        "sha256": "280690e47c8c3c4feb4406b0138b9fa81ef9b78dfc1de88371ba1e02e05fad06"
+      },
+      {
+        "path": "datasets/bop_balance.parquet",
+        "url": "https://storage.dosm.gov.my/bop/bop_balance.parquet",
+        "retrieved": "2026-10-16T01:39:36+00:00",
+        "bytes": 5550,
+        "sha256": "efc8066d04010f34fe9395c3d9ab76a3543860d8289d78bb174359eb8f1b47b5"
+      },
+      {
+        "path": "datasets/cpi_headline.parquet",
+        "url": "https://storage.dosm.gov.my/cpi/cpi_2d.parquet",
+        "retrieved": "2026-10-16T01:39:36+00:00",
+        "bytes": 17068,
+        "sha256": "4ddd9998a82d8b68348ca3b7cf9ca1091e67df6372079cd6b7775a84e6b0b265"
+      },
+      {
+        "path": "datasets/cpi_headline_inflation.parquet",
+        "url": "https://storage.dosm.gov.my/cpi/cpi_2d_inflation.parquet",
+        "retrieved": "2026-10-16T01:39:37+00:00",
+        "bytes": 20771,
+        "sha256": "b6d1fb212a3a8ce516f67cdb29ab373020806f2e45d1011f93e684ba97433bfc"
+      },
+      {
+        "path": "datasets/domains.parquet",
+        "url": "https://storage.data.gov.my/publicadmin/domains.parquet",
+        "retrieved": "2026-10-16T01:39:37+00:00",
+        "bytes": 13279,
+        "sha256": "919c953a659b79a0f289dcfcec651c45d5c1b57795b2c986fa8105fc6143b5c0"
+      },
+      {
+        "path": "datasets/domains_dnssec.parquet",
+        "url": "https://storage.data.gov.my/publicadmin/domains_dnssec.parquet",
+        "retrieved": "2026-10-16T01:39:38+00:00",
+        "bytes": 5432,
+        "sha256": "283048894e8cd2aee5959b7e6a5e708bc5ecd596c538e504de1affdc04a657f1"
+      },
+      {
+        "path": "datasets/domains_ipv6.parquet",
+        "url": "https://storage.data.gov.my/publicadmin/domains_ipv6.parquet",
+        "retrieved": "2026-10-16T01:39:39+00:00",
+        "bytes": 8649,
+        "sha256": "0ccbe0345fd92d8a91acb00fce31b42be705ebab9e8aa751651aed22aaf29c8c"
+      },
+      {
+        "path": "datasets/economic_indicators.parquet",
+        "url": "https://storage.dosm.gov.my/mei/mei.parquet",
+        "retrieved": "2026-10-16T01:39:39+00:00",
+        "bytes": 9298,
+        "sha256": "a9ffcc71419ce50aac83c58125e58bcecd3675a981650a0c1b18e79bf25f1f63"
+      },
+      {
+        "path": "datasets/fdi_flows.parquet",
+        "url": "https://storage.dosm.gov.my/bop/fdi_flows.parquet",
+        "retrieved": "2026-10-16T01:39:40+00:00",
+        "bytes": 4772,
+        "sha256": "d61c06b666512e043ee31b2cf965d0dc05ecbc80906fb3d99acdaeaaf2d6e6c1"
+      },
+      {
+        "path": "datasets/gdp_qtr_real.parquet",
+        "url": "https://storage.dosm.gov.my/gdp/gdp_qtr_real.parquet",
+        "retrieved": "2026-10-16T01:39:41+00:00",
+        "bytes": 2942,
+        "sha256": "b835c89112b8924477e4c98a9a83084cfc3498a26cdcd0c1f2462d1cee070aab"
+      },
+      {
+        "path": "datasets/interestrates.parquet",
+        "url": "https://storage.data.gov.my/finsector/interest_rates.parquet",
+        "retrieved": "2026-10-16T01:39:41+00:00",
+        "bytes": 30990,
+        "sha256": "ce182fab962de30ad3322a71c18d26600b49252a47057f30ea901c63fa58174e"
+      },
+      {
+        "path": "datasets/iowrt.parquet",
+        "url": "https://storage.dosm.gov.my/iowrt/iowrt.parquet",
+        "retrieved": "2026-10-16T01:39:42+00:00",
+        "bytes": 9885,
+        "sha256": "91d2f504f6761c91943f67e01e9039f4d8dbb49fa782f932a9b62a126f55f4bb"
+      },
+      {
+        "path": "datasets/ipi.parquet",
+        "url": "https://storage.dosm.gov.my/ipi/ipi.parquet",
+        "retrieved": "2026-10-16T01:39:43+00:00",
+        "bytes": 8329,
+        "sha256": "ee1224e15fe540ddbb09bf5ef899d250b8749c7c2beea1c1a497b8c121f0ba39"
+      },
+      {
+        "path": "datasets/lfs_month.parquet",
+        "url": "https://storage.dosm.gov.my/labour/lfs_month.parquet",
+        "retrieved": "2026-10-16T01:39:43+00:00",
+        "bytes": 9564,
+        "sha256": "01aee476b35fc5e5a8e12983b9d5157b477075b931f1066951e2c74c80221225"
+      },
+      {
+        "path": "datasets/lfs_month_youth.parquet",
+        "url": "https://storage.dosm.gov.my/labour/lfs_month_youth.parquet",
+        "retrieved": "2026-10-16T01:39:44+00:00",
+        "bytes": 5195,
+        "sha256": "4f71cd6de7e63f19cf4dcebf8d33890944d965851097f25553ff2e7ae28ec116"
+      },
+      {
+        "path": "datasets/monetary_aggregates.parquet",
+        "url": "https://storage.data.gov.my/finsector/money_aggregates.parquet",
+        "retrieved": "2026-10-16T01:39:45+00:00",
+        "bytes": 19705,
+        "sha256": "f2bea1297f17a7022868c0be5c40d55b0b0c8227653f362aa6c7932402cc758f"
+      },
+      {
+        "path": "datasets/ppi.parquet",
+        "url": "https://storage.dosm.gov.my/ppi/ppi.parquet",
+        "retrieved": "2026-10-16T01:39:45+00:00",
+        "bytes": 7835,
+        "sha256": "d2ec58d4bf9be07d3db5cbfe67fcf16dbdba43654d1200e419213ddc2c3cb56f"
+      },
+      {
+        "path": "datasets/productivity_qtr.parquet",
+        "url": "https://storage.dosm.gov.my/labour/productivity_qtr.parquet",
+        "retrieved": "2026-10-16T01:39:46+00:00",
+        "bytes": 31535,
+        "sha256": "1054f2a6c667fc237b942150d036bb07cb200685136a5cdc6eb62e943f7080e3"
+      },
+      {
+        "path": "datasets/trade_sitc_1d.parquet",
+        "url": "https://storage.dosm.gov.my/trade/trade_sitc_1d.parquet",
+        "retrieved": "2026-10-16T01:39:47+00:00",
+        "bytes": 50943,
+        "sha256": "6566da79934f245e3b8f3e5bce0445a80bb368ee8bd0867187c51f5aefc7ae35"
+      },
+      {
+        "path": "releases/bop_2026-q2.pdf",
+        "url": "https://storage.dosm.gov.my/bop/bop_2026-q2.pdf",
+        "retrieved": "2026-10-16T01:39:47+00:00",
+        "bytes": 7095272,
+        "sha256": "e6461d02aa30d60f8b4b306804066bd70ac0db8e0a5f825aefb473e8d2fe949c"
+      },
+      {
+        "path": "releases/bop_2026-q2.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:39:48+00:00",
+        "bytes": 183722,
+        "sha256": "6c556c363efbc37f4418a7e81b9e618cc54acbc859b4ff9cbf2ba9817762baa9"
+      },
+      {
+        "path": "releases/bop_2026-q1.pdf",
+        "url": "https://storage.dosm.gov.my/bop/bop_2026-q1.pdf",
+        "retrieved": "2026-10-16T01:39:50+00:00",
+        "bytes": 17776580,
+        "sha256": "46336c4e9665586f73ed72a83c7a7a05da37620b804468ef709f2054ada641cb"
+      },
+      {
+        "path": "releases/bop_2026-q1.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:39:50+00:00",
+        "bytes": 188422,
+        "sha256": "44e394ff264325eca7fcfde1359e0e94947f02fd81ecbe319121ba6479641ffb"
+      },
+      {
+        "path": "releases/bop_2025-q4.pdf",
+        "url": "https://storage.dosm.gov.my/bop/bop_2025-q4.pdf",
+        "retrieved": "2026-10-16T01:39:52+00:00",
+        "bytes": 13679728,
+        "sha256": "73afd2775ae073bbab9742c3d955ae47cb583037cf25f80dcb263341af51e671"
+      },
+      {
+        "path": "releases/bop_2025-q4.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:39:53+00:00",
+        "bytes": 183716,
+        "sha256": "752732694b84e2c9b31357337b1af8ed63c2617d00f9c889025a7f89a21f2c72"
+      },
+      {
+        "path": "releases/cpi_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/cpi/cpi_2026-08.pdf",
+        "retrieved": "2026-10-16T01:39:54+00:00",
+        "bytes": 14705892,
+        "sha256": "3837a2ada0d3be3868c836303130cb0c4241fcd6c443150c1e74f033a0fb676e"
+      },
+      {
+        "path": "releases/cpi_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:39:55+00:00",
+        "bytes": 382266,
+        "sha256": "9b0cd2968907b7edaaf4b4700f1d13ce02eb3facef965efa98d0708334dda910"
+      },
+      {
+        "path": "releases/cpi_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/cpi/cpi_2026-07.pdf",
+        "retrieved": "2026-10-16T01:39:57+00:00",
+        "bytes": 14666455,
+        "sha256": "3e3bfdf7fbd250da3c4ed90ff40ef891069a3b17acbb67ae9426b9cbbd40199a"
+      },
+      {
+        "path": "releases/cpi_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:39:57+00:00",
+        "bytes": 378610,
+        "sha256": "1b61a0b0c198b6faa14bfe57678e4800baa25bea75e866ff9a7f3edbad593191"
+      },
+      {
+        "path": "releases/cpi_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/cpi/cpi_2026-06.pdf",
+        "retrieved": "2026-10-16T01:39:59+00:00",
+        "bytes": 15713156,
+        "sha256": "08378e17e0b63baecfef396788817ad7025561774aa08a7ed32d99603357d71d"
+      },
+      {
+        "path": "releases/cpi_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:00+00:00",
+        "bytes": 369847,
+        "sha256": "cea9e96ee2ae598c6e449a76981d614ec0e3ce07a1edc14547d4706368044868"
+      },
+      {
+        "path": "releases/gdp_2026-q2.pdf",
+        "url": "https://storage.dosm.gov.my/gdp/gdp_2026-q2.pdf",
+        "retrieved": "2026-10-16T01:40:01+00:00",
+        "bytes": 9043620,
+        "sha256": "7f691e0be52279a5c5b971217d8f467c50d1f11d529433ee93a891b0563ff6c5"
+      },
+      {
+        "path": "releases/gdp_2026-q2.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:01+00:00",
+        "bytes": 202291,
+        "sha256": "6a085216a6702d99ad879a866160c720b4b660b5cbccbcc516276b46a1e5027e"
+      },
+      {
+        "path": "releases/gdp_2026-q1.pdf",
+        "url": "https://storage.dosm.gov.my/gdp/gdp_2026-q1.pdf",
+        "retrieved": "2026-10-16T01:40:02+00:00",
+        "bytes": 7460562,
+        "sha256": "fb20afb42e48044f38174c1b7535c51fe82d745c97688cf1370d642b1e623b94"
+      },
+      {
+        "path": "releases/gdp_2026-q1.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:02+00:00",
+        "bytes": 188950,
+        "sha256": "4ed6bd208072c2ca2999c4143b0e83ed6904fd6a532ab9cf1e1a405532a5eb54"
+      },
+      {
+        "path": "releases/gdp_2025-q4.pdf",
+        "url": "https://storage.dosm.gov.my/gdp/gdp_2025-q4.pdf",
+        "retrieved": "2026-10-16T01:40:03+00:00",
+        "bytes": 9273091,
+        "sha256": "36f17727d28724916fc9dcfe9329b15c4ec41518e8977f6c566eca9cfc7995ad"
+      },
+      {
+        "path": "releases/gdp_2025-q4.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:04+00:00",
+        "bytes": 208419,
+        "sha256": "3618ddd585670fbb6c6cd0f20d5b7f41b1a3a35b711403493c1989d2a52e7a95"
+      },
+      {
+        "path": "releases/iowrt_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/iowrt/iowrt_2026-08.pdf",
+        "retrieved": "2026-10-16T01:40:05+00:00",
+        "bytes": 7495601,
+        "sha256": "9af7dd9476cbed93f07bc965977055b1d17b7591cc58df18d51639cc7378f29c"
+      },
+      {
+        "path": "releases/iowrt_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:05+00:00",
+        "bytes": 121685,
+        "sha256": "3261a9150d75b4a8ce762ea0c047b1503b1602bc2457dd35ccfdea965bc2bc36"
+      },
+      {
+        "path": "releases/iowrt_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/iowrt/iowrt_2026-07.pdf",
+        "retrieved": "2026-10-16T01:40:06+00:00",
+        "bytes": 7655984,
+        "sha256": "78c8cb4697ccdc53b2e8fff7f564088d2d5a87358a5a15fd33a283f26b8a9ab8"
+      },
+      {
+        "path": "releases/iowrt_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:06+00:00",
+        "bytes": 120500,
+        "sha256": "83a195db1d28c66a7a05fb967b68a21fff7a1732de5a16299eec4ff9c683b574"
+      },
+      {
+        "path": "releases/iowrt_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/iowrt/iowrt_2026-06.pdf",
+        "retrieved": "2026-10-16T01:40:07+00:00",
+        "bytes": 5362323,
+        "sha256": "106b9b9e4f11f1ef64eda75ca2e57ca488aa15927958f2ea979a6bb6202645db"
+      },
+      {
+        "path": "releases/iowrt_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:08+00:00",
+        "bytes": 117908,
+        "sha256": "7176acdb2cade1a97eb484a189e232835f9700641b2affe8de28337454455e6b"
+      },
+      {
+        "path": "releases/ipi_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/ipi/ipi_2026-08.pdf",
+        "retrieved": "2026-10-16T01:40:10+00:00",
+        "bytes": 18708292,
+        "sha256": "0e9251253e93cf7e551bf231ce62e0ac3694064178bbe2368198be984d7bf9d3"
+      },
+      {
+        "path": "releases/ipi_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:10+00:00",
+        "bytes": 225541,
+        "sha256": "62d0807580b2050f11c295d60fb8cc1b49ec4343c1e33332d581ff25ecf63b58"
+      },
+      {
+        "path": "releases/ipi_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/ipi/ipi_2026-07.pdf",
+        "retrieved": "2026-10-16T01:40:11+00:00",
+        "bytes": 4986868,
+        "sha256": "4378ce144ee34a14799c89c5e4fe04cc36efdfd8b2b017320d8c72fad9c321cd"
+      },
+      {
+        "path": "releases/ipi_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:11+00:00",
+        "bytes": 246282,
+        "sha256": "149ea978108bf02259452a604da675f939f1f1e77fe0031af59a15e0acc4907a"
+      },
+      {
+        "path": "releases/ipi_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/ipi/ipi_2026-06.pdf",
+        "retrieved": "2026-10-16T01:40:12+00:00",
+        "bytes": 6193117,
+        "sha256": "0acaff96ea6381193bcc16187330d2d01ac6ae4fff4e9a6476f95f840df1f6fd"
+      },
+      {
+        "path": "releases/ipi_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:13+00:00",
+        "bytes": 244634,
+        "sha256": "e06872623403c1e22626b47e4606e32be97762714570deea3dc0877f24903a1a"
+      },
+      {
+        "path": "releases/labour_month_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/labour/lfs_month_2026-08_en.pdf",
+        "retrieved": "2026-10-16T01:40:15+00:00",
+        "bytes": 21787120,
+        "sha256": "859eacd6acde7af815f22de63adc005162fc21d7f7db921d4c2f7a4e59369ac4"
+      },
+      {
+        "path": "releases/labour_month_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:15+00:00",
+        "bytes": 73148,
+        "sha256": "b1be299bdf5de6f380b805ea57e2063cbba363544cd492da64ab507be7def45b"
+      },
+      {
+        "path": "releases/labour_month_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/labour/lfs_month_2026-07_en.pdf",
+        "retrieved": "2026-10-16T01:40:17+00:00",
+        "bytes": 19918559,
+        "sha256": "b84f371ffc61cb6a7b04513a7df2a89450fb96df0c5358eb6c6ca2984b76b4e3"
+      },
+      {
+        "path": "releases/labour_month_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:17+00:00",
+        "bytes": 73728,
+        "sha256": "8d704a29e58db3e9b099513fe8c63010c9528f4c4e66ea1bce861f1a3368a192"
+      },
+      {
+        "path": "releases/labour_month_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/labour/lfs_month_2026-06_en.pdf",
+        "retrieved": "2026-10-16T01:40:19+00:00",
+        "bytes": 13609534,
+        "sha256": "ced2e228e831e320b0405406dbbe359b83638026b7cd6f57973659165316cb09"
+      },
+      {
+        "path": "releases/labour_month_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:19+00:00",
+        "bytes": 179250,
+        "sha256": "9e29daecde01add70149da8bb5a327ddc3424f360379aec4a7ade0035e7e4a4f"
+      },
+      {
+        "path": "releases/mei_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/mei/mei_2026-07.pdf",
+        "retrieved": "2026-10-16T01:40:20+00:00",
+        "bytes": 3598873,
+        "sha256": "af85f2ded9d68d07eb79cd7b54ebf3d5c687575793506f90020d30a3c9a4a0e3"
+      },
+      {
+        "path": "releases/mei_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:20+00:00",
+        "bytes": 51248,
+        "sha256": "090513caef476f0d0bf288d6aa17d537b1bc6c3eb6b498918aeab8f86ddb82c1"
+      },
+      {
+        "path": "releases/mei_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/mei/mei_2026-06.pdf",
+        "retrieved": "2026-10-16T01:40:21+00:00",
+        "bytes": 3645974,
+        "sha256": "e71ca9fa7b34b921c0e98485691bf4c8497db559bd0c9781956fd75a8acb8676"
+      },
+      {
+        "path": "releases/mei_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:21+00:00",
+        "bytes": 51211,
+        "sha256": "aea501b83558904f1c6f60a10ce960b40772deff993a9a5409798c6f132b7aa8"
+      },
+      {
+        "path": "releases/mei_2026-05.pdf",
+        "url": "https://storage.dosm.gov.my/mei/mei_2026-05.pdf",
+        "retrieved": "2026-10-16T01:40:22+00:00",
+        "bytes": 3792196,
+        "sha256": "9dd42ea55493433e6d4ada11f41aa105770c83e194cd0dd02bfccc047b166160"
+      },
+      {
+        "path": "releases/mei_2026-05.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:22+00:00",
+        "bytes": 51170,
+        "sha256": "15809d3de0384c7b3f39ec3703495ce54e1a44f431bb056ec77f5366323df0a2"
+      },
+      {
+        "path": "releases/ppi_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/ppi/ppi_2026-08.pdf",
+        "retrieved": "2026-10-16T01:40:23+00:00",
+        "bytes": 5402821,
+        "sha256": "5883fe94658b23dc641dd093f1333c05c37b0e81ef79c476cc24a13ead02fb49"
+      },
+      {
+        "path": "releases/ppi_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:23+00:00",
+        "bytes": 278038,
+        "sha256": "3f5aa98ca2889a7fa884d974a820953586100291013a66f26ebb4838bd6cf2e7"
+      },
+      {
+        "path": "releases/ppi_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/ppi/ppi_2026-07.pdf",
+        "retrieved": "2026-10-16T01:40:24+00:00",
+        "bytes": 5518822,
+        "sha256": "b9c6a879f77a817804cabf266de6e0e7549f58231da5c262908fb8a6c2d8576c"
+      },
+      {
+        "path": "releases/ppi_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:25+00:00",
+        "bytes": 274698,
+        "sha256": "ecd373803073ba08d29f808cabc5be4bdd80ab4a69f14f0da0ea7ddddd3cbdff"
+      },
+      {
+        "path": "releases/ppi_2026-06.pdf",
+        "url": "https://storage.dosm.gov.my/ppi/ppi_2026-06.pdf",
+        "retrieved": "2026-10-16T01:40:25+00:00",
+        "bytes": 5086697,
+        "sha256": "7dd7bc1915d5a2f9bb52568875e7c03a03c12c697348d06a0fe27f180da75414"
+      },
+      {
+        "path": "releases/ppi_2026-06.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:26+00:00",
+        "bytes": 274315,
+        "sha256": "be58d0595bf6bee3102f0aacf690ba9dbefbb35ae7124e4c0b19bc1b9b003a5b"
+      },
+      {
+        "path": "releases/productivity_2026-q2.pdf",
+        "url": "https://storage.dosm.gov.my/labour/productivity_2026-q2.pdf",
+        "retrieved": "2026-10-16T01:40:27+00:00",
+        "bytes": 2737818,
+        "sha256": "e08dadc8bca407b3b5cb2f9e0c4d5a19d1a8b9ab505d338dc6f2dbf4d10d49d3"
+      },
+      {
+        "path": "releases/productivity_2026-q2.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:27+00:00",
+        "bytes": 164816,
+        "sha256": "f78f4eaa6292fe95888ad89a98a583af50d40a35175ab52d7df13c657cbf1baa"
+      },
+      {
+        "path": "releases/productivity_2026-q1.pdf",
+        "url": "https://storage.dosm.gov.my/labour/productivity_2026-q1.pdf",
+        "retrieved": "2026-10-16T01:40:29+00:00",
+        "bytes": 18433657,
+        "sha256": "4054d04c05329286536942906bb408dfbe4ed2dc26447d4db85e0194f31d58d3"
+      },
+      {
+        "path": "releases/productivity_2026-q1.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:29+00:00",
+        "bytes": 168373,
+        "sha256": "48ef5863cc4f26a309df540980f6c3c1298e625ca8b04770f14dd67c7ccefad5"
+      },
+      {
+        "path": "releases/productivity_2025-q4.pdf",
+        "url": "https://storage.dosm.gov.my/labour/productivity_2025-q4.pdf",
+        "retrieved": "2026-10-16T01:40:31+00:00",
+        "bytes": 17374220,
+        "sha256": "d151a47169dbd2f7c917d5ef22786913722e6583a9f8b48398bc40ce541871ef"
+      },
+      {
+        "path": "releases/productivity_2025-q4.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:31+00:00",
+        "bytes": 175034,
+        "sha256": "c2cafa63682ccd794aca420014a48a278bcbe9fa5e63ec86d42392606a6016c5"
+      },
+      {
+        "path": "releases/trade_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/trade/trade_2026-08.pdf",
+        "retrieved": "2026-10-16T01:40:33+00:00",
+        "bytes": 13782194,
+        "sha256": "d194d6c1eeaf176f734b8842c4094be4bc3dc5aff0d005f53641e66a2273c3fc"
+      },
+      {
+        "path": "releases/trade_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:33+00:00",
+        "bytes": 172022,
+        "sha256": "ca08429c3dcc85a61db69a19ac7bef4d07d310a369d4605f3be70a4776914ef9"
+      },
+      {
+        "path": "releases/trade_headline_2026-08.pdf",
+        "url": "https://storage.dosm.gov.my/trade/trade_2026-08_headline_en.pdf",
+        "retrieved": "2026-10-16T01:40:34+00:00",
+        "bytes": 862389,
+        "sha256": "557c380e432371b04b86d4207e1729c9adb414123cddcce41dede24364e35eb1"
+      },
+      {
+        "path": "releases/trade_headline_2026-08.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:34+00:00",
+        "bytes": 35980,
+        "sha256": "9788852e0e6b1e715c434c42477593bb44ddf152ceff4b695fedc13fd3f76592"
+      },
+      {
+        "path": "releases/trade_2026-07.pdf",
+        "url": "https://storage.dosm.gov.my/trade/trade_2026-07.pdf",
+        "retrieved": "2026-10-16T01:40:35+00:00",
+        "bytes": 13433960,
+        "sha256": "5ad52a7cc9463606e1fda5adea85f9a1bd3eea4aa462450162fe76e6753c7d20"
+      },
+      {
+        "path": "releases/trade_2026-07.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:36+00:00",
+        "bytes": 168999,
+        "sha256": "b51a4a6b0e62f63059932bfdbfeacfc769639e6cf07ee1fa6248f356f8702f46"
+      },
+      {
+        "path": "releases/bnm_mhs_listing.html",
+        "url": "https://www.bnm.gov.my/publications/mhs",
+        "retrieved": "2026-10-16T01:40:37+00:00",
+        "bytes": 362065,
+        "sha256": "bff22dfb4c250ae8a3069ffa182a21ecfc54839aac05413af722e3bb15b8d9aa"
+      },
+      {
+        "path": "releases/bnm_mhs_2026-08_edition.html",
+        "url": "https://www.bnm.gov.my/-/monthly-highlights-statistics-in-august-2026-1",
+        "retrieved": "2026-10-16T01:40:37+00:00",
+        "bytes": 485473,
+        "sha256": "73db4a696967dd09df9f0522b480c19f77aa8f546acb0e1cf3ef7478185ee688"
+      },
+      {
+        "path": "releases/bnm_mhs_2026-08_table_1.3.xlsx",
+        "url": "https://www.bnm.gov.my/documents/20124/23200938/1.3.xlsx",
+        "retrieved": "2026-10-16T01:40:38+00:00",
+        "bytes": 49417,
+        "sha256": "c63c50938ce10b48e52b1e93d448456f761aac1b91c754998ec14fd5d323f655"
+      },
+      {
+        "path": "releases/bnm_mhs_2026-08_table_1.3.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:38+00:00",
+        "bytes": 1843,
+        "sha256": "673352e033d9328f8d8eb23621a204b4cb197f6c2e782407ec4f6ab7e595338f"
+      },
+      {
+        "path": "releases/bnm_mhs_2026-08_table_2.1.xlsx",
+        "url": "https://www.bnm.gov.my/documents/20124/23200938/2.1.xlsx",
+        "retrieved": "2026-10-16T01:40:39+00:00",
+        "bytes": 110613,
+        "sha256": "d58c0f5db0f1324e7afcbcda186c3d7cc54e4d9cddd93d3c414612d534d18b4f"
+      },
+      {
+        "path": "releases/bnm_mhs_2026-08_table_2.1.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:39+00:00",
+        "bytes": 4893,
+        "sha256": "eec9f04cf230525e07f3f3e008ddd4d0cd2c91b331e8b1d8a485c95014fafe6e"
+      },
+      {
+        "path": "releases/mynic_active_2026.json",
+        "url": "https://mynic.my/ajax/statistics?type=active&year=2026",
+        "retrieved": "2026-10-16T01:40:42+00:00",
+        "bytes": 1626,
+        "sha256": "1a15f828dcd922be731157aa8d1ec148a97417368257928f4ed3b856ce160e86"
+      },
+      {
+        "path": "releases/mynic_active_2026.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:42+00:00",
+        "bytes": 331,
+        "sha256": "87b5b350291b2908ede5b74d3438c283c53364cdf461641a310208ab678ae972"
+      },
+      {
+        "path": "releases/mynic_active_2025.json",
+        "url": "https://mynic.my/ajax/statistics?type=active&year=2025",
+        "retrieved": "2026-10-16T01:40:44+00:00",
+        "bytes": 1986,
+        "sha256": "bd68003a36b64f130cdf729f8b58ae99ab176109aaacc046c3f4ae77a6ee50fd"
+      },
+      {
+        "path": "releases/mynic_active_2025.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:44+00:00",
+        "bytes": 409,
+        "sha256": "aabc396776f7785677625d1314dd6edc163439212dab8665d521066ccbb69f42"
+      },
+      {
+        "path": "releases/mynic_dnssec_2026.json",
+        "url": "https://mynic.my/ajax/statistics?type=dnssec&year=2026",
+        "retrieved": "2026-10-16T01:40:45+00:00",
+        "bytes": 1344,
+        "sha256": "a8817b8afd4406019fc7a0dbc1ff844445e1ffb16a2bdcea7b26a4c8c4500ed6"
+      },
+      {
+        "path": "releases/mynic_dnssec_2026.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:45+00:00",
+        "bytes": 325,
+        "sha256": "7d81b5a926f9e9edcbf8e41be4ebc10260cca858539e1e9c89680d9f1a31c828"
+      },
+      {
+        "path": "releases/mynic_dnssec_2025.json",
+        "url": "https://mynic.my/ajax/statistics?type=dnssec&year=2025",
+        "retrieved": "2026-10-16T01:40:46+00:00",
+        "bytes": 1616,
+        "sha256": "aa078d32fb2518bb1e6f10af9e6183afa9306a3d0679a45bd89201d7c44d6112"
+      },
+      {
+        "path": "releases/mynic_dnssec_2025.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:46+00:00",
+        "bytes": 396,
+        "sha256": "aa08e3b20aa9fe99afacc9fb6bf830c6ea81aa45f82200da5040fa8f12fff4e8"
+      },
+      {
+        "path": "releases/mynic_ipv6_2026.json",
+        "url": "https://mynic.my/ajax/statistics?type=ipv6&year=2026",
+        "retrieved": "2026-10-16T01:40:47+00:00",
+        "bytes": 1134,
+        "sha256": "197093232f054b382079f0e8669854e9736dc19acb3ebc1766bb8ccdf6f6d9e9"
+      },
+      {
+        "path": "releases/mynic_ipv6_2026.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:47+00:00",
+        "bytes": 293,
+        "sha256": "a9ff2fa9d984166673216f0e8f889af5a65ee04ac3240a6388013a1a563ff6bd"
+      },
+      {
+        "path": "releases/mynic_ipv6_2025.json",
+        "url": "https://mynic.my/ajax/statistics?type=ipv6&year=2025",
+        "retrieved": "2026-10-16T01:40:49+00:00",
+        "bytes": 1338,
+        "sha256": "9eb680c33c6d3f4af8d71ab3e0fc549efcb386ef472c9075b0225b3e9cd0f91e"
+      },
+      {
+        "path": "releases/mynic_ipv6_2025.pages.json",
+        "url": null,
+        "retrieved": "2026-10-16T01:40:49+00:00",
+        "bytes": 359,
+        "sha256": "1c8bead637fd61298d63ac6fd645a921bd66f2db2a53235c03b4f260cfe24cbb"
+      }
+    ],
+    "releases": [
+      "bop_2026-q2",
+      "bop_2026-q1",
+      "bop_2025-q4",
+      "cpi_2026-08",
+      "cpi_2026-07",
+      "cpi_2026-06",
+      "gdp_2026-q2",
+      "gdp_2026-q1",
+      "gdp_2025-q4",
+      "iowrt_2026-08",
+      "iowrt_2026-07",
+      "iowrt_2026-06",
+      "ipi_2026-08",
+      "ipi_2026-07",
+      "ipi_2026-06",
+      "labour_month_2026-08",
+      "labour_month_2026-07",
+      "labour_month_2026-06",
+      "mei_2026-07",
+      "mei_2026-06",
+      "mei_2026-05",
+      "ppi_2026-08",
+      "ppi_2026-07",
+      "ppi_2026-06",
+      "productivity_2026-q2",
+      "productivity_2026-q1",
+      "productivity_2025-q4",
+      "trade_2026-08",
+      "trade_headline_2026-08",
+      "trade_2026-07",
+      "bnm_mhs_2026-08_table_1.3",
+      "bnm_mhs_2026-08_table_2.1",
+      "mynic_active_2026",
+      "mynic_active_2025",
+      "mynic_dnssec_2026",
+      "mynic_dnssec_2025",
+      "mynic_ipv6_2026",
+      "mynic_ipv6_2025"
+    ]
+  },
+  "questions": {
+    "file": "analysis/evallab/questions.csv",
+    "sha256": "596dd42d3ec5ca2491ebd055c285b2a6ff613b95add8485dd8dbc38fb190f400",
+    "questions": 120,
+    "verified": 120,
+    "statistics": 30,
+    "out_of_date_statistics": [
+      "alr",
+      "base_rate",
+      "blr",
+      "domains_active",
+      "domains_dnssec",
+      "domains_ipv6",
+      "exports",
+      "fd_12mo",
+      "fdi_net",
+      "imports",
+      "m1",
+      "m3",
+      "youth_rate_15_24",
+      "youth_rate_15_30",
+      "youth_unemployed_15_24",
+      "youth_unemployed_15_30"
+    ],
+    "current_statistics": [
+      "coincident_index",
+      "cpi_index",
+      "cpi_inflation",
+      "current_account",
+      "employed_persons",
+      "gdp_growth",
+      "ipi_growth",
+      "leading_index",
+      "lfpr",
+      "ppi_growth",
+      "productivity_hour",
+      "unemployed_persons",
+      "unemployment_rate",
+      "wrt_sales"
+    ]
+  },
+  "models": {
+    "gpt-oss:120b-cloud": {
+      "parent_model": "gpt-oss:120b",
+      "format": "",
+      "family": "gptoss",
+      "families": null,
+      "parameter_size": "116829156672",
+      "quantization_level": "MXFP4"
+    },
+    "deepseek-v4.1-flash:cloud": {
+      "parent_model": "deepseek-v4.1-flash",
+      "format": "",
+      "family": "deepseek_v41",
+      "families": null,
+      "parameter_size": "763205315794",
+      "quantization_level": "FP8"
+    }
+  },
+  "ollama_version": "0.40.7",
+  "settings": {
+    "temperature": 0,
+    "seed": 42,
+    "max_tool_calls": 6,
+    "modes": [
+      "tools",
+      "memory"
+    ],
+    "bootstrap": {
+      "unit": "statistic",
+      "resamples": 2000,
+      "seed": 42
+    }
+  },
+  "runs": {
+    "gpt-oss:120b-cloud": {
+      "tools": 120,
+      "memory": 120
+    },
+    "deepseek-v4.1-flash:cloud": {
+      "tools": 120,
+      "memory": 120
+    }
+  },
+  "usage": {
+    "gpt-oss:120b-cloud": {
+      "tools": {
+        "calls": 586,
+        "errors": 29,
+        "prompt_tokens": 909847,
+        "output_tokens": 51425
+      },
+      "memory": {
+        "calls": 138,
+        "errors": 27,
+        "prompt_tokens": 20436,
+        "output_tokens": 64385
+      }
+    },
+    "deepseek-v4.1-flash:cloud": {
+      "tools": {
+        "calls": 454,
+        "errors": 30,
+        "prompt_tokens": 1217499,
+        "output_tokens": 87000
+      },
+      "memory": {
+        "calls": 145,
+        "errors": 36,
+        "prompt_tokens": 15761,
+        "output_tokens": 246771
+      }
+    }
+  },
+  "scores": {
+    "all-tools": {
+      "gpt-oss:120b-cloud": {
+        "share": 62.5,
+        "low": 49.2,
+        "high": 75.0,
+        "calls_per_answer": 3.72,
+        "median_seconds": 4.14,
+        "questions": 120,
+        "source_given": 62.5,
+        "by_language": {
+          "en": 65.0,
+          "ms": 60.0
+        }
+      },
+      "deepseek-v4.1-flash:cloud": {
+        "share": 68.3,
+        "low": 55.0,
+        "high": 81.7,
+        "calls_per_answer": 5.15,
+        "median_seconds": 5.91,
+        "questions": 120,
+        "source_given": 65.8,
+        "by_language": {
+          "en": 63.3,
+          "ms": 73.3
+        }
+      },
+      "baseline": {
+        "share": 46.7,
+        "low": 30.0,
+        "high": 63.3,
+        "calls_per_answer": 0.0,
+        "median_seconds": 0.0,
+        "questions": 120,
+        "source_given": 100.0,
+        "by_language": {
+          "en": 46.7,
+          "ms": 46.7
+        }
+      }
+    },
+    "stale-tools": {
+      "gpt-oss:120b-cloud": {
+        "share": 87.5,
+        "low": 76.6,
+        "high": 96.9,
+        "calls_per_answer": 3.33,
+        "median_seconds": 3.6,
+        "questions": 64,
+        "source_given": 87.5,
+        "by_language": {
+          "en": 87.5,
+          "ms": 87.5
+        }
+      },
+      "deepseek-v4.1-flash:cloud": {
+        "share": 90.6,
+        "low": 78.1,
+        "high": 100.0,
+        "calls_per_answer": 5.36,
+        "median_seconds": 5.64,
+        "questions": 64,
+        "source_given": 89.1,
+        "by_language": {
+          "en": 84.4,
+          "ms": 96.9
+        }
+      },
+      "baseline": {
+        "share": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "calls_per_answer": 0.0,
+        "median_seconds": 0.0,
+        "questions": 64,
+        "source_given": 100.0,
+        "by_language": {
+          "en": 0.0,
+          "ms": 0.0
+        }
+      }
+    },
+    "all-memory": {
+      "gpt-oss:120b-cloud": {
+        "share": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "calls_per_answer": 0.0,
+        "median_seconds": 2.21,
+        "questions": 120,
+        "source_given": 0.0,
+        "by_language": {
+          "en": 0.0,
+          "ms": 0.0
+        }
+      },
+      "deepseek-v4.1-flash:cloud": {
+        "share": 0.0,
+        "low": 0.0,
+        "high": 0.0,
+        "calls_per_answer": 0.0,
+        "median_seconds": 8.29,
+        "questions": 120,
+        "source_given": 0.0,
+        "by_language": {
+          "en": 0.0,
+          "ms": 0.0
+        }
+      }
+    }
+  },
+  "packages": {
+    "python": "3.12.11",
+    "numpy": "2.5.4",
+    "pyarrow": "26.0.0",
+    "pymupdf": "1.28.2",
+    "openpyxl": "3.1.5"
+  },
+  "git": {
+    "commit": "fbd4aee",
+    "dirty": false
+  },
+  "results_file": "apps/web/src/content/results/llm-eval-lab.json"
+}

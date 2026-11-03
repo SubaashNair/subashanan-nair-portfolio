@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { llmEvalFixture } from "@/content/fixtures/llm-eval";
 import { findStudy } from "@/content/studies";
 import { getStudyResults } from "@/lib/study-results";
 
@@ -11,15 +12,24 @@ const llm = findStudy("llm-eval-lab")!;
 
 describe("StudyPage", () => {
   it("production mode with no results shows the plan and no numbers", () => {
-    const { container } = render(<StudyPage study={llm} results={getStudyResults("llm-eval-lab", "production")} />);
-    expect(screen.getByRole("heading", { level: 1, name: "LLM Eval Lab" })).toBeInTheDocument();
-    expect(screen.getByText(llm.plannedAnswer)).toBeInTheDocument();
+    const assist = findStudy("penang-ai-assistant")!;
+    const { container } = render(<StudyPage study={assist} results={getStudyResults("penang-ai-assistant", "production")} />);
+    expect(screen.getByRole("heading", { level: 1, name: "Penang AI Assistant" })).toBeInTheDocument();
+    expect(screen.getByText(assist.plannedAnswer)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /the analysis is in progress/i })).toBeInTheDocument();
-    expect(screen.queryAllByText("47 points")).toHaveLength(0);
     expect(screen.queryByText(/preview with illustrative data/i)).not.toBeInTheDocument();
-    expect(screen.queryByText("a1c9e04")).not.toBeInTheDocument();
     expect(container.querySelectorAll(".num-tile")).toHaveLength(0);
-    expect(screen.getAllByText("Not yet retrieved")).toHaveLength(llm.sources.length);
+    expect(screen.getAllByText("Not yet retrieved")).toHaveLength(assist.sources.length);
+  });
+
+  it("production mode shows published LLM Eval Lab results, the leaderboard and no preview label", () => {
+    const loaded = getStudyResults("llm-eval-lab", "production")!;
+    const { container } = render(<StudyPage study={llm} results={loaded} />);
+    expect(screen.getByText(loaded.data.answer)).toBeInTheDocument();
+    expect(container.querySelectorAll(".num-tile")).toHaveLength(3);
+    expect(screen.getByRole("tab", { name: "Out-of-date series, with tools" })).toBeInTheDocument();
+    expect(screen.queryByText(/preview with illustrative data/i)).not.toBeInTheDocument();
+    expect(screen.queryAllByText("Not yet retrieved")).toHaveLength(0);
   });
 
   it("production mode shows published Penang Pulse results, the service table and no preview label", () => {
@@ -39,7 +49,7 @@ describe("StudyPage", () => {
   });
 
   it("preview mode shows fixture numbers under a visible preview label", () => {
-    render(<StudyPage study={llm} results={getStudyResults("llm-eval-lab", "development")} />);
+    render(<StudyPage study={llm} results={{ data: llmEvalFixture, preview: true }} />);
     expect(screen.getAllByText("47 points").length).toBeGreaterThan(0);
     expect(screen.getAllByText(/preview with illustrative data/i).length).toBeGreaterThan(0);
   });

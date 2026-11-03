@@ -1,0 +1,187 @@
+{
+  "answer": "On out-of-date series, DeepSeek V4.1 Flash gave the latest official figure for 91% of questions with tools, against 0% for the open data alone.",
+  "keyNumbers": [
+    {
+      "value": "91%",
+      "label": "of questions on out-of-date series answered with the latest figure by DeepSeek V4.1 Flash, with tools.",
+      "caveat": "95% interval 78 to 100%, from a bootstrap over statistics."
+    },
+    {
+      "value": "68 points",
+      "label": "higher latest-figure share for DeepSeek V4.1 Flash with tools than from memory, across all series.",
+      "caveat": "From 0% from memory to 68% with tools."
+    },
+    {
+      "value": "30",
+      "label": "statistics, asked 4 ways each: 120 questions verified against the official release.",
+      "caveat": "Snapshot of open data and releases taken on 16 October 2026; results describe that day."
+    }
+  ],
+  "run": {
+    "commit": "fbd4aee",
+    "manifest": "analysis/outputs/llm-eval-lab-manifest.json",
+    "python": "3.12.11",
+    "lastRun": "2026-11-03"
+  },
+  "retrieved": {
+    "data.gov.my datasets": "2026-10-16",
+    "DOSM releases": "2026-10-16",
+    "Bank Negara Malaysia": "2026-10-16",
+    "MYNIC": "2026-10-16",
+    "Question set": "2026-10-16",
+    "Ollama Cloud": "2026-11-03"
+  },
+  "tasks": [
+    {
+      "id": "all-tools",
+      "label": "All series, with tools",
+      "metric": "% with the latest figure",
+      "rows": [
+        {
+          "model": "gpt-oss 120B",
+          "role": "cloud",
+          "score": 63,
+          "low": 49,
+          "high": 75,
+          "callsPerAnswer": 3.72,
+          "callsLabel": "3.7",
+          "latency": "4.1 s"
+        },
+        {
+          "model": "DeepSeek V4.1 Flash",
+          "role": "cloud",
+          "score": 68,
+          "low": 55,
+          "high": 82,
+          "callsPerAnswer": 5.15,
+          "callsLabel": "5.2",
+          "latency": "5.9 s"
+        },
+        {
+          "model": "Open data only",
+          "role": "baseline",
+          "score": 47,
+          "low": 30,
+          "high": 63,
+          "callsPerAnswer": 0.0,
+          "callsLabel": "0",
+          "latency": "under 0.1 s"
+        }
+      ]
+    },
+    {
+      "id": "stale-tools",
+      "label": "Out-of-date series, with tools",
+      "metric": "% with the latest figure",
+      "rows": [
+        {
+          "model": "gpt-oss 120B",
+          "role": "cloud",
+          "score": 88,
+          "low": 77,
+          "high": 97,
+          "callsPerAnswer": 3.33,
+          "callsLabel": "3.3",
+          "latency": "3.6 s"
+        },
+        {
+          "model": "DeepSeek V4.1 Flash",
+          "role": "cloud",
+          "score": 91,
+          "low": 78,
+          "high": 100,
+          "callsPerAnswer": 5.36,
+          "callsLabel": "5.4",
+          "latency": "5.6 s"
+        },
+        {
+          "model": "Open data only",
+          "role": "baseline",
+          "score": 0,
+          "low": 0,
+          "high": 0,
+          "callsPerAnswer": 0.0,
+          "callsLabel": "0",
+          "latency": "under 0.1 s"
+        }
+      ]
+    },
+    {
+      "id": "all-memory",
+      "label": "All series, from memory",
+      "metric": "% with the latest figure",
+      "rows": [
+        {
+          "model": "gpt-oss 120B",
+          "role": "cloud",
+          "score": 0,
+          "low": 0,
+          "high": 0,
+          "callsPerAnswer": 0.0,
+          "callsLabel": "0",
+          "latency": "2.2 s"
+        },
+        {
+          "model": "DeepSeek V4.1 Flash",
+          "role": "cloud",
+          "score": 0,
+          "low": 0,
+          "high": 0,
+          "callsPerAnswer": 0.0,
+          "callsLabel": "0",
+          "latency": "8.3 s"
+        }
+      ]
+    }
+  ],
+  "errorExamples": [
+    {
+      "input": "Berapakah bilangan belia menganggur berumur 15 hingga 24 tahun terkini bagi Malaysia?",
+      "expected": "291.3 thousand persons, August 2026",
+      "model": "gpt-oss 120B, with tools",
+      "output": "292.2 thousand persons, June 2026",
+      "note": "Gave the open dataset's figure for June 2026, not the release for August 2026.",
+      "correct": false
+    },
+    {
+      "input": "Menurut angka rasmi terbaru, berapakah bilangan belia menganggur berumur 15 hingga 30 tahun di Malaysia, dan bagi tempoh mana?",
+      "expected": "394.6 thousand persons, August 2026",
+      "model": "gpt-oss 120B, with tools",
+      "output": "400.8 thousand persons, June 2026",
+      "note": "Gave the open dataset's figure for June 2026, not the release for August 2026.",
+      "correct": false
+    },
+    {
+      "input": "Berapakah kadar inflasi harga pengguna (tahun ke tahun) terkini bagi Malaysia?",
+      "expected": "1.9 per cent, August 2026",
+      "model": "DeepSeek V4.1 Flash, from memory",
+      "output": "1.1 per cent, June 2025",
+      "note": "Named June 2025 instead of August 2026.",
+      "correct": false
+    },
+    {
+      "input": "Menurut angka rasmi terbaru, berapakah kadar inflasi harga pengguna (tahun ke tahun) di Malaysia, dan bagi tempoh mana?",
+      "expected": "1.9 per cent, August 2026",
+      "model": "DeepSeek V4.1 Flash, from memory",
+      "output": "1.2 per cent, July 2025",
+      "note": "Named July 2025 instead of August 2026.",
+      "correct": false
+    },
+    {
+      "input": "What is Malaysia's latest consumer price inflation (year on year)?",
+      "expected": "1.9 per cent, August 2026",
+      "model": "DeepSeek V4.1 Flash, with tools",
+      "output": "No final answer",
+      "note": "No final JSON answer could be read.",
+      "correct": false
+    },
+    {
+      "input": "According to the most recent official figures, what was the consumer price inflation (year on year) in Malaysia, and for which period?",
+      "expected": "1.9 per cent, August 2026",
+      "model": "DeepSeek V4.1 Flash, with tools",
+      "output": "No final answer",
+      "note": "No final JSON answer could be read.",
+      "correct": false
+    }
+  ]
+}

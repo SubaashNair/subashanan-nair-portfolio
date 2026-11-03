@@ -4,7 +4,6 @@ import { getStudyResults } from "./study-results";
 
 describe("getStudyResults", () => {
   it("returns nothing in production when no results are published", () => {
-    expect(getStudyResults("llm-eval-lab", "production")).toBeNull();
     expect(getStudyResults("penang-ai-assistant", "production")).toBeNull();
   });
 
@@ -16,24 +15,34 @@ describe("getStudyResults", () => {
       const pulse = getStudyResults("penang-pulse", env);
       expect(pulse?.preview).toBe(false);
       expect(pulse?.data.districts).toHaveLength(5);
+      const llm = getStudyResults("llm-eval-lab", env);
+      expect(llm?.preview).toBe(false);
+      expect(llm?.data.tasks).toHaveLength(3);
     }
   });
 
-  afterEach(() => vi.unstubAllEnvs());
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.doUnmock("@/content/results");
+    vi.resetModules();
+  });
 
   it("fails closed for an unknown or missing environment", () => {
-    expect(getStudyResults("llm-eval-lab", "staging")).toBeNull();
+    expect(getStudyResults("penang-ai-assistant", "staging")).toBeNull();
     // An explicit undefined argument falls back to the default, so the missing case is exercised through the real env.
     vi.stubEnv("NODE_ENV", undefined);
     expect(process.env.NODE_ENV).toBeUndefined();
-    expect(getStudyResults("llm-eval-lab")).toBeNull();
+    expect(getStudyResults("penang-ai-assistant")).toBeNull();
   });
 
-  it("returns illustrative fixtures, flagged as a preview, outside production", () => {
-    const loaded = getStudyResults("llm-eval-lab", "development");
-    expect(loaded?.preview).toBe(true);
-    expect(loaded?.data.tasks).toHaveLength(3);
-    expect(getStudyResults("llm-eval-lab", "test")?.preview).toBe(true);
+  it("returns illustrative fixtures, flagged as a preview, outside production while a study is unpublished", async () => {
+    // Every study with a fixture is now published, so the unpublished case is simulated with an empty set of results.
+    vi.resetModules();
+    vi.doMock("@/content/results", () => ({ published: {} }));
+    const { getStudyResults: load } = await import("./study-results");
+    expect(load("llm-eval-lab", "development")?.preview).toBe(true);
+    expect(load("llm-eval-lab", "test")?.data.tasks).toHaveLength(3);
+    expect(load("llm-eval-lab", "production")).toBeNull();
   });
 
   it("returns nothing for a study with no published result and no fixture, even in development", () => {
